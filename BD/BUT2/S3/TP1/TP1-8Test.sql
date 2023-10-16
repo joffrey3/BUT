@@ -1,0 +1,1 @@
+SELECT id,client_id,date_achat,reference,fn_affichemontantfacture(id),fn_FraisLivraison(id) FROM Commande;

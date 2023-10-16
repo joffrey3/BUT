@@ -1,0 +1,211 @@
+1)SELECT Buveur.Numbuveur,Nom,Ville FROM Buveur,Commande WHERE Buveur.Numbuveur=Commande.Numbuveur; 
+
+   1400 GAUTHIER                  PARIS
+      1500 FRADET                    MACON
+      1500 FRADET                    MACON
+      1600 DUPOND                    PARIS
+      1300 JAMET                     VERSAILLES
+      1600 DUPOND                    PARIS
+      1100 COMBET                    DIJON
+      1200 MAURY                     PARIS
+      1200 MAURY                     PARIS
+      1100 COMBET                    DIJON
+      1500 FRADET                    MACON
+
+SELECT DISTINCT Buveur.Numbuveur,Nom,Ville FROM Buveur,Commande WHERE Buveur.Numbuveur=Commande.Numbuveur; 
+
+ 1500 FRADET                    MACON
+      1300 JAMET                     VERSAILLES
+      1200 MAURY                     PARIS
+      1600 DUPOND                    PARIS
+      1400 GAUTHIER                  PARIS
+      1100 COMBET                    DIJON
+
+SELECT Numbuveur,Nom,Ville FROM Buveur NATURAL JOIN Commande; 
+
+1400 GAUTHIER                  PARIS
+      1500 FRADET                    MACON
+      1500 FRADET                    MACON
+      1600 DUPOND                    PARIS
+      1300 JAMET                     VERSAILLES
+      1600 DUPOND                    PARIS
+      1100 COMBET                    DIJON
+      1200 MAURY                     PARIS
+      1200 MAURY                     PARIS
+      1100 COMBET                    DIJON
+      1500 FRADET                    MACON
+
+SELECT DISTINCT Numbuveur,Nom,Ville FROM Buveur NATURAL JOIN Commande; 
+
+1500 FRADET                    MACON
+      1300 JAMET                     VERSAILLES
+      1200 MAURY                     PARIS
+      1600 DUPOND                    PARIS
+      1400 GAUTHIER                  PARIS
+      1100 COMBET                    DIJON
+
+2) SELECT Viticulteur.Numvitic,Nom,Ville FROM Viticulteur,Vin WHERE Region='LOIRE' AND Millesime=1983 AND Viticulteur.Numvitic = Vin.Numvitic; 
+
+  5 COULIS DUTHEIL            CHINON
+
+SELECT Numvitic,Nom,Ville FROM Viticulteur NATURAL JOIN Vin WHERE Region='LOIRE' AND Millesime=1983; 
+
+   5 COULIS DUTHEIL            CHINON
+
+3)SELECT Buveur.Numbuveur,Nom FROM Buveur,Commande,Vin WHERE Buveur.Numbuveur=Commande.Numbuveur AND Commande.Numvin=Vin.Numvin AND CRU ='POMMARD';
+
+ 1400 GAUTHIER
+      1300 JAMET
+      1100 COMBET
+      1200 MAURY
+
+SELECT Numbuveur,Nom FROM Buveur NATURAL JOIN Commande NATURAL JOIN Vin WHERE Cru ='POMMARD';
+
+ 1400 GAUTHIER
+      1300 JAMET
+      1100 COMBET
+      1200 MAURY
+
+4)  SELECT Nom FROM Commande NATURAL JOIN Vin NATURAL JOIN Viticulteur WHERE NumBuveur=1600;
+
+JADOT
+CHATEAU MONBRISON
+
+SELECT DISTINCT Nom FROM Commande,Vin,Viticulteur WHERE Viticulteur.NumVitic IN(SELECT Numvitic FROM Vin WHERE NumVin IN (SELECT NumVin FROM Commande WHERE NumBuveur=1600));
+
+CHATEAU MONBRISON
+JADOT
+
+5) SELECT Viticulteur.Nom FROM Viticulteur,Vin,Commande,Buveur WHERE Buveur.Nom ='DUPOND' AND Buveur.Numbuveur=Commande.Numbuveur AND Commande.Numvin=Vin.Numvin AND Vin.NumVitic=Viticulteur.NumVitic;
+
+JADOT
+CHATEAU MONBRISON
+
+SELECT  V.Nom FROM Viticulteur V JOIN (Vin  JOIN (Commande C JOIN Buveur B ON (B.NumBuveur=C.NumBuveur))ON (Vin.NumVin=C.NumVin)) ON (V.NumVitic=Vin.NumVitic) WHERE B.Nom='DUPOND';
+
+JADOT
+CHATEAU MONBRISON
+
+6)SELECT Viticulteur.Numvitic,Viticulteur.Nom,Viticulteur.Ville FROM Viticulteur,Vin,Commande,Buveur WHERE Buveur.Ville=Viticulteur.Ville AND Buveur.Numbuveur=Commande.Numbuveur AND Commande.Numvin=Vin.Numvin AND Vin.NumVitic=Viticulteur.NumVitic;
+
+ 1 MOULIN                    MACON
+
+SELECT NumVitic, V.Nom, V.Ville FROM Viticulteur V JOIN (Vin  JOIN (Commande C JOIN Buveur B ON (B.NumBuveur=C.NumBuveur))ON (Vin.NumVin=C.NumVin)) ON (V.NumVitic=Vin.NumVitic) WHERE V.Ville=B.Ville;
+
+  1 MOULIN                    MACON
+
+7) SELECT Nom FROM Buveur WHERE Ville =ALL(SELECT Ville FROM Buveur WHERE NumBuveur=1400);
+
+GAUTHIER
+DUPOND
+COMBES
+MAURY
+
+SELECT Nom FROM Buveur WHERE Ville =ANY(SELECT Ville FROM Buveur WHERE NumBuveur=1400) AND NumBuveur NOT IN (SELECT NumBuveur FROM Buveur WHERE NumBuveur=1400);
+
+DUPOND
+COMBES
+MAURY
+
+8) SELECT NumCom FROM Commande WHERE NumVin=140 AND Qtte <=(SELECT Qtte FROM Commande WHERE NumCom=11 AND NumVin=140);
+
+   	8
+         5
+         6
+        11
+
+
+9) SELECT V.NumVin,Cru,Millesime,Region,NumVitic,NumBuveur FROM Vin V,Commande C WHERE C.NumVin=V.NumVin;
+
+       140 POMMARD               1976 BOURGOGNE               10       1400
+        88 CHAMBERTIN            1980 BOURGOGNE                1       1500
+       100 CHAMPAGNE BRUT        1988 CHAMPAGNE               15       1500
+       175 MEURSAULT             1980 BOURGOGNE               16       1600
+       140 POMMARD               1976 BOURGOGNE               10       1300
+        90 MARGAUX               1978 BORDEAUX                22       1600
+       140 POMMARD               1976 BOURGOGNE               10       1100
+        88 CHAMBERTIN            1980 BOURGOGNE                1       1200
+       140 POMMARD               1976 BOURGOGNE               10       1200
+       120 CHINON                1985 LOIRE                    4       1100
+       100 CHAMPAGNE BRUT        1988 CHAMPAGNE               15       1500
+
+SELECT V.NumVin,Cru,Millesime,Region,NumVitic,NumBuveur FROM Vin V JOIN Commande C ON (C.NumVin=V.NumVin);
+
+  140 POMMARD               1976 BOURGOGNE               10       1400
+        88 CHAMBERTIN            1980 BOURGOGNE                1       1500
+       100 CHAMPAGNE BRUT        1988 CHAMPAGNE               15       1500
+       175 MEURSAULT             1980 BOURGOGNE               16       1600
+       140 POMMARD               1976 BOURGOGNE               10       1300
+        90 MARGAUX               1978 BORDEAUX                22       1600
+       140 POMMARD               1976 BOURGOGNE               10       1100
+        88 CHAMBERTIN            1980 BOURGOGNE                1       1200
+       140 POMMARD               1976 BOURGOGNE               10       1200
+       120 CHINON                1985 LOIRE                    4       1100
+       100 CHAMPAGNE BRUT        1988 CHAMPAGNE               15       1500
+
+10) (SELECT Vin.NumVin,Cru,Millesime,Region,NumVitic FROM Vin LEFT OUTER JOIN Commande ON (Commande.NumVin=Vin.NumVin)) EXCEPT (SELECT Vin.NumVin,Cru,Millesime,Region,NumVitic FROM Vin NATURAL JOIN Commande);
+
+  80 SAUTERNES             1982 BORDEAUX                18
+        84 PAUILLAC              1982 BORDEAUX                21
+        85 CHINON                1983 LOIRE                    5
+        86 CHINON                1978 LOIRE                    4
+        98 MOULIS                1981 BORDEAUX                23
+       128 BOURGUEIL             1985 LOIRE                    4
+       150 MONTHELIE             1978 BOURGOGNE               10
+       160 BOURGUEIL             1984 LOIRE                    3
+       170 BOUZY                 1984 CHAMPAGNE               15
+       190 SAINT EMILION         1981 BORDEAUX                18
+
+SELECT DISTINCT V.NumVin,Cru,Millesime,Region,NumVitic FROM Vin V,Commande C WHERE V.NumVin NOT IN (SELECT Vin.NumVin FROM Vin,Commande WHERE Vin.NumVin=Commande.NumVin);
+
+ 170 BOUZY                 1984 CHAMPAGNE               15
+        80 SAUTERNES             1982 BORDEAUX                18
+        85 CHINON                1983 LOIRE                    5
+       150 MONTHELIE             1978 BOURGOGNE               10
+        86 CHINON                1978 LOIRE                    4
+        84 PAUILLAC              1982 BORDEAUX                21
+       128 BOURGUEIL             1985 LOIRE                    4
+       160 BOURGUEIL             1984 LOIRE                    3
+        98 MOULIS                1981 BORDEAUX                23
+       190 SAINT EMILION         1981 BORDEAUX                18
+
+11) SELECT NumBuveur,Nom FROM Buveur NATURAL JOIN Commande NATURAL JOIN Vin WHERE Region='BOURGOGNE';
+
+ 1400 GAUTHIER
+      1500 FRADET
+      1600 DUPOND
+      1300 JAMET
+      1100 COMBET
+      1200 MAURY
+      1200 MAURY
+
+SELECT B.NumBuveur,Nom FROM Buveur B,Commande C,Vin V WHERE B.NumBuveur=C.NumBuveur AND C.NumVin=V.NumVin AND Region='BOURGOGNE';
+
+ 1400 GAUTHIER
+      1500 FRADET
+      1600 DUPOND
+      1300 JAMET
+      1100 COMBET
+      1200 MAURY
+      1200 MAURY
+
+12) SELECT NumBuveur,Nom FROM Buveur NATURAL JOIN Commande NATURAL JOIN Vin WHERE Region='BOURGOGNE' OR Region='Bordeaux';
+
+1400 GAUTHIER
+      1500 FRADET
+      1600 DUPOND
+      1300 JAMET
+      1100 COMBET
+      1200 MAURY
+      1200 MAURY
+
+SELECT B.NumBuveur,Nom FROM Buveur B,Commande C,Vin V WHERE B.NumBuveur=C.NumBuveur AND C.NumVin=V.NumVin AND Region='BOURGOGNE' OR Region='Bordeaux';
+
+  1400 GAUTHIER
+      1500 FRADET
+      1600 DUPOND
+      1300 JAMET
+      1100 COMBET
+      1200 MAURY
+      1200 MAURY
+

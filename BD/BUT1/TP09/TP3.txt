@@ -1,0 +1,223 @@
+Question 1 :
+
+1)ALTER TABLE Buveur ADD CODE_TARIF VARCHAR(50) DEFAULT 'BASE';
+SELECT * FROM Buveur;
+
+
+ NUMBUVEUR NOM                       PRENOM                    VILLE                          CODE_TARIF
+---------- ------------------------- ------------------------- ------------------------------ --------------------------------------------------
+      1400 GAUTHIER                  ROBERT                    PARIS                          BASE
+      1500 FRADET                    PHILIPPE                  MACON                          BASE
+      1300 JAMET                     FLORENCE                  VERSAILLES                     BASE
+      1100 COMBET                    ALINE                     DIJON                          BASE
+      1600 DUPOND                    ALAIN                     PARIS                          BASE
+      1700 COMBES                    EDOUARD                   PARIS                          BASE
+      1350 GRAVINEL                  SOPHIE                    NICE                           BASE
+      1450 PASCAL                    YVES                      MACON                          BASE
+      1750 DURIEUX                   BLAISE                    CHINON                         BASE
+      1200 MAURY                     FRANCOIS                  PARIS                          BASE
+
+2)a)b)CREATE TABLE Cave_cooperative (NUMCAV Number PRIMARY KEY,VILLE_CAV VARCHAR2(30) NOT NULL,NUMRESP Number NOT NULL REFERENCES Viticulteur (NumVitic));
+
+
+aucune ligne sélectionnée
+
+3)ALTER TABLE Viticulteur ADD NUMCAV Number REFERENCES Cave_cooperative (NUMCAV);
+SELECT * FROM Viticulteur;
+
+
+  NUMVITIC NOM                       PRENOM                    VILLE                              NUMCAV
+---------- ------------------------- ------------------------- ------------------------------ ----------
+         1 MOULIN                    JEAN                      MACON
+         3 MORIN                     JULES                     BENAIS
+         5 COULIS DUTHEIL                                      CHINON
+         4 VALLEE                    CLAUDE                    SAINT NICOLAS
+        10 PARENT                    PIERRE                    POMMARD
+        15 BARANCOURT                                          TOURS SUR MARNE
+        16 JADOT                     LOUIS                     BEAUNE
+        18 MEDEVILLE                 CHARLES                   PREIGNAC
+        21 LYNCH-BAGES                                         PAUILLAC
+        22 CHATEAU MONBRISON                                   MARGAUX
+        23 CHATEAU MOULIN A VENT                               CASTELNAU DE MEDOC
+        20 TISSOT                    JACQUES                   ARBOIS
+
+12 ligne(s) sélectionnée(s).
+
+
+4) INSERT INTO Cave_cooperative VALUES (10,'MACON',1);
+SELECT * FROM Viticulteur;
+SELECT * FROM Cave_cooperative;
+
+  NUMVITIC NOM                       PRENOM                    VILLE                              NUMCAV
+---------- ------------------------- ------------------------- ------------------------------ ----------
+         1 MOULIN                    JEAN                      MACON
+         3 MORIN                     JULES                     BENAIS
+         5 COULIS DUTHEIL                                      CHINON
+         4 VALLEE                    CLAUDE                    SAINT NICOLAS
+        10 PARENT                    PIERRE                    POMMARD
+        15 BARANCOURT                                          TOURS SUR MARNE
+        16 JADOT                     LOUIS                     BEAUNE
+        18 MEDEVILLE                 CHARLES                   PREIGNAC
+        21 LYNCH-BAGES                                         PAUILLAC
+        22 CHATEAU MONBRISON                                   MARGAUX
+        23 CHATEAU MOULIN A VENT                               CASTELNAU DE MEDOC
+        20 TISSOT                    JACQUES                   ARBOIS
+
+12 ligne(s) sélectionnée(s).
+
+
+    NUMCAV VILLE_CAV                         NUMRESP
+---------- ------------------------------ ----------
+        10 MACON                                   1
+
+1 ligne sélectionnée.
+
+5)INSERT INTO Viticulteur VALUES (40,'WEISS','JACQUES','COLMAR',NULL);
+INSERT INTO Cave_cooperative VALUES (12,'STRASBOURG',40);
+SELECT * FROM Viticulteur;
+SELECT * FROM Cave_cooperative;
+
+QUESTION 2 :
+
+1) CREATE TABLE Buveur2 (NumBuveur Number PRIMARY KEY,Nom VARCHAR2(25) NOT NULL,Prenom VARCHAR2(25) NOT NULL, Ville VARCHAR2(30));
+INSERT INTO Buveur2(SELECT * FROM laleau.Buveur);
+SELECT * FROM Buveur2;
+
+
+ NUMBUVEUR NOM                       PRENOM                    VILLE
+---------- ------------------------- ------------------------- ------------------------------
+      1400 GAUTHIER                  ROBERT                    PARIS
+      1500 FRADET                    PHILIPPE                  MACON
+      1300 JAMET                     FLORENCE                  VERSAILLES
+      1100 COMBET                    ALINE                     DIJON
+      1600 DUPOND                    ALAIN                     PARIS
+      1700 COMBES                    EDOUARD                   PARIS
+      1350 GRAVINEL                  SOPHIE                    NICE
+      1450 PASCAL                    YVES                      MACON
+      1750 DURIEUX                   BLAISE                    CHINON
+      1200 MAURY                     FRANCOIS                  PARIS
+
+10 ligne(s) sélectionnée(s).
+
+2)ALTER TABLE Buveur2 DROP COLUMN VILLE;
+SELECT * FROM Buveur2;
+
+
+ NUMBUVEUR NOM                       PRENOM
+---------- ------------------------- -------------------------
+      1400 GAUTHIER                  ROBERT
+      1500 FRADET                    PHILIPPE
+      1300 JAMET                     FLORENCE
+      1100 COMBET                    ALINE
+      1600 DUPOND                    ALAIN
+      1700 COMBES                    EDOUARD
+      1350 GRAVINEL                  SOPHIE
+      1450 PASCAL                    YVES
+      1750 DURIEUX                   BLAISE
+      1200 MAURY                     FRANCOIS
+
+10 ligne(s) sélectionnée(s).
+
+3)CREATE TABLE Commande2 (NumCom Number PRIMARY KEY,NumBuveur Number NOT NULL REFERENCES Buveur2 (NumBuveur),NumVin Number NOT NULL REFERENCES Vin (NumVin), Qtte Number, DateCom DATE NOT NULL);
+INSERT INTO Commande2(SELECT * FROM laleau.Commande);
+SELECT * FROM Commande2;
+
+
+    NUMCOM  NUMBUVEUR     NUMVIN       QTTE DATECOM
+---------- ---------- ---------- ---------- --------
+         8       1400        140         12 10/01/88
+         3       1500         88         24 10/09/87
+         2       1500        100         18 20/11/87
+         4       1600        175          6 12/02/87
+         5       1300        140          3 18/03/87
+         1       1600         90          6 10/06/87
+         6       1100        140          8 24/12/87
+         7       1200         88          3 24/12/87
+        11       1200        140         12 12/12/89
+        12       1100        120          6 13/12/89
+        10       1500        100         18 25/03/20
+
+11 ligne(s) sélectionnée(s).
+
+4)ALTER TABLE Buveur2 DROP COLUMN NumBuveur;
+SELECT * FROM Buveur2;
+
+QUESTION 3 :
+
+1)ALTER TABLE Buveur2  MODIFY Nom VARCHAR(15);
+SELECT * FROM Buveur2;
+
+
+ NUMBUVEUR NOM             PRENOM
+---------- --------------- -------------------------
+      1400 GAUTHIER        ROBERT
+      1500 FRADET          PHILIPPE
+      1300 JAMET           FLORENCE
+      1100 COMBET          ALINE
+      1600 DUPOND          ALAIN
+      1700 COMBES          EDOUARD
+      1350 GRAVINEL        SOPHIE
+      1450 PASCAL          YVES
+      1750 DURIEUX         BLAISE
+      1200 MAURY           FRANCOIS
+
+10 ligne(s) sélectionnée(s).
+
+2)ALTER TABLE Buveur2  MODIFY Nom VARCHAR(5);
+SELECT * FROM Buveur2;
+
+
+ NUMBUVEUR NOM             PRENOM
+---------- --------------- -------------------------
+      1400 GAUTHIER        ROBERT
+      1500 FRADET          PHILIPPE
+      1300 JAMET           FLORENCE
+      1100 COMBET          ALINE
+      1600 DUPOND          ALAIN
+      1700 COMBES          EDOUARD
+      1350 GRAVINEL        SOPHIE
+      1450 PASCAL          YVES
+      1750 DURIEUX         BLAISE
+      1200 MAURY           FRANCOIS
+
+10 ligne(s) sélectionnée(s).
+
+3)ALTER TABLE Buveur2 RENAME COLUMN Nom TO NomBuveur;
+SELECT * FROM Buveur2;
+
+
+ NUMBUVEUR NOMBUVEUR       PRENOM
+---------- --------------- -------------------------
+      1400 GAUTHIER        ROBERT
+      1500 FRADET          PHILIPPE
+      1300 JAMET           FLORENCE
+      1100 COMBET          ALINE
+      1600 DUPOND          ALAIN
+      1700 COMBES          EDOUARD
+      1350 GRAVINEL        SOPHIE
+      1450 PASCAL          YVES
+      1750 DURIEUX         BLAISE
+      1200 MAURY           FRANCOIS
+
+10 ligne(s) sélectionnée(s).
+
+4)ALTER TABLE Buveur2 RENAME COLUMN NumBuveur TO idBuv;
+SELECT * FROM Buveur2;
+
+
+     IDBUV NOMBUVEUR       PRENOM
+---------- --------------- -------------------------
+      1400 GAUTHIER        ROBERT
+      1500 FRADET          PHILIPPE
+      1300 JAMET           FLORENCE
+      1100 COMBET          ALINE
+      1600 DUPOND          ALAIN
+      1700 COMBES          EDOUARD
+      1350 GRAVINEL        SOPHIE
+      1450 PASCAL          YVES
+      1750 DURIEUX         BLAISE
+      1200 MAURY           FRANCOIS
+
+10 ligne(s) sélectionnée(s).
+
+5) Ce n'est pas stocké c'est identifié par un code

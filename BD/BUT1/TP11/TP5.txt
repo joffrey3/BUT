@@ -1,0 +1,147 @@
+Question 1 :
+
+CREATE TABLE AUTEUR (NumAuteur NUMBER PRIMARY KEY, NomAuteur VARCHAR(20));
+
+CREATE TABLE EDITEUR (CodeEditeur NUMBER PRIMARY KEY, RaisonSociale VARCHAR(50));
+
+INSERT INTO AUTEUR VALUES (0,'auteur1');
+INSERT INTO AUTEUR VALUES (1,'auteur2');
+
+INSERT INTO EDITEUR VALUES (0,'editeur1');
+INSERT INTO EDITEUR VALUES (1,'editeur2');
+
+Question 2 :
+
+a) CREATE TABLE LIVRE (NumLivre NUMBER PRIMARY KEY, Titre VARCHAR(60), CodeEditeur NUMBER REFERENCES EDITEUR ON DELETE SET NULL);
+
+b)INSERT INTO LIVRE VALUES (0,'Livre1',0);
+INSERT INTO LIVRE VALUES (1,'Livre2',1);
+
+SELECT * FROM EDITEUR;
+SELECT * FROM LIVRE;
+
+CODEEDITEUR RAISONSOCIALE
+----------- --------------------------------------------------
+          0 editeur1
+          1 editeur2
+
+2 ligne(s) sélectionnée(s).
+
+
+  NUMLIVRE TITRE                                                        CODEEDITEUR
+---------- ------------------------------------------------------------ -----------
+         0 Livre1                                                                 0
+         1 Livre2                                                                 1
+
+2 ligne(s) sélectionnée(s).
+
+DELETE FROM EDITEUR WHERE CodeEditeur=1;
+
+SELECT * FROM EDITEUR;
+SELECT * FROM LIVRE;
+
+CODEEDITEUR RAISONSOCIALE
+----------- --------------------------------------------------
+          0 editeur1
+
+1 ligne sélectionnée.
+
+
+  NUMLIVRE TITRE                                                        CODEEDITEUR
+---------- ------------------------------------------------------------ -----------
+         0 Livre1                                                                 0
+         1 Livre2
+
+2 ligne(s) sélectionnée(s).
+
+Question 3 :
+
+a) CREATE TABLE A_ECRIT (NumAuteur NUMBER REFERENCES AUTEUR ON DELETE SET NULL,NumLivre NUMBER REFERENCES LIVRE ON DELETE CASCADE, PRIMARY KEY(NumAuteur,NumLivre));
+
+b)INSERT INTO A_ECRIT VALUES (0,0);
+INSERT INTO A_ECRIT VALUES (1,1);
+
+c)SELECT * FROM AUTEUR;
+SELECT * FROM LIVRE;
+SELECT * FROM A_ECRIT;
+
+
+ NUMAUTEUR NOMAUTEUR
+---------- --------------------
+         0 auteur1
+         1 auteur2
+
+2 ligne(s) sélectionnée(s).
+
+
+  NUMLIVRE TITRE                                                        CODEEDITEUR
+---------- ------------------------------------------------------------ -----------
+         0 Livre1                                                                 0
+         1 Livre2
+
+2 ligne(s) sélectionnée(s).
+
+
+ NUMAUTEUR   NUMLIVRE
+---------- ----------
+         0          0
+         1          1
+
+2 ligne(s) sélectionnée(s).
+
+ECHEC :
+DELETE FROM AUTEUR WHERE NumAuteur=1;
+
+SELECT * FROM AUTEUR;
+SELECT * FROM LIVRE;
+SELECT * FROM A_ECRIT;
+
+ NUMAUTEUR NOMAUTEUR
+---------- --------------------
+         0 auteur1
+         1 auteur2
+
+2 ligne(s) sélectionnée(s).
+
+
+  NUMLIVRE TITRE                                                        CODEEDITEUR
+---------- ------------------------------------------------------------ -----------
+         0 Livre1                                                                 0
+         1 Livre2
+
+2 ligne(s) sélectionnée(s).
+
+
+ NUMAUTEUR   NUMLIVRE
+---------- ----------
+         0          0
+         1          1
+
+2 ligne(s) sélectionnée(s).
+
+DELETE FROM LIVRE WHERE NumLivre=1;
+
+SELECT * FROM AUTEUR;
+SELECT * FROM LIVRE;
+SELECT * FROM A_ECRIT;
+
+ NUMAUTEUR NOMAUTEUR
+---------- --------------------
+         0 auteur1
+         1 auteur2
+
+2 ligne(s) sélectionnée(s).
+
+
+  NUMLIVRE TITRE                                                        CODEEDITEUR
+---------- ------------------------------------------------------------ -----------
+         0 Livre1                                                                 0
+
+1 ligne sélectionnée.
+
+
+ NUMAUTEUR   NUMLIVRE
+---------- ----------
+         0          0
+
+1 ligne sélectionnée.

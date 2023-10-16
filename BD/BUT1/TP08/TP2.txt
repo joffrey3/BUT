@@ -1,0 +1,104 @@
+1)CREATE VIEW VinDesViticulteurs (idVin, Cru, idViticulteur, nomViticulteur) AS SELECT NumVin,Cru,NumVitic,Nom FROM Vin NATURAL JOIN Viticulteur WHERE Region='BOURGOGNE';
+SELECT * FROM VinDesViticulteurs;
+
+        88 CHAMBERTIN                  1 MOULIN
+       175 MEURSAULT                  16 JADOT
+       140 POMMARD                    10 PARENT
+       150 MONTHELIE                  10 PARENT
+
+2)CREATE VIEW CommandeParBuveur (idBuveur,NomBuveur,nombreCommande) AS SELECT Buveur.NumBuveur,Nom,COUNT(ALL NumCom) FROM Buveur LEFT OUTER JOIN Commande ON Buveur.NumBuveur=Commande.NumBuveur GROUP BY Buveur.NumBuveur,Nom;
+SELECT * FROM CommandeParBuveur;
+
+      1100 COMBET                                 2
+      1450 PASCAL                                 0
+      1300 JAMET                                  1
+      1500 FRADET                                 3
+      1750 DURIEUX                                0
+      1400 GAUTHIER                               1
+      1600 DUPOND                                 2
+      1200 MAURY                                  2
+      1700 COMBES                                 0
+      1350 GRAVINEL                               0
+
+3) SELECT NumVitic,Nom FROM Viticulteur NATURAL JOIN Vin NATURAL JOIN Commande; 
+
+        10 PARENT
+         1 MOULIN
+        15 BARANCOURT
+        16 JADOT
+        10 PARENT
+        22 CHATEAU MONBRISON
+        10 PARENT
+         1 MOULIN
+        10 PARENT
+         4 VALLEE
+        15 BARANCOURT
+
+4) a) SELECT NumVitic,Nom FROM Viticulteur V1 WHERE NOT EXIST (SELECT * FROM Viticulteur NATURAL JOIN Vin NATURAL JOIN Commande WHERE V1.NumVitic=NumVitic); 
+
+         3 MORIN
+         5 COULIS DUTHEIL
+        18 MEDEVILLE
+        20 TISSOT
+        21 LYNCH-BAGES
+        23 CHATEAU MOULIN A VENT
+
+b)SELECT NumVitic,Nom FROM Viticulteur WHERE NumVitic NOT IN (SELECT NumVitic FROM Vin WHERE NumVin IN (SELECT NumVin FROM Commande)); 
+
+         3 MORIN
+         5 COULIS DUTHEIL
+        18 MEDEVILLE
+        20 TISSOT
+        21 LYNCH-BAGES
+        23 CHATEAU MOULIN A VENT
+
+c)(SELECT NumVitic,Nom FROM Viticulteur) MINUS (SELECT NumVitic,Nom FROM Viticulteur NATURAL JOIN Vin NATURAL JOIN Commande);
+
+         3 MORIN
+         5 COULIS DUTHEIL
+        18 MEDEVILLE
+        20 TISSOT
+        21 LYNCH-BAGES
+        23 CHATEAU MOULIN A VENT
+
+5)a)(SELECT NumVin FROM Commande NATURAL JOIN Buveur WHERE Ville='PARIS') INTERSECT (SELECT NumVin FROM Commande NATURAL JOIN Buveur WHERE Ville='MACON');
+
+       88
+
+b)SELECT NumVin FROM Vin WHERE NumVin IN (SELECT NumVin FROM Commande C1 JOIN Buveur B1 ON C1.NumBuveur=B1.NumBuveur WHERE Ville='PARIS') AND NumVin IN (SELECT NumVin FROM Commande C2 JOIN Buveur B2 ON C2.NumBuveur=B2.NumBuveur WHERE Ville='MACON');
+
+        88
+
+c) SELECT V1.NumVin FROM Vin V1,Commande C1,Commande C2,Buveur B1,Buveur B2  WHERE V1.NumVin=C1.NumVin AND V1.NumVin=C2.NumVin AND C1.NumBuveur=B1.NumBuveur  AND B1.Ville='PARIS' AND C2.NumBuveur=B2.NumBuveur  AND B2.Ville='MACON';
+
+        88
+
+6)a)SELECT C.NumCom,Sum(All L.Qtte),NumBuveur,DateCom FROM Commande C LEFT OUTER JOIN Livraison L ON C.NumCom=L.NumCom GROUP BY C.NumCom,NumBuveur,DateCom;
+
+         5                      1300 18/03/87
+        10                      1500 25/03/20
+         3             12       1500 10/09/87
+         1              6       1600 10/06/87
+         2             18       1500 20/11/87
+         6              8       1100 24/12/87
+        12                      1100 13/12/89
+         7              3       1200 24/12/87
+         8                      1400 10/01/88
+         4              6       1600 12/02/87
+        11                      1200 12/12/89
+
+b)(SELECT C.NumCom,Sum(All L.Qtte),NumBuveur,DateCom FROM Commande C JOIN Livraison L ON C.NumCom=L.NumCom GROUP BY C.NumCom,NumBuveur,DateCom) UNION (SELECT NumCom,0,NumBuveur,DateCom FROM  Commande WHERE NumCom NOT IN (SELECT NumCom FROM Livraison));
+
+         1              6       1600 10/06/87
+         2             18       1500 20/11/87
+         3             12       1500 10/09/87
+         4              6       1600 12/02/87
+         5              0       1300 18/03/87
+         6              8       1100 24/12/87
+         7              3       1200 24/12/87
+         8              0       1400 10/01/88
+        10              0       1500 25/03/20
+        11              0       1200 12/12/89
+        12              0       1100 13/12/89
+
+7) SELECT NumVitic,Nom,Prenom,Qtte FROM Commande NATURAL JOIN Viticulteur NATURAL JOIN Vin WHERE Millesime='1987';

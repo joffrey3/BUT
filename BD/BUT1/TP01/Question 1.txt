@@ -1,0 +1,16 @@
+CREATE TABLE Buveur (NumBuveur Number PRIMARY KEY,Nom VARCHAR2(25) NOT NULL,Prenom VARCHAR2(25) NOT NULL, Ville VARCHAR2(30));
+
+CREATE TABLE Viticulteur (NumVitic Number PRIMARY KEY,Nom VARCHAR2(25) NOT NULL,Prenom VARCHAR2(25), Ville VARCHAR2(30) NOT NULL);
+
+CREATE TABLE Vin (NumVin Number PRIMARY KEY,Cru VARCHAR2(15) NOT NULL, Millesime Number NOT NULL, Region VARCHAR2(15) NOT NULL, NumVitic Number NOT NULL REFERENCES Viticulteur (NumVitic));
+
+CREATE TABLE Commande (NumCom Number PRIMARY KEY,NumBuveur Number NOT NULL REFERENCES Buveur (NumBuveur),NumVin Number NOT NULL REFERENCES Vin (NumVin), Qtte Number, DateCom DATE NOT NULL);
+
+CREATE TABLE Livraison (NumCom Number NOT NULL REFERENCES Commande (NumCom),Qtte Number NOT NULL,DateLiv DATE NOT NULL, PRIMARY KEY (NumCom,DateLiv);
+
+INSERT INTO Buveur(SELECT * FROM laleau.Buveur);
+INSERT INTO Vin(SELECT * FROM laleau.Vin);
+INSERT INTO Viticulteur(SELECT * FROM laleau.Viticulteur);
+INSERT INTO Commande(SELECT * FROM laleau.Commande);
+INSERT INTO Livraison(SELECT * FROM laleau.Livraison);
+Commit;

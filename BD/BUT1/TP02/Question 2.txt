@@ -1,0 +1,117 @@
+1) SELECT * FROM Buveur;
+
+	1400 GAUTHIER                  ROBERT                    PARIS
+      1500 FRADET                    PHILIPPE                  MACON
+      1300 JAMET                     FLORENCE                  VERSAILLES
+      1100 COMBET                    ALINE                     DIJON
+      1600 DUPOND                    ALAIN                     PARIS
+      1700 COMBES                    EDOUARD                   PARIS
+      1350 GRAVINEL                  SOPHIE                    NICE
+      1450 PASCAL                    YVES                      MACON
+      1750 DURIEUX                   BLAISE                    CHINON
+      1200 MAURY                     FRANCOIS                  PARIS
+
+
+2) SELECT NumBuveur,Nom,Ville FROM Buveur;
+
+	1400 GAUTHIER                  PARIS
+      1500 FRADET                    MACON
+      1300 JAMET                     VERSAILLES
+      1100 COMBET                    DIJON
+      1600 DUPOND                    PARIS
+      1700 COMBES                    PARIS
+      1350 GRAVINEL                  NICE
+      1450 PASCAL                    MACON
+      1750 DURIEUX                   CHINON
+      1200 MAURY                     PARIS
+
+
+3) SELECT NumBuveur,Nom FROM Buveur WHERE Ville='PARIS';
+
+	1400 GAUTHIER
+      1600 DUPOND
+      1700 COMBES
+      1200 MAURY
+
+4) SELECT NumBuveur,Nom FROM Buveur WHERE Ville='PARIS' OR Ville='MACON';
+
+	1400 GAUTHIER
+      1500 FRADET
+      1600 DUPOND
+      1700 COMBES
+      1450 PASCAL
+      1200 MAURY
+
+5) SELECT Cru FROM Vin WHERE REGION ='LOIRE';
+
+CHINON
+CHINON
+CHINON
+BOURGUEIL
+
+5)bis SELECT DISTINCT Cru FROM Vin WHERE Region ='LOIRE';
+
+BOURGUEIL
+CHINON
+
+6) SELECT DISTINCT Ville FROM Buveur;
+
+NICE
+PARIS
+MACON
+CHINON
+VERSAILLES
+DIJON
+
+7) SELECT NumCom FROM Commande WHERE Qtte >10 AND Qtte<50;
+
+  	 8
+         3
+         2
+        11
+        10
+
+7)bis SELECT NumCom FROM Commande WHERE Qtte BETWEEN 10 AND 50;
+
+         8
+         3
+         2
+        11
+        10
+
+8) SELECT NumCom FROM Livraison WHERE DateLiv BETWEEN '01/12/1987' AND '31/12/9999';
+
+ 	 4
+         6
+         7
+
+8)bis SELECT NumCom FROM Livraison WHERE DateLiv >= '01/12/1987';
+
+ 	 4
+         6
+         7
+
+9) SELECT NumVin,Cru FROM Vin WHERE Cru LIKE 'B%';
+
+       160 BOURGUEIL
+       170 BOUZY
+       128 BOURGUEIL
+
+10) SELECT NumVitic,Nom FROM Viticulteur WHERE Nom LIKE '%LIN%';
+
+         1 MOULIN
+        23 CHATEAU MOULIN A VENT
+
+11) SELECT NumBuveur,Nom FROM Buveur WHERE Ville NOT IN ('PARIS','MACON');
+
+	1300 JAMET
+      1100 COMBET
+      1350 GRAVINEL
+      1750 DURIEUX
+
+11)bis SELECT NumBuveur,Nom FROM Buveur WHERE NOT Ville='PARIS' AND NOT Ville='MACON';
+
+  	1300 JAMET
+      1100 COMBET
+      1350 GRAVINEL
+      1750 DURIEUX

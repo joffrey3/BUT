@@ -1,0 +1,1 @@
+SELECT DISTINCT JOB,salaire_moyen(JOB) FROM EMP;

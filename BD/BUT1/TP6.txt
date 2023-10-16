@@ -1,0 +1,75 @@
+Question 1 :
+
+CREATE USER fouche_PROP1 IDENTIFIED BY fouche1 DEFAULT TABLESPACE datausers4F TEMPORARY TABLESPACE temp;
+
+CREATE USER fouche_PROP2 IDENTIFIED BY fouche2 DEFAULT TABLESPACE datausers4F TEMPORARY TABLESPACE temp;
+
+GRANT CONNECT,RESOURCE TO fouche_PROP1,fouche_PROP2;
+
+Question 2 :
+
+SELECT * FROM user_sys_privs;
+
+a)CREATE TABLE Client(login VARCHAR2(20) PRIMARY KEY, nomClient VARCHAR2(30), prenomClient VARCHAR2(30));
+
+CREATE TABLE Film(numFilm INTEGER PRIMARY KEY, nomFilm VARCHAR2(30));
+
+CREATE TABLE Location(login VARCHAR2(20) REFERENCES Client, numFilm INTEGER REFERENCES Film, dateLocation DATE, PRIMARY KEY(login,numFilm));
+
+b)INSERT INTO Client VALUES('FOUCHE_PROP1','nom1','prenom1');
+INSERT INTO Client VALUES('FOUCHE_PROP2','nom2','prenom2');
+INSERT INTO Client VALUES('FOUCHE_PROP3','nom3','prenom3');
+
+INSERT INTO Film VALUES(1,'film1');
+INSERT INTO Film VALUES(2,'film2');
+INSERT INTO Film VALUES(3,'film3');
+
+INSERT INTO Location VALUES('FOUCHE_PROP1',1,'01/01/2002');
+INSERT INTO Location VALUES('FOUCHE_PROP1',2,'6/03/2004');
+INSERT INTO Location VALUES('FOUCHE_PROP2',2,'12/05/2008');
+INSERT INTO Location VALUES('FOUCHE_PROP2',3,'18/08/2010');
+INSERT INTO Location VALUES('FOUCHE_PROP3',3,'24/10/2012');
+INSERT INTO Location VALUES('FOUCHE_PROP3',1,'31/12/2014');
+
+c)GRANT CREATE VIEW TO fouche_PROP1,fouche_PROP2;
+
+CREATE VIEW MES_LOCATIONS(nomClient,numFilm,dateLocation) AS SELECT nomClient,numFilm,dateLocation FROM Client NATURAL JOIN Location WHERE login=USER;
+SELECT * FROM MES_LOCATIONS;
+
+Question 3 :
+
+a) SELECT * FROM Client;
+Il ne la trouve pas car prop2 n'a pas les droits de voir la table client de prop1
+
+b)GRANT SELECT on Client TO fouche_PROP2;
+SELECT * FROM fouche_PROP1.Client;
+
+Question 4 :
+
+a)GRANT SELECT on MES_LOCATIONS TO fouche_PROP2;
+GRANT SELECT,INSERT,DELETE on LOCATION TO fouche_PROP2;
+GRANT INSERT,UPDATE(nomClient,prenomClient) on CLIENT TO fouche_PROP2;
+GRANT INSERT on FILM TO fouche_PROP2;
+
+b)SELECT * FROM fouche_PROP1.MES_LOCATIONS;
+
+c)
+INSERT INTO Client VALUES('FOUCHE_PROP4','nom4','prenom4');
+INSERT INTO Film VALUES(4,'film4');
+DELETE FROM Client WHERE login='FOUCHE_PROP4';
+DELETE FROM Film WHERE numFilm=4;
+INSERT INTO Location VALUES('FOUCHE_PROP1',3,'10/04/2006');
+
+SELECT * FROM MES_LOCATIONS;
+
+d)SELECT * FROM Client;
+SELECT * FROM Film; 
+SELECT * FROM Location;
+SELECT * FROM MES_LOCATIONS;
+
+Question 5 :
+
+a)CREATE VIEW DernieresLoc(login,numFilm,dateLocation) AS SELECT login,numFilm,dateLocation FROM Location WHERE dateLocation>'01/01/2010';
+SELECT * FROM DernieresLoc;
+
+b)l'utilisateur 2 aura les meme privileges que ceux sur la relation Location.

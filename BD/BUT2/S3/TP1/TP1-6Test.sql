@@ -1,0 +1,1 @@
+SELECT fn_PrixUnitaire(nom_produit) FROM Produit ;

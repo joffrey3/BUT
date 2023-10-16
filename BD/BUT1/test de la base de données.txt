@@ -1,0 +1,131 @@
+INSERT INTO CodeTarif VALUES (0,'xxx',0);
+
+INSERT INTO CodeTarif VALUES (0,'xxx',0);
+
+INSERT INTO CodeTarif VALUES ('xxx','xxx',0);
+INSERT INTO CodeTarif VALUES (0,0,0);
+INSERT INTO CodeTarif VALUES (0,'xxx','xxx');
+
+INSERT INTO CodeTarif VALUES (,'xxx',0);
+INSERT INTO CodeTarif VALUES (0,'xxx',);
+
+INSERT INTO CodeTarif VALUES (0,,0);
+
+INSERT INTO CodeTarif VALUES (0,azertyuiopqsdfghjklmwxcvbnazertyuiopqsdfghjklmwxcvbnazertyuiopqsdfghjklmwxcvbnazertyuiopqsdfghjklmwxcvbn,0);
+
+
+INSERT INTO Reduction VALUES (1,0,0,0);
+
+INSERT INTO Reduction VALUES (1,1,1,1);
+
+INSERT INTO Reduction VALUES ('xxx',0,0,0);
+INSERT INTO Reduction VALUES (0,'xxx',0,0);
+INSERT INTO Reduction VALUES (0,0,'xxx',0);
+INSERT INTO Reduction VALUES (0,0,0,'xxx');
+
+INSERT INTO Reduction VALUES (,0,0,0);
+INSERT INTO Reduction VALUES (0,,0,0);
+INSERT INTO Reduction VALUES (0,0,,0);
+INSERT INTO Reduction VALUES (0,0,0,);
+
+
+INSERT INTO Cheval VALUES (1,00/00/00,'xxx','xxx');
+
+INSERT INTO Cheval VALUES (1,00/00/00,'yyy','yyy');
+
+INSERT INTO Cheval VALUES (0,00/00/00,'xxx',0);
+INSERT INTO Cheval VALUES (0,00/00/00,0,'xxx');
+INSERT INTO Cheval VALUES (0,'xxx','xxx','xxx');
+INSERT INTO Cheval VALUES (zero,00/00/00,'xxx','xxx');
+
+INSERT INTO Cheval VALUES (,00/00/00,'xxx','xxx');
+INSERT INTO Cheval VALUES (0,,'xxx','xxx');
+INSERT INTO Cheval VALUES (0,00/00/00,,'xxx');
+
+INSERT INTO Cheval VALUES (0,00/00/00,'xxx',);
+
+INSERT INTO Cheval VALUES (0,00/00/00,azertyuiopqsdfghjklmwxcvbnazertyuiopqsdfghjklmwxcvbn,'xxx');
+INSERT INTO Cheval VALUES (0,00/00/00,'xxx',azertyuiopqsdfghjklmwxcvbnazertyuiopqsdfghjklmwxcvbnazertyuiopqsdfghjklmwxcvbnazertyuiopqsdfghjklmwxcvbn);
+
+
+INSERT INTO Personne VALUES (1,'xxx','xxx','xxx');
+
+INSERT INTO Personne VALUES (1,'yyy','yyy','yyy');
+
+INSERT INTO Personne VALUES ('xxx','xxx','xxx','xxx');
+INSERT INTO Personne VALUES (0,0,'xxx','xxx');
+INSERT INTO Personne VALUES (0,'xxx',0,'xxx');
+INSERT INTO Personne VALUES (0,'xxx','xxx',0);
+
+INSERT INTO Personne VALUES (,'xxx','xxx','xxx');
+INSERT INTO Personne VALUES (0,,'xxx','xxx');
+
+INSERT INTO Personne VALUES (0,'xxx',,);
+
+
+INSERT INTO Moniteur VALUES (0,azertyuiopqsdfghjklmwxcvbnazertyuiopqsdfghjklmwxcvbn,'xxx','xxx');
+INSERT INTO Personne VALUES (0,'xxx',azertyuiopqsdfghjklmwxcvbnazertyuiopqsdfghjklmwxcvbn,'xxx');
+INSERT INTO Personne VALUES (0,'xxx','xxx',azertyuiopqsdfghjklmwxcvbnazertyuiopqsdfghjklmwxcvbnazertyuiopqsdfghjklmwxcvbnazertyuiopqsdfghjklmwxcvbn);
+
+
+INSERT INTO Moniteur VALUES (1,00/00/00,'xxx');
+
+INSERT INTO Moniteur VALUES (1,11/11/11,'yyy');
+
+INSERT INTO Moniteur VALUES ('xxx',00/00/00,'xxx');
+INSERT INTO Moniteur VALUES (0,'xxx,'xxx');
+INSERT INTO Moniteur VALUES (0,00/00/00,0);
+
+INSERT INTO Moniteur VALUES (,00/00/00,'xxx');.
+INSERT INTO Moniteur VALUES (0,00/00/00,);
+
+INSERT INTO Moniteur VALUES (0,,'xxx');
+
+INSERT INTO Moniteur VALUES (0,00/00/00,'azertyuiopqsdfghjklmwxcvbn');
+
+
+INSERT INTO Adherent VALUES (1,00/00/00,'xxx',0);
+
+INSERT INTO Adherent VALUES (1,11/11/11,'yyy',1);
+
+INSERT INTO Adherent VALUES ('xxx',00/00/00,'xxx',0);
+INSERT INTO Adherent VALUES (0,'xxx','xxx',0);
+INSERT INTO Adherent VALUES (0,00/00/00,0,0);
+INSERT INTO Adherent VALUES (0,00/00/00,'xxx','xxx');
+
+INSERT INTO Adherent VALUES (,00/00/00,'xxx',0);
+INSERT INTO Adherent VALUES (0,,'xxx',0);
+INSERT INTO Adherent VALUES (0,00/00/00,'xxx',);
+
+INSERT INTO Adherent VALUES (0,00/00/00,,0);
+
+INSERT INTO Adherent VALUES (0,00/00/00,'azertyuiopqsdfghjklmwxcvbn',0);
+
+
+INSERT INTO TypeCours VALUES (1,'xxx','xxx',0,0,0,0);
+
+INSERT INTO TypeCours VALUES (1,'yyy','yyy',1,1,1,1);
+
+INSERT INTO TypeCours VALUES ('xxx','xxx','xxx',0,0,0,0);
+INSERT INTO TypeCours VALUES (0,0,'xxx',0,0,0,0);
+INSERT INTO TypeCours VALUES (0,'xxx',0,0,0,0,0);
+INSERT INTO TypeCours VALUES (0,'xxx','xxx','xxx',0,0,0);
+INSERT INTO TypeCours VALUES (0,'xxx','xxx',0,'xxx',0,0);
+INSERT INTO TypeCours VALUES (0,'xxx','xxx',0,0,'xxx',0);
+INSERT INTO TypeCours VALUES (0,'xxx','xxx',0,0,0,'xxx');
+
+INSERT INTO TypeCours VALUES (,'xxx','xxx',0,0,0,0);
+INSERT INTO TypeCours VALUES (0,,'xxx',0,0,0,0);
+INSERT INTO TypeCours VALUES (0,'xxx',,0,0,0,0);
+INSERT INTO TypeCours VALUES (0,'xxx','xxx',,0,0,0);
+INSERT INTO TypeCours VALUES (0,'xxx','xxx',0,0,0,);
+
+INSERT INTO TypeCours VALUES (0,,'xxx',0,0,0,0);
+INSERT INTO TypeCours VALUES (0,'xxx',,0,0,0,0);
+INSERT INTO TypeCours VALUES (0,'xxx','xxx',0,,0,0);
+INSERT INTO TypeCours VALUES (0,'xxx','xxx',0,0,,0);
+
+INSERT INTO TypeCours VALUES (0,'azertyuiopqsdfghjklmwxcvbn','xxx',0,0,0,0);
+INSERT INTO TypeCours VALUES (0,'xxx','azertyuiopqsdfghjklmwxcvbn',0,0,0,0);
+
+

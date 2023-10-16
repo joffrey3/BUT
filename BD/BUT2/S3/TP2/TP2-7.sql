@@ -1,0 +1,1 @@
+UPDATE COMMANDE_LIGNE cl1 SET prix_total = (SELECT prix_unitaire*quantite FROM COMMANDE_LIGNE cl2 JOIN PRODUIT p ON cl2.nom_produit=p.nom) WHERE cl1.id=cl2.id;

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.talend.designer.runprocess.jobLaunchConfiguration">
+<stringAttribute key="CURRENT_PROJECT_NAME" value="DATAWAREHOUSE"/>
+<stringAttribute key="TALEND_JOB_ID" value="_SuYQQL8lEe2yraXQ0tL1qQ"/>
+<stringAttribute key="TALEND_JOB_NAME" value="JOB1"/>
+<stringAttribute key="TALEND_JOB_VERSION" value="0.1"/>
+</launchConfiguration>

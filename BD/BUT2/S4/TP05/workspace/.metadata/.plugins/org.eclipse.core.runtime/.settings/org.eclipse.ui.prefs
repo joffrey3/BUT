@@ -1,0 +1,10 @@
+CLOSE_EDITORS_ON_EXIT=true
+LICENSE_VALIDATION_DONE=1
+LOGINCOUNT=2
+PREFERENCE_TALEND_LOGON_STARTUP_TIMES=2
+eclipse.preferences.version=1
+lastUSedProject=DATAWAREHOUSE
+logonDialog.alwaysAskMeAtStartUp=true
+presentationFactoryId=org.talend.rcp.presentationfactory
+showIntro=false
+workspaceTasksDone=org.talend.core.InitConnectionsMigrationTask|org.talend.core.EmptyConnectionsMigrationTask|org.talend.migrationTool.InitWorkspaceMigrationTask|org.talend.designer.core.ui.preferences.migration.AddQuotesForStatLogsPreference|org.talend.designer.runprocess.migrationtask.changeClasspath|org.talend.designer.runprocess.maven.ChangeCodeProjectClasspathMigrationTask2|org.talend.repository.model.migration.ChangeProjectTechinicalName

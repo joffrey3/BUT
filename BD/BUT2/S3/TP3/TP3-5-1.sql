@@ -1,0 +1,14 @@
+DECLARE CURSOR c_table (p_colonne VARCHAR2)IS SELECT COLUMN_NAME FROM all_tab_columns WHERE TABLE_NAME='';
+v_increment NUMBER;
+v_colonne VARCHAR2(100);
+TYPE COLONNE IS TABLE OF VARCHAR2(100) INDEX BY BINARY_INTEGER;
+tableau COLONNE;
+chaine VARCHAR2(1000);
+BEGIN
+OPEN c_table(v_colonne);
+LOOP
+FETCH c_table INTO chaine;
+EXIT WHEN c_table%NOTFOUND;
+END LOOP;
+CLOSE c_table;
+END;

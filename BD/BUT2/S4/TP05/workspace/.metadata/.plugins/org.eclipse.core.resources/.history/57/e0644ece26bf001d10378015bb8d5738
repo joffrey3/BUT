@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TalendMetadata:DatabaseConnection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendMetadata="http://www.talend.org/metadata/connection/2010" xmi:id="_zWeHUL8mEe2yraXQ0tL1qQ" name="CONNEXION1" id="_X6qH4L8lEe2yraXQ0tL1qQ" label="CONNEXION1" DatabaseType="Oracle with SID" DriverClass="oracle.jdbc.OracleDriver" URL="jdbc:oracle:thin:@lorien.arda.lan:1521:orcliut" dbVersionString="ORACLE_10" Port="1521" Username="fouche" Password="DUPju5hlkWFUZSoGDpTK+w==" ServerName="lorien.arda.lan" DatasourceName="" FileFieldName="" SID="orcliut" SqlSynthax="" StringQuote="" NullChar="" DbmsId="oracle_id" ProductId="ORACLE" AdditionalParams="" StandardSQL="true" SQLMode="false" UiSchema="">
+  <taggedValue xmi:id="_zWeuYL8mEe2yraXQ0tL1qQ" tag="Is Conn Need Reload" value="true"/>
+  <parameters xmi:id="_zWeuYb8mEe2yraXQ0tL1qQ" key="CONN_PARA_KEY_USERNAME" value="fouche"/>
+</TalendMetadata:DatabaseConnection>

@@ -1,0 +1,3 @@
+sqlplus "fouche@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(Host=lorien.arda.lan)(Port=1521))(CONNECT_DATA=(SID=ORCLIUT)))"
+
+sqlplus "fouche@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(Host=lorien.arda.lan)(Port=1521))(CONNECT_DATA=(SID=ORA2)))"

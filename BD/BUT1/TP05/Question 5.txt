@@ -1,0 +1,76 @@
+I 1) SELECT DISTINCT V.NumVin,NumBuveur FROM Vin V LEFT OUTER JOIN Commande C ON V.NumVin=C.NumVin;
+
+  90       1600
+       140       1100
+       120       1100
+        86
+        88       1500
+       150
+        85
+       170
+       190
+       140       1200
+       160
+        98
+       140       1400
+       140       1300
+        88       1200
+        84
+       175       1600
+        80
+       128
+       100       1500
+
+(SELECT V.NumVin,NumBuveur FROM Vin V,Commande C WHERE V.NumVin=C.NumVin)UNION(SELECT NumVin,NULL FROM Vin V WHERE NumVin NOT IN (SELECT NumVin FROM Commande));
+
+ 80
+        84
+        85
+        86
+        88       1200
+        88       1500
+        90       1600
+        98
+       100       1500
+       120       1100
+       128
+       140       1100
+       140       1200
+       140       1300
+       140       1400
+       150
+       160
+       170
+       175       1600
+       190
+
+
+2) SELECT B.NumBuveur FROM Commande C RIGHT OUTER JOIN Buveur B ON B.NumBuveur=C.NumBuveur WHERE C.NumBuveur IS NULL;
+
+	1700
+      1450
+      1350
+      1750
+
+SELECT NumBuveur FROM Buveur WHERE NumBuveur NOT IN (SELECT NumBuveur FROM Commande);
+
+ 1700
+      1450
+      1350
+      1750
+
+SELECT NumBuveur FROM Buveur B WHERE NOT EXISTS (SELECT * FROM Commande C WHERE B.NumBuveur=C.NumBuveur);
+
+ 1700
+      1450
+      1350
+      1750
+
+(SELECT NumBuveur FROM Buveur)EXCEPT(SELECT B.NumBuveur FROM Buveur B,Commande C WHERE B.NumBuveur=C.NumBuveur);
+
+1350
+      1450
+      1700
+      1750
+
+SELECT NumBuveur,NomBuveur FROM Commande NATURAL JOIN Buveur NATURAL JOIN WHERE Cru='Bourgogne';

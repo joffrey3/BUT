@@ -1,0 +1,266 @@
+1)a)CREATE VIEW CommandeBuveur (numCom, dateCom, nomBuveur) AS SELECT NumCom,DateCom,Nom FROM Commande NATURAL JOIN Buveur;
+SELECT * FROM CommandeBuveur;
+
+   8 10/01/88 GAUTHIER
+         2 20/11/87 FRADET
+         3 10/09/87 FRADET
+         5 18/03/87 JAMET
+        12 13/12/89 COMBET
+         6 24/12/87 COMBET
+         1 10/06/87 DUPOND
+         4 12/02/87 DUPOND
+        11 12/12/89 MAURY
+         7 24/12/87 MAURY
+
+b)DELETE FROM CommandeBuveur WHERE numCom=8;
+SELECT * FROM CommandeBuveur;
+SELECT * FROM Commande;
+
+  2 20/11/87 FRADET
+         3 10/09/87 FRADET
+         5 18/03/87 JAMET
+        12 13/12/89 COMBET
+         6 24/12/87 COMBET
+         1 10/06/87 DUPOND
+         4 12/02/87 DUPOND
+        11 12/12/89 MAURY
+         7 24/12/87 MAURY
+
+ 3       1500         88         24 10/09/87
+         2       1500        100         18 20/11/87
+         4       1600        175          6 12/02/87
+         5       1300        140          3 18/03/87
+         1       1600         90          6 10/06/87
+         6       1100        140          8 24/12/87
+         7       1200         88          3 24/12/87
+        11       1200        140         12 12/12/89
+        12       1100        120          6 13/12/89
+
+c) UPDATE CommandeBuveur SET dateCom='11/09/87' WHERE dateCom='10/09/87';
+SELECT * FROM CommandeBuveur;
+SELECT * FROM Commande;
+
+ 2 20/11/87 FRADET
+         3 11/09/87 FRADET
+         5 18/03/87 JAMET
+        12 13/12/89 COMBET
+         6 24/12/87 COMBET
+         1 10/06/87 DUPOND
+         4 12/02/87 DUPOND
+        11 12/12/89 MAURY
+         7 24/12/87 MAUR
+
+ 3       1500         88         24 11/09/87
+         2       1500        100         18 20/11/87
+         4       1600        175          6 12/02/87
+         5       1300        140          3 18/03/87
+         1       1600         90          6 10/06/87
+         6       1100        140          8 24/12/87
+         7       1200         88          3 24/12/87
+        11       1200        140         12 12/12/89
+        12       1100        120          6 13/12/89
+
+d) UPDATE CommandeBuveur SET nomBuveur='DUPONT' WHERE nomBuveur='DUPOND';
+SELECT * FROM CommandeBuveur;
+
+ERREUR à la ligne 1 :
+ORA-01779: impossible de modifier une colonne correspondant à une table non protégée par clé
+
+ 2 20/11/87 FRADET
+         3 11/09/87 FRADET
+         5 18/03/87 JAMET
+        12 13/12/89 COMBET
+         6 24/12/87 COMBET
+         1 10/06/87 DUPOND
+         4 12/02/87 DUPOND
+        11 12/12/89 MAURY
+         7 24/12/87 MAURY
+
+INSERT INTO CommandeBuveur VALUES (8,13/06/1752,BERNARD);
+SELECT * FROM CommandeBuveur;
+
+ERREUR à la ligne 1 :
+ORA-01776: impossible de modifier plus d'une table de base via une vue jointe
+
+ 2 20/11/87 FRADET
+         3 11/09/87 FRADET
+         5 18/03/87 JAMET
+        12 13/12/89 COMBET
+         6 24/12/87 COMBET
+         1 10/06/87 DUPOND
+         4 12/02/87 DUPOND
+        11 12/12/89 MAURY
+         7 24/12/87 MAURY
+
+2) CREATE VIEW VIN2 (numvin,cru,region) AS SELECT NumVin,Cru,Region FROM Vin;
+SELECT * FROM VIN2;
+
+160 BOURGUEIL       LOIRE
+        88 CHAMBERTIN      BOURGOGNE
+       170 BOUZY           CHAMPAGNE
+       175 MEURSAULT       BOURGOGNE
+        80 SAUTERNES       BORDEAUX
+        84 PAUILLAC        BORDEAUX
+        90 MARGAUX         BORDEAUX
+        98 MOULIS          BORDEAUX
+        86 CHINON          LOIRE
+        85 CHINON          LOIRE
+       120 CHINON          LOIRE
+       190 SAINT EMILION   BORDEAUX
+       128 BOURGUEIL       LOIRE
+       140 POMMARD         BOURGOGNE
+       150 MONTHELIE       BOURGOGNE
+       100 CHAMPAGNE BRUT  CHAMPAGNE
+
+a)  UPDATE VIN2 SET cru='BOURGUEIL' WHERE numvin=85;
+SELECT * FROM VIN2;
+SELECT * FROM Vin;
+
+  160 BOURGUEIL       LOIRE
+        88 CHAMBERTIN      BOURGOGNE
+       170 BOUZY           CHAMPAGNE
+       175 MEURSAULT       BOURGOGNE
+        80 SAUTERNES       BORDEAUX
+        84 PAUILLAC        BORDEAUX
+        90 MARGAUX         BORDEAUX
+        98 MOULIS          BORDEAUX
+        86 CHINON          LOIRE
+        85 BOURGUEIL       LOIRE
+       120 CHINON          LOIRE
+       190 SAINT EMILION   BORDEAUX
+       128 BOURGUEIL       LOIRE
+       140 POMMARD         BOURGOGNE
+       150 MONTHELIE       BOURGOGNE
+       100 CHAMPAGNE BRUT  CHAMPAGNE
+
+  160 BOURGUEIL             1984 LOIRE                    3
+        88 CHAMBERTIN            1980 BOURGOGNE                1
+       170 BOUZY                 1984 CHAMPAGNE               15
+       175 MEURSAULT             1980 BOURGOGNE               16
+        80 SAUTERNES             1982 BORDEAUX                18
+        84 PAUILLAC              1982 BORDEAUX                21
+        90 MARGAUX               1978 BORDEAUX                22
+        98 MOULIS                1981 BORDEAUX                23
+        86 CHINON                1978 LOIRE                    4
+        85 BOURGUEIL             1983 LOIRE                    5
+       120 CHINON                1985 LOIRE                    4
+       190 SAINT EMILION         1981 BORDEAUX                18
+       128 BOURGUEIL             1985 LOIRE                    4
+       140 POMMARD               1976 BOURGOGNE               10
+       150 MONTHELIE             1978 BOURGOGNE               10
+       100 CHAMPAGNE BRUT        1988 CHAMPAGNE               15
+
+b) DELETE FROM VIN2 WHERE numvin=190;
+SELECT * FROM VIN2;
+SELECT * FROM Vin;
+
+   160 BOURGUEIL       LOIRE
+        88 CHAMBERTIN      BOURGOGNE
+       170 BOUZY           CHAMPAGNE
+       175 MEURSAULT       BOURGOGNE
+        80 SAUTERNES       BORDEAUX
+        84 PAUILLAC        BORDEAUX
+        90 MARGAUX         BORDEAUX
+        98 MOULIS          BORDEAUX
+        86 CHINON          LOIRE
+        85 BOURGUEIL       LOIRE
+       120 CHINON          LOIRE
+       128 BOURGUEIL       LOIRE
+       140 POMMARD         BOURGOGNE
+       150 MONTHELIE       BOURGOGNE
+       100 CHAMPAGNE BRUT  CHAMPAGNE
+
+160 BOURGUEIL             1984 LOIRE                    3
+        88 CHAMBERTIN            1980 BOURGOGNE                1
+       170 BOUZY                 1984 CHAMPAGNE               15
+       175 MEURSAULT             1980 BOURGOGNE               16
+        80 SAUTERNES             1982 BORDEAUX                18
+        84 PAUILLAC              1982 BORDEAUX                21
+        90 MARGAUX               1978 BORDEAUX                22
+        98 MOULIS                1981 BORDEAUX                23
+        86 CHINON                1978 LOIRE                    4
+        85 BOURGUEIL             1983 LOIRE                    5
+       120 CHINON                1985 LOIRE                    4
+       128 BOURGUEIL             1985 LOIRE                    4
+       140 POMMARD               1976 BOURGOGNE               10
+       150 MONTHELIE             1978 BOURGOGNE               10
+       100 CHAMPAGNE BRUT        1988 CHAMPAGNE               15
+
+INSERT INTO VIN2 VALUES (10,'CHINON','LOIRE');
+SELECT * FROM VIN2;
+SELECT * FROM Vin;
+
+ERREUR à la ligne 1 :
+ORA-01400: impossible d'insérer NULL dans ("FOUCHE"."VIN"."MILLESIME")
+
+ 160 BOURGUEIL       LOIRE
+        88 CHAMBERTIN      BOURGOGNE
+       170 BOUZY           CHAMPAGNE
+       175 MEURSAULT       BOURGOGNE
+        80 SAUTERNES       BORDEAUX
+        84 PAUILLAC        BORDEAUX
+        90 MARGAUX         BORDEAUX
+        98 MOULIS          BORDEAUX
+        86 CHINON          LOIRE
+        85 BOURGUEIL       LOIRE
+       120 CHINON          LOIRE
+       128 BOURGUEIL       LOIRE
+       140 POMMARD         BOURGOGNE
+       150 MONTHELIE       BOURGOGNE
+       100 CHAMPAGNE BRUT  CHAMPAGNE
+
+160 BOURGUEIL             1984 LOIRE                    3
+        88 CHAMBERTIN            1980 BOURGOGNE                1
+       170 BOUZY                 1984 CHAMPAGNE               15
+       175 MEURSAULT             1980 BOURGOGNE               16
+        80 SAUTERNES             1982 BORDEAUX                18
+        84 PAUILLAC              1982 BORDEAUX                21
+        90 MARGAUX               1978 BORDEAUX                22
+        98 MOULIS                1981 BORDEAUX                23
+        86 CHINON                1978 LOIRE                    4
+        85 BOURGUEIL             1983 LOIRE                    5
+       120 CHINON                1985 LOIRE                    4
+       128 BOURGUEIL             1985 LOIRE                    4
+       140 POMMARD               1976 BOURGOGNE               10
+       150 MONTHELIE             1978 BOURGOGNE               10
+       100 CHAMPAGNE BRUT        1988 CHAMPAGNE               15
+
+3)a) CREATE VIEW BuveursdeParis (NumBuveur,nom,prenom) AS SELECT NumBuveur,Nom,Prenom FROM Buveur WHERE  Ville='PARIS' WITH CHECK OPTION;
+SELECT COUNT (*) FROM BuveursdeParis;
+SELECT * FROM BuveursdeParis;
+
+4
+
+1400 GAUTHIER                  ROBERT
+      1600 DUPOND                    ALAIN
+      1700 COMBES                    EDOUARD
+      1200 MAURY                     FRANCOIS
+
+INSERT INTO BuveursdeParis VALUES (1800,'GAUTHIER','XAVIER');
+SELECT * FROM BuveursdeParis;
+
+ERREUR à la ligne 1 :
+ORA-01402: vue WITH CHECK OPTION - violation de clause WHERE
+
+ 1400 GAUTHIER                  ROBERT
+      1600 DUPOND                    ALAIN
+      1700 COMBES                    EDOUARD
+      1200 MAURY                     FRANCOIS
+
+b)CREATE VIEW GrosseCommande (NumCom,NumBuveur,numVin,Qtte,DateCom) AS SELECT * FROM Commande WHERE Qtte>10  WITH CHECK OPTION;
+SELECT COUNT (*) FROM GrosseCommande;
+SELECT * FROM GrosseCommande;
+
+3
+
+3       1500         88         24 11/09/87
+         2       1500        100         18 20/11/87
+        11       1200        140         12 12/12/89
+
+INSERT INTO GrosseCommande VALUES (14,1300,90,30,'24/10/2021');
+SELECT * FROM GrosseCommande;
+
+3       1500         88         24 11/09/87
+         2       1500        100         18 20/11/87
+        11       1200        140         12 12/12/89
+        14       1300         90         30 24/10/21

@@ -1,0 +1,59 @@
+1) SELECT Region, COUNT(ALL NumVin) FROM Vin GROUP BY Region;
+
+BOURGOGNE                      4
+CHAMPAGNE                      2
+BORDEAUX                       5
+LOIRE                          5
+
+2) SELECT Nom, NumVitic, COUNT(ALL Cru) FROM Viticulteur NATURAL JOIN Vin GROUP BY NumVitic,Nom;
+
+BARANCOURT                        15             2
+JADOT                             16             1
+LYNCH-BAGES                       21             1
+CHATEAU MONBRISON                 22             1
+VALLEE                             4             3
+MORIN                              3             1
+COULIS DUTHEIL                     5             1
+CHATEAU MOULIN A VENT             23             1
+MEDEVILLE                         18             2
+PARENT                            10             2
+MOULIN                             1             1
+
+3) SELECT Nom, NumBuveur, AVG(ALL Qtte) FROM Buveur NATURAL JOIN Commande WHERE Ville='PARIS' GROUP BY NumBuveur,Nom;
+
+GAUTHIER                        1400           12
+DUPOND                          1600            6
+MAURY                           1200          7,5
+
+4) SELECT COUNT(ALL NumCom) FROM Commande GROUP BY NumBuveur;
+
+               1
+               1
+               2
+               2
+               3
+               2
+
+5) SELECT SUM(ALL Qtte) FROM Buveur NATURAL JOIN Commande GROUP BY NumBuveur HAVING AVG(ALL Qtte)>=12;
+
+          12
+          60
+
+6) SELECT Nom, NumVitic FROM Viticulteur NATURAL JOIN Vin GROUP BY NumVitic,Nom HAVING COUNT(DISTINCT Cru)>=2;
+
+VALLEE                             4
+PARENT                            10
+BARANCOURT                        15
+MEDEVILLE                         18
+
+7) SELECT NumVin,Cru,COUNT(NumCom) FROM Commande NATURAL JOIN Vin GROUP BY NumVin,Cru HAVING COUNT(ALL NumCom)>=2;
+
+        88 CHAMBERTIN                  2
+       140 POMMARD                     4
+       100 CHAMPAGNE BRUT              2
+
+8) SELECT DISTINCT C.NumCom FROM Commande C JOIN Livraison L ON C.NumCom=L.NumCom WHERE C.NumCom NOT IN(SELECT C.NumCom FROM Commande C JOIN Livraison L ON C.NumCom=L.NumCom WHERE C.Qtte=L.Qtte GROUP BY C.NumCom);
+
+         2
+         3
+

@@ -1,0 +1,10 @@
+CREATE OR REPLACE PROCEDURE ajuster(p_empno NUMBER) IS
+v_comm NUMBER;
+v_comm_min NUMBER;
+BEGIN
+SELECT COMM_MIN INTO v_comm_min FROM EMP_SEUIL;
+IF v_comm<v_comm_min
+THEN
+UPDATE EMP SET COMM=v_comm_min WHERE EMPNO=p_empno;
+END IF;
+END;

@@ -1,0 +1,149 @@
+QUESTION 1:
+
+CREATE TABLE AEROPORT (codeAeroport VARCHAR(15) PRIMARY KEY, nom VARCHAR(40) NOT NULL, ville VARCHAR(40) NOT NULL, pays VARCHAR(40) NOT NULL, CONSTRAINT unicite UNIQUE(nom,ville,pays));
+
+CREATE TABLE VOL (numvol Number PRIMARY KEY, compagnie VARCHAR(40) NOT NULL, periodeVol VARCHAR(30) NOT NULL);
+
+CREATE TABLE TYPE_AVION (nomType VARCHAR(40) PRIMARY KEY, maxSieges Number NOT NULL, nomConstructeur VARCHAR(30) NOT NULL);
+
+CREATE TABLE AVION (idAvion Number PRIMARY KEY, totalSieges Number NOT NULL, nomTypeAvion VARCHAR(40) NOT NULL REFERENCES TYPE_AVION (nomType));
+
+CREATE TABLE PEUT_ATTERIR (nomTypeAvion VARCHAR(40) REFERENCES TYPE_AVION (nomType),codeAeroport VARCHAR(15) REFERENCES AEROPORT (codeAeroport), PRIMARY KEY(nomTypeAvion,codeAeroport));
+
+CREATE TABLE PERSONNEL (idPersonne Number PRIMARY KEY,nom VARCHAR(40) NOT NULL,prenom VARCHAR(40) NOT NULL,fonction VARCHAR(40) NOT NULL);
+
+2) 		AEROPORT :
+
+	INSERT :
+CONTRAINTE Clé primaire:
+INSERT INTO AEROPORT VALUES ('0','aeroport1','ville1','pays1');
+INSERT INTO AEROPORT VALUES ('0','aeroport2','ville2','pays2');
+
+Unicité :
+INSERT INTO AEROPORT VALUES ('1','aeroport1','ville1','pays2');
+INSERT INTO AEROPORT VALUES ('2','aeroport1','ville1','pays2');
+
+	UPDATE:
+CONTRAINTE Clé primaire :
+UPDATE AEROPORT SET codeAeroport= WHERE codeAeroport='0';
+UPDATE AEROPORT SET codeAeroport='1' WHERE codeAeroport='0';
+
+CONTRAINTE Unicité :
+UPDATE AEROPORT  SET pays='pays1' WHERE pays='pays2';
+
+CONTRAINTE NULL :
+UPDATE AEROPORT SET codeAeroport=NULL WHERE codeAeroport='0';
+UPDATE AEROPORT SET nom=NULL WHERE nom='aeroport1';
+UPDATE AEROPORT SET ville=NULL WHERE ville='ville1';
+UPDATE AEROPORT SET pays=NULL WHERE pays='pays1';
+
+
+		VOL:
+
+	INSERT:
+CONTRAINTE Clé primaire:
+INSERT INTO VOL VALUES (0,'compagnie1','periodevol1');
+INSERT INTO VOL VALUES (0,'compagnie2','periodevol2');
+
+	UPDATE:
+CONTRAINTE Unicité :
+INSERT INTO VOL VALUES (1,'compagnie2','periodevol2');
+UPDATE VOL SET numvol=0 WHERE numvol=1;
+
+CONTRAINTE NULL :
+UPDATE VOL SET numvol=NULL WHERE numvol=0;
+UPDATE VOL SET compagnie=NULL WHERE compagnie='compagnie1';
+UPDATE VOL SET periodeVol=NULL WHERE periodeVol='periodevol1';
+
+
+		TYPE_AVION :
+
+	INSERT:
+CONTRAINTE Clé primaire:
+INSERT INTO TYPE_AVION VALUES ('0',1,'constructeur1');
+INSERT INTO TYPE_AVION VALUES ('0',2,'constructeur2');
+
+	UPDATE:
+CONTRAINTE Unicité :
+INSERT INTO TYPE_AVION VALUES ('1',2,'constructeur2');
+UPDATE TYPE_AVION SET nomType='0' WHERE nomType='1';
+
+CONTRAINTE NULL :
+UPDATE TYPE_AVION SET codeAeroport=NULL WHERE codeAeroport='0';
+UPDATE TYPE_AVION SET nom=NULL WHERE nom='aeroport1';
+UPDATE TYPE_AVION SET ville=NULL WHERE ville='ville1';
+
+	AVION :
+INSERT:
+CONTRAINTE Clé primaire:
+INSERT INTO AVION VALUES (0,1,'0');
+INSERT INTO AVION VALUES (0,2,'1');
+
+CONTRAINTE Clé etrangere:
+INSERT INTO AVION VALUES (1,2,'2');
+
+	PEUT_ATTERIR:
+INSERT:
+CONTRAINTE Clé primaire:
+INSERT INTO PEUT_ATTERIR VALUES ('0','0');
+INSERT INTO PEUT_ATTERIR VALUES ('0','0');
+
+CONTRAINTE Clé etrangere:
+INSERT INTO PEUT_ATTERIR VALUES ('2','0');
+INSERT INTO PEUT_ATTERIR VALUES ('0','2');
+
+	PERSONNEL:
+INSERT:
+CONTRAINTE Clé primaire:
+INSERT INTO PERSONNEL VALUES (0,'nom1','prenom1','fonction1');
+INSERT INTO PERSONNEL VALUES (0,'nom2','prenom2','fonction2');
+
+
+3)CREATE TABLE ESCALE (numVol NUMBER REFERENCES VOL(numVol), numEscale NUMBER, aeroportDepart VARCHAR(15) NOT NULL REFERENCES AEROPORT(codeAeroport), aeroportArrivee VARCHAR(15) NOT NULL REFERENCES AEROPORT(codeAeroport), heureDepartPrevue NUMBER NOT NULL, minuteDepartPrevue NUMBER NOT NULL, heureArriveePrevue NUMBER NOT NULL, minuteArriveePrevue NUMBER NOT NULL, PRIMARY KEY(numVol,numEscale), CONSTRAINT numeroEscale CHECK(numEscale>=0 AND numEscale<=20),CONSTRAINT DifferenceAeroport CHECK(aeroportDepart!=aeroportArrivee), CONSTRAINT H_D CHECK(heureDepartPrevue>=0 AND heureDepartPrevue<=24),CONSTRAINT H_A CHECK(heureArriveePrevue>=0 AND heureArriveePrevue<=24), CONSTRAINT M_D CHECK(minuteDepartPrevue>=0 AND minuteDepartPrevue<=60), CONSTRAINT M_A CHECK(minuteArriveePrevue>=0 AND minuteArriveePrevue<=60));
+
+CREATE TABLE INSTANCE_ESCALE (numVol NUMBER REFERENCES VOL(numVol), numEscale NUMBER, dateEscale DATE NOT NULL, idAvion NUMBER NOT NULL REFERENCES AVION(idAvion), dateDepartEffectuee DATE NOT NULL, dateArriveeEffectuee DATE NOT NULL,idEquipe NUMBER NOT NULL, PRIMARY KEY(numVol,numEscale,dateEscale), FOREIGN KEY(numVol,numEscale) REFERENCES ESCALE(numVol,numEscale), CONSTRAINT tempsDeVol CHECK(dateDepartEffectuee<dateArriveeEffectuee));
+
+CREATE TABLE EQUIPAGE (numVol NUMBER NOT NULL, numEscale NUMBER NOT NULL, dateEscale DATE NOT NULL,idEquipe NUMBER PRIMARY KEY, idPilote NUMBER NOT NULL REFERENCES PERSONNEL(idPersonne),idCoPilote NUMBER NOT NULL REFERENCES PERSONNEL(idPersonne),idChefCabine NUMBER NOT NULL REFERENCES PERSONNEL(idPersonne), FOREIGN KEY(numVol,numEscale,dateEscale) REFERENCES INSTANCE_ESCALE(numVol,numEscale,dateEscale) DEFERRABLE);
+
+ALTER TABLE INSTANCE_ESCALE MODIFY idEquipe REFERENCES EQUIPAGE(idEquipe) DEFERRABLE INITIALLY DEFERRED;
+
+CREATE TABLE HOTESSE_EQUIPAGE (idEquipe NUMBER REFERENCES EQUIPAGE(idEquipe), idPersonne Number REFERENCES PERSONNEL(idPersonne), PRIMARY KEY(idEquipe,idPersonne));
+
+4)		ESCALE :
+
+	INSERT :
+CONTRAINTE Clé primaire:
+INSERT INTO ESCALE VALUES (0,0,'0','1',0,0,0,0);
+INSERT INTO ESCALE VALUES (0,0,'0','1',1,1,1,1);
+
+AUTRE CONTRAINTE :
+Fonctionne:
+INSERT INTO ESCALE VALUES (0,20,'0','1',24,24,60,60);
+Ne fonctionne pas :
+INSERT INTO ESCALE VALUES (0,20,'0','0',24,24,24,24);
+INSERT INTO ESCALE VALUES (0,20,'0','1',24,24,24,24);
+INSERT INTO ESCALE VALUES (0,20,'0','1',24,24,24,24);
+INSERT INTO ESCALE VALUES (0,20,'0','1',24,24,24,24);
+
+		VOL:
+
+	INSERT:
+CONTRAINTE Clé primaire:
+INSERT INTO VOL VALUES (0,'compagnie1','periodevol1');
+INSERT INTO VOL VALUES (0,'compagnie2','periodevol2');
+
+		TYPE_AVION :
+
+	INSERT:
+CONTRAINTE Clé primaire:
+INSERT INTO TYPE_AVION VALUES ('0',1,'constructeur1');
+INSERT INTO TYPE_AVION VALUES ('0',2,'constructeur2');
+
+	AVION :
+INSERT:
+CONTRAINTE Clé primaire:
+INSERT INTO AVION VALUES (0,1,'0');
+INSERT INTO AVION VALUES (0,2,'1');
+
+CONTRAINTE Clé etrangere:
+INSERT INTO AVION VALUES (1,2,'2');
