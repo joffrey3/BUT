@@ -1,0 +1,2 @@
+egrep ^[^steamiv]{5}$ grep/answers.txt | grep r 
+^[^steamiv]{5}$ grep/answers.txt | grep r | wc -l

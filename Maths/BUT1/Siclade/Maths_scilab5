@@ -1,0 +1,8 @@
+TP scilab4 :
+
+
+voir fonction scilab
+
+dichotomie(f,1,2,0.01)
+dichotomie(g,0,1,0.01)
+dichotomie(h,1/4,5/4,0.0001)

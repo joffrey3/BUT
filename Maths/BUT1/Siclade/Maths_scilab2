@@ -1,0 +1,37 @@
+TP Siclade 2 :
+
+Partie 1 :
+
+Exercice 1 :
+
+1)X=rand(1000,1);
+classes=[0:0.1:1];
+
+2)[ind,n,info] = dsearch(X,classes,'c');
+ N=length(X); 
+  f=n/N;
+
+3)histplot(classes,X);
+
+4)fcc = cumsum(f) 
+plot(classes,[0,fcc]);
+
+5)median(X);
+mu=mean(X);
+
+6)
+milieu=(0.05:0.1:0.95);
+moyenne_approchee=sum(milieu.*f)
+sum(milieu.*f);
+
+7)var=sum((milieu-mu).*(milieu-mu).*f);
+max(milieu)-min(milieu);
+max(classes)-min(classes);
+quart(X);
+iqr(X);
+
+8)var_a=sum((milieu-m_a).*(milieu-m_a).*f)
+
+Exercice 2 :
+
+

@@ -1,0 +1,75 @@
+function y=f(x)
+	y=x^2-2;
+endfunction
+
+function y=g(x)
+	y=cos(x)-x^2;
+endfunction
+
+function y=h(x)
+	y=x-sin(x)-1/4;
+endfunction
+
+function y=dichotomie(f,a,b,eps)
+	x=a;
+	while b-a>eps;
+		m=(a+b)/2;
+		x=f(m);
+		if(x>f(a));
+			if(x>0);
+				b=m;
+			end;
+			if(x<0);
+				a=m;
+			end;
+		end;
+		if(x>f(b));
+			if(x>0);
+				a=m;
+			end;
+			if(x<0);
+				b=m;
+			end;
+		end;
+	end;
+	y=m;
+endfunction
+
+function y=droite(ori,coef,x)
+	y=coef*x+ori;
+endfunction
+
+function y=corde(xa,ya,xb,yb)
+	y=x-sin(x)-1/4;
+	coef = (yb-ya)/(xb-xa)
+	ori =
+	droite()
+endfunction
+
+
+function [y,n]=fausse_position(f,a,b,eps)
+	x=a;
+	n=0;
+	while b-a>eps;
+		m=(a+b)/2;
+		x=f(m);
+		if(x>f(a));
+			if(x>0);
+				b=m;
+			end;
+			if(x<0);
+				a=m;
+			end;
+		end;
+		if(x>f(b));
+			if(x>0);
+				a=m;
+			end;
+			if(x<0);
+				b=m;
+			end;
+		end;
+		n=n+1;
+	end;
+	y=m;
+endfunction

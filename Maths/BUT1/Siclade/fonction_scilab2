@@ -1,0 +1,76 @@
+function y=newton(x,f,df,eps)
+	x2=x-f(x)/df(x);
+	while abs(x-x2)>eps 
+		x=x2;
+		x2=x2-f(x2)/df(x2);
+	end;
+	y=x;
+endfunction
+
+function y=f(x)		
+	y=x*x
+endfunction
+
+function y=df(x)		
+	y=2*x
+endfunction
+
+
+
+function y=Heron(x,n)
+	x2=(x+2/x)/2;
+	ite=0;
+	while ite<n
+		x=x2;
+		x2=(x2+2/x2)/2;
+		ite=ite+1;
+	end;
+	y=x;
+endfunction
+
+function y=f(x)		
+	y=x*x-2
+endfunction
+
+function y=df(x)		
+	y=2*x
+endfunction
+
+
+function y=vitesse(x,a,b,n)		
+	x1=Heron(x,n);
+	x2=dichotomie(a,b,n);
+	if(abs(x1-sqrt(2))<abs(x2-sqrt(2)));
+		y=0;
+	end;
+	if(abs(x1-sqrt(2))>abs(x2-sqrt(2)));
+		y=0;
+	end;
+endfunction
+
+function y=dichotomie(a,b,n)
+	ite=0;
+	m=a;
+	while ite<n;
+		m=(a+b)/2;
+		x=m*m-2;
+		if(x>a*a-2);
+			if(x>0);
+				b=m;
+			end;
+			if(x<0);
+				a=m;
+			end;
+		end;
+		if(x>b*b-2);
+			if(x>0);
+				a=m;
+			end;
+			if(x<0);
+				b=m;
+			end;
+		end;
+		ite=ite+1;
+	end;
+	y=m;
+endfunction

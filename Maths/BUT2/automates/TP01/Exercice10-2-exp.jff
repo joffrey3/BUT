@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>
+	<type>re</type>
+	<!--The regular expression.-->
+	<expression>(aaa)*(λ+b(aaa)*(ba+baa(aaa)*aa+a(b+ba(aaa)*aa+a(λ+b(aaa)*aa)))+a(b(b+ba(aaa)*aa+a(λ+b(aaa)*aa))+baa(aaa)*(ba+baa(aaa)*aa+a(b+ba(aaa)*aa+a(λ+b(aaa)*aa))))+aa(b(λ+b(aaa)*aa)+ba(aaa)*(ba+baa(aaa)*aa+a(b+ba(aaa)*aa+a(λ+b(aaa)*aa)))))</expression>
+</structure>

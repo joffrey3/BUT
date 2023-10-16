@@ -1,0 +1,10 @@
+TP scilab4 :
+
+exec("animaux.dat");
+n=283;
+mat=zeros(26,n);
+exec("jeu.sce");
+for i=1:n
+  c = char2code(noms(i))
+  mat(c,i) = 1;
+end
