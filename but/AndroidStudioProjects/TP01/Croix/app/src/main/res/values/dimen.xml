@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="zoneHorizontal">300dp</dimen>
-    <dimen name="zoneVertical">300dp</dimen>
-    <dimen name="boutonHorizontal">100dp</dimen>
-    <dimen name="boutonVertical">100dp</dimen>
-    <dimen name="textSize">10dp</dimen>
-</resources>

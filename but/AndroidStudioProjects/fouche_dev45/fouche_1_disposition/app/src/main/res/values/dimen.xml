@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Exercice 1-->
-    <dimen name="rectY">200dp</dimen>
-    <dimen name="padding">25dp</dimen>
-    <dimen name="textsize">10pt</dimen>
-    <!-- Exercice 2-->
-    <dimen name="tailledutrait">10dp</dimen>
-</resources>
