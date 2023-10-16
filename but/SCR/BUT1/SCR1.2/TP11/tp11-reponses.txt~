@@ -1,0 +1,2 @@
+./read_file.out texte.c
+cp read_file.c copy.c

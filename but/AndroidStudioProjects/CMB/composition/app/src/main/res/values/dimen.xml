@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fuchsiaH">100dp</dimen>
+    <dimen name="fuchsiaV">200dp</dimen>
+    <dimen name="padding">20dp</dimen>
+</resources>

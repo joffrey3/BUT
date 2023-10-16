@@ -1,0 +1,5 @@
+TP4bis :
+
+Exercice 1 :
+
+Le iter prend un tableau et fais une itération de celui ci avec une fonction

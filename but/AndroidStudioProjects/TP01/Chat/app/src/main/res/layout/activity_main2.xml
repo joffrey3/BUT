@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/Horizontal"
+    android:layout_height="@dimen/Vertical"
+    android:layout_gravity="center"
+    tools:context=".MainActivity"
+    >
+
+        <EditText
+            android:id="@+id/zone"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/zoneVertical"
+            android:layout_alignLeft="@id/champ"
+            android:layout_alignRight="@id/bouton"
+            android:enabled="true"
+            android:inputType="text"
+            android:text="zone de texte"
+            android:textSize="@dimen/textSize" />
+
+        <EditText
+            android:id="@+id/champ"
+            android:layout_width="@dimen/champHorizontal"
+            android:layout_height="@dimen/champVertical"
+            android:layout_below="@id/zone"
+            android:layout_alignTop="@id/bouton"
+            android:layout_alignBottom="@id/bouton"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/bouton"
+            android:enabled="true"
+            android:inputType="text"
+            android:text="champ de texte"
+            android:textSize="@dimen/textSize"
+            />
+
+        <Button
+            android:id="@+id/bouton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/champVertical"
+            android:background="#FFFFFF"
+            android:enabled="true"
+            android:text="ok"
+            android:textColor="#000000"
+            android:layout_below="@id/zone"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/textSize"
+            />
+</RelativeLayout>

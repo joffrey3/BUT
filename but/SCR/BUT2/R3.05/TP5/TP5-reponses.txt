@@ -1,0 +1,68 @@
+TP 5 :
+
+Exercice 1:
+
+1-
+On crée un lien entre un père et un fils :
+On utilise fork, wait, dup, dup2, read, write et close
+On utilise l'outils fcntl pour modifier le file descriptor :
+fcntl(fd[1], F_SETFL, fcntl(fd[1], F_GETFL) | O_NONBLOCK);
+On crée le .out :
+gcc -o ex1-2.out ex1-2.c 
+./ex1-2.out 
+
+
+2-On cherche a reproduire la commande :
+ls -i -l /tmp >> log
+On doit faire un execl sur le fils en modifiant la sortie standard avec un tube
+On récupère les données avec le père que l'on envoi dans un fichier qu'on doit créer
+On crée le .out :
+gcc -o ex1-2.out ex1-2.c 
+./ex1-2.out 
+
+3-Pour réussir cet exercice on utilise deux fils et deux tubes.
+Le premier fils se transforme en ls et sortie standard sur le premier tube
+execl("/usr/bin/ls","ls",".",NULL);
+Le deuxième fils se transforme en wc et entrée standard sur le premier tube et sortie standard sur le deuxieme tube
+execl("/usr/bin/wc","wc","-l",NULL);
+Le père a l'entrée standard sur le deuxieme tube;
+
+Exercice 2 :
+
+1)On construit le programme avec des read des write des pause et des sleep :
+Les commandes:
+
+kill -s SIGSTOP 32010
+stoppent la reception des messages mais pas l'envoi, cela rempli donc le pipe
+
+kill -s SIGCONT 32010
+reprend la reception et cela récupère toutes les secondes pour rattraper le retard accumulé
+
+kill -s SIGSTOP 32009
+stoppe la l'envoi des messages cela permet de vider le pipe
+
+kill -s SIGCONT 32009
+reprends l'envoi , permet de retourner sur un rythme classsique
+
+kill -s SIGTERM 32010
+cela bloque le programme car il n'y a plus de lecteurs
+
+kill -s SIGTERM 32009
+cela termine l'autre processus ce qui empèche toute interaction avec le pipe
+
+3)comme 1
+
+4)Il n'y a pas d'ordre parrticulier de lecture.
+
+Exercice 3 :
+
+à chaque itération on crée deux fils qui vont s'occuperde Fibonnaci-1 et Fibonnaci-2, chaque fils va également appelé deux fils etc..
+
+gcc -o ex3.out ex3.c
+./ex3.out 12
+
+Exercice 4 :
+
+On crée des filtres pour chaque nombre premier
+gcc -o ex4.out ex4.c
+./ex4.out 12

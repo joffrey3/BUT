@@ -1,0 +1,20 @@
+ps
+ps -u fouche (login)
+ps aux | grep dsp
+ps -e
+ps -C bash
+ls /dev/pts/
+tty
+CTRL-Alt-F2
+top
+top -o +%CPU -u $USER
+kill -g 1024
+./disp.out A & ./disp.out B & ./disp.out C
+CTRL+Z stop l'un des programmes
+jobs -l
+CTRL+Z ne fait rien car il agit uniquement sur le dernier programme lancé
+bg remet le programme S en cours
+rien les programme continue a tourné ils sont passé sur le background
+elle va remettre le dernier processus au premier plan
+cette fois le programme est completement arreté(tué)
+fg CTRL+C

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Liste">
+    <PreferenceCategory
+        android:key="@+id/categorie"
+        android:title="@string/categorie"
+        >
+        <ListPreference
+            android:key="@+id/couleur"
+            android:title="@string/couleur"
+            android:defaultValue="true"
+            />
+        <CheckBoxPreference
+            android:key="@+id/A"
+            android:title="@string/A"
+            android:summary="@string/boutonA"
+            android:defaultValue="true"
+            />
+        <CheckBoxPreference
+            android:key="@+id/T"
+            android:title="@string/T"
+            android:summary="@string/boutonT"
+            android:defaultValue="true"
+            />
+        <CheckBoxPreference
+            android:key="@+id/C"
+            android:title="@string/C"
+            android:summary="@string/boutonC"
+            android:defaultValue="true"
+            />
+        <CheckBoxPreference
+            android:key="@+id/G"
+            android:title="@string/G"
+            android:summary="@string/boutonG"
+            android:defaultValue="true"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>

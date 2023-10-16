@@ -1,0 +1,16 @@
+$TTL    3600
+@       IN      SOA     ROOT-SERV. root. (
+                   2007010401           ; Serial
+                         3600           ; Refresh [1h]
+                          600           ; Retry   [10m]
+                        86400           ; Expire  [1d]
+                          600 )         ; Negative Cache TTL [1h]
+;
+.        IN      NS    ROOT-SERV.
+ROOT-SERV    IN     A     90.90.0.10
+mos.      IN     NS    sethi.mos.
+        IN     NS     kheops.mos.
+80.80.in-addr.arpa      IN     NS    sethi.mos.
+                       IN     NS     kheops.mos.
+sethi.mos.     IN     A     80.80.0.20
+kheops.mos.     IN     A     80.80.0.10

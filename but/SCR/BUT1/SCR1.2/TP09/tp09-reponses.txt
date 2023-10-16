@@ -1,0 +1,34 @@
+mkdir -p ./lib/kernel/config/AA/BB/CC/XX
+mkdir -p ./lib/kernel/config/AA/BB/DD/YY
+I
+1)find -name '*.install' -type d
+2)find -name '*.d' -type f
+3)find -empty -type d
+4)find -size -1000c -type f
+5)find -size +30000c -type f
+6)find -type f -size 1024c ou find -type f -size 1k
+7)find -size 2 -type f
+8)find -size +30 -type f
+9)find -size -3 -type f
+10)find -size +1 -size -4 -type f
+11)find -H -newer ./lib/krb5/synch/atom.install
+12)find -mtime -4 -path 'lib/krb5/synch'
+13)find lib/kernel/install.d -mtime +3
+find -mtime +3 -path 'lib/kernel/install.d'
+14)find -mtime 3 -atime 2
+15)find -perm 'g=w' -o -perm 'o=w' ou find -perm /022
+16)find -perm -444 -type d
+17)find -perm 604 -type f
+II
+1)find -maxdepth 4 -name '[[:digit:]]*' -type f\
+-exec cp '{}' lib/kernel/config/AA/BB/CC/ ';' \
+-exec cp '{}' lib/kernel/config/AA/BB/CC/XX/ ';' \
+-exec cp '{}' lib/kernel/config/AA/BB/DD/ ';' \
+-exec cp '{}' lib/kernel/config/AA/BB/CC/YY/ ';' \
+2)find -amin +30
+3)find -mindepth 5 -type d -name '[[:upper:]]*' -exec chmod 700 {} \;
+4)find -cmin +15
+III
+1)cp -r ../TREE ../TRee
+2)find / -name '*.h' -type f -print -quit 2>/dev/null
+3)find ~ -newer ../TRee/lib/auth/transm.d -printf "%p -- %t\n" 2>/dev/null

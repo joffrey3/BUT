@@ -1,0 +1,312 @@
+TP 19 :
+
+Exercice I :
+1)sudo himage eno
+
+apt list --installed
+ligne de commande debian de gestion de packages ("dhcp")
+
+exit
+
+2)sudo himage eno
+ls /etc/init.d/
+cd /etc/init.d/
+On voit que le service est isc-dhcp-server 
+cat isc-dhcp-server 
+
+3)
+On trouve une ligne :
+--exec /usr/sbin/dhcpd
+C'est l'executable correspondant au service
+
+4)man dhcpd
+d signifie daemon
+ça dit que le fichier de conf est dhcpd.conf mais ou se trouve t'il 
+je peux faire :
+
+find / -name "dhcpd.conf"
+
+Reponse :
+/etc/dhcp/dhcpd.conf
+exit
+
+5)On est sur la machine hote et on fait  :
+sudo hcp isis:/etc/dhcp/dhcpd.conf .
+
+Exercice II :
+
+1)exit
+vim dhcpd.conf
+vim mode commande :.,$s/^/#/
+changer :
+
+a) option domaine-name "tp.scr";
+
+b)default-lease-time 600;
+max-lease-time 7200;
+
+c)
+subnet 192.168.1.0 netmask 255.255.255.0 {
+range 192.168.1.11 192.168.1.157;
+}
+
+"vider" le fichier des baux :
+cp /dev/null /var/lib/dhcp/dhclient.leases (coté client)
+/dhcpd.leaves (coté serveur)
+on a fait ca lors des séances script-shell
+
+d)  option subnet-mask 255.255.255.0;
+    option broadcast-address 192.168.1.0;
+    option routers 192.168.1.10;
+
+e)Dans isis :
+host cinnamon {
+  hardware ethernet 42:00:aa:00:00:00;
+  fixed-address 192.168.1.10;
+}
+
+Dans osiris :
+host cinnamon {
+  hardware ethernet 42:00:aa:00:00:00;
+  fixed-address 192.168.1.158;
+}
+
+2)sudo hcp dhcpd_fini.conf isis:/etc/dhcp/dhcpd.conf
+sudo himage isis
+man dhcpd
+dhcpd -t dhcpd.conf
+exit
+
+3)sudo hcp isis:/etc/default/isc-dhcp-server .
+vim isc-dhcp-server 
+mettre eth0
+sudo hcp isc-dhcp-server isis:/etc/default/isc-dhcp-server 
+
+
+Exercice III :
+
+1)sudo himage isis
+service isc-dhcp-server start
+ss -a
+bootps
+ss -an
+67  
+
+2)dhcpd
+man dhcpd :
+/var/run/dhcpd.pid
+less /var/run/dhcpd.pid
+119
+
+
+3)ps aux | grep dhcpd
+root         119  0.0  0.0  35960  9784 ?        Ss   14:24   0:00 /usr/sbin/dhcpd -4 -q -cf /etc/dhcp/dhcpd.conf eth0
+root         571  0.0  0.0  11116   916 pts/1    S+   14:02   0:00 grep dhcpd
+les arguments sont -4 -q -cf dans man dhcpd
+
+4)sur eno :
+avant dhclient
+ip a
+
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 16384 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+36: eth0@if37: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc netem state UP group default qlen 1000
+    link/ether 42:00:aa:00:00:01 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet6 fe80::4000:aaff:fe00:1/64 scope link 
+       valid_lft forever preferred_lft forever
+
+
+ip route
+
+Internet Systems Consortium DHCP Client 4.3.5
+Copyright 2004-2016 Internet Systems Consortium.
+All rights reserved.
+For info, please visit https://www.isc.org/software/dhcp/
+
+Listening on LPF/eth0/42:00:aa:00:00:01
+Sending on   LPF/eth0/42:00:aa:00:00:01
+Sending on   Socket/fallback
+DHCPREQUEST of 192.168.1.11 on eth0 to 255.255.255.255 port 67
+DHCPACK of 192.168.1.11 from 192.168.1.10
+RTNETLINK answers: File exists
+bound to 192.168.1.11 -- renewal in 223 seconds.
+
+dhclient -v eth0
+après dhclient
+
+ip a
+
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 16384 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+36: eth0@if37: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc netem state UP group default qlen 1000
+    link/ether 42:00:aa:00:00:01 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet 192.168.1.11/24 brd 192.168.1.0 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::4000:aaff:fe00:1/64 scope link 
+       valid_lft forever preferred_lft forever
+
+ip route
+
+default via 192.168.1.10 dev eth0 
+192.168.1.0/24 dev eth0 proto kernel scope link src 192.168.1.11 
+
+5)find / -name "dhcpd.leases"
+/var/lib/dhcp/dhcpd.leases
+
+less /var/lib/dhcp/dhcpd.leases
+
+# The format of this file is documented in the dhcpd.leases(5) manual page.
+# This lease file was written by isc-dhcp-4.3.5
+
+# authoring-byte-order entry is generated, DO NOT DELETE
+authoring-byte-order little-endian;
+
+server-duid "\000\001\000\001*<\250\007B\000\252\000\000\005";
+
+lease 192.168.1.11 {
+  starts 3 2022/06/15 14:26:05;
+  ends 3 2022/06/15 14:36:05;
+  cltt 3 2022/06/15 14:26:05;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 42:00:aa:00:00:01;
+  client-hostname "eno";
+}
+
+
+6)find / -name "*.leases"
+/var/lib/dhcp/dhclient.leases
+
+less /var/lib/dhcp/dhclient.leases
+
+lease {
+  interface "eth0";
+  fixed-address 192.168.1.11;
+  option subnet-mask 255.255.255.0;
+  option routers 192.168.1.10;
+lease {
+  interface "eth0";
+  fixed-address 192.168.1.11;
+  option subnet-mask 255.255.255.0;
+  option routers 192.168.1.10;
+lease {
+  interface "eth0";
+  fixed-address 192.168.1.11;
+  option subnet-mask 255.255.255.0;
+  option routers 192.168.1.10;
+lease {
+  interface "eth0";
+  fixed-address 192.168.1.11;
+  option subnet-mask 255.255.255.0;
+  option routers 192.168.1.10;
+lease {
+  interface "eth0";
+  fixed-address 192.168.1.11;
+  option subnet-mask 255.255.255.0;
+  option routers 192.168.1.10;
+  option dhcp-lease-time 600;
+  option dhcp-message-type 5;
+  option dhcp-server-identifier 192.168.1.10;
+  option broadcast-address 192.168.1.0;
+  option domain-name "tp.scr";
+  renew 3 2022/06/15 14:30:52;
+  rebind 3 2022/06/15 14:34:50;
+  expire 3 2022/06/15 14:36:05;
+}
+lease {
+  interface "eth0";
+  fixed-address 192.168.1.11;
+  option subnet-mask 255.255.255.0;
+  option routers 192.168.1.10;
+  option dhcp-lease-time 600;
+  option dhcp-message-type 5;
+  option dhcp-server-identifier 192.168.1.10;
+  option broadcast-address 192.168.1.0;
+  option domain-name "tp.scr";
+  renew 3 2022/06/15 14:34:46;
+  rebind 3 2022/06/15 14:39:37;
+  expire 3 2022/06/15 14:40:52;
+}
+
+
+Exercice IV :
+
+1) man dhclient
+dhclient -r 
+
+2)exit
+
+sudo himage isis
+"vider" le fichier des baux :
+cp /dev/null /var/lib/dhcp/dhclient.leases (coté client)
+exit
+sudo himage eno
+cp /dev/null /dhcpd.leaves (coté serveur)
+exit
+
+3)sudo himage isis
+dhclient -v
+exit
+
+4)sudo himage eno
+dhclient -v
+exit
+
+5)less /var/lib/dhcp/dhclient.leases
+
+lease {
+  interface "eth0";
+  fixed-address 192.168.1.11;
+  option subnet-mask 255.255.255.0;
+  option routers 192.168.1.10;
+  option dhcp-lease-time 600;
+  option dhcp-message-type 5;
+  option dhcp-server-identifier 192.168.1.10;
+  option broadcast-address 192.168.1.0;
+  option domain-name "tp.scr";
+  renew 3 2022/06/15 15:16:13;
+  rebind 3 2022/06/15 15:21:01;
+  expire 3 2022/06/15 15:22:16;
+}
+
+dhclient -v
+
+less /var/lib/dhcp/dhclient.leases
+
+lease {
+  interface "eth0";
+  fixed-address 192.168.1.11;
+  option subnet-mask 255.255.255.0;
+  option dhcp-lease-time 600;
+  option routers 192.168.1.10;
+  option dhcp-message-type 5;
+  option dhcp-server-identifier 192.168.1.10;
+  option broadcast-address 192.168.1.0;
+  option domain-name "tp.scr";
+  renew 3 2022/06/15 15:16:13;
+  rebind 3 2022/06/15 15:21:01;
+  expire 3 2022/06/15 15:22:16;
+}
+lease {
+  interface "eth0";
+  fixed-address 192.168.1.11;
+  option subnet-mask 255.255.255.0;
+  option routers 192.168.1.10;
+  option dhcp-lease-time 464;
+  option dhcp-message-type 5;
+  option dhcp-server-identifier 192.168.1.10;
+  option broadcast-address 192.168.1.0;
+  option domain-name "tp.scr";
+  renew 3 2022/06/15 15:17:45;
+  rebind 3 2022/06/15 15:21:18;
+  expire 3 2022/06/15 15:22:16;
+}

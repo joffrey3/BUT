@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">
+        Couleurs
+    </string>
+    <string name="action_ajouter">
+        Ajouter
+    </string>
+</resources>

@@ -1,0 +1,16 @@
+la commande kill -TERM 29154 donne :
+
+F S   UID     PID  C PRI  NI ADDR    SZ WCHAN  TT           TIME CMD
+0 S  5811    2818  0  19   0    -  2512 -      pts/0    00:00:00 /usr/bin/bash --i
+0 S  5811    8799  0  19   0    -   589 -      pts/0    00:00:00  \_ ./gdf1.out
+1 Z  5811    8800  0  19   0    -     0 -      pts/0    00:00:00      \_ [gdf1.out
+1 S  5811    8801  0  19   0    -   589 -      pts/0    00:00:00      \_ ./gdf1.ou
+1 S  5811    8803  0  19   0    -   589 -      pts/0    00:00:00 ./gdf1.out
+1 S  5811    8802  0  19   0    -   589 -      pts/0    00:00:00 ./gdf1.out
+1 S  5811    8804  0  19   0    -   589 -      pts/0    00:00:00  \_ ./gdf1.out
+
+les fils du processus qui s'est terminé sont devenus des orphelins
+
+pour obtenir cet arbre on a fait la commande dans un autre terminal:
+
+ps -t /dev/pts/0 --forest -o f,s,uid,pid,c,pri,ni,addr,sz,wchan,tty,time,cmd

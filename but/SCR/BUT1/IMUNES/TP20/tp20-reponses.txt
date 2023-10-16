@@ -1,0 +1,279 @@
+TP 20 :
+
+sudo himage osiris
+
+dhcpd
+
+Internet Systems Consortium DHCP Server 4.3.5
+Copyright 2004-2016 Internet Systems Consortium.
+All rights reserved.
+For info, please visit https://www.isc.org/software/dhcp/
+Config file: /etc/dhcp/dhcpd.conf
+Database file: /var/lib/dhcp/dhcpd.leases
+PID file: /var/run/dhcpd.pid
+Can't open lease database /var/lib/dhcp/dhcpd.leases: No such file or directory --
+  check for failed database rewrite attempt!
+Please read the dhcpd.leases manual page if you
+don't know what to do about this.
+
+If you think you have received this message due to a bug rather
+than a configuration issue please read the section on submitting
+bugs on either our web page at www.isc.org or in the README file
+before submitting a bug.  These pages explain the proper
+process and the information we find helpful for debugging..
+
+exiting.
+
+service isc-dhcp-server start
+
+Starting ISC DHCPv4 server: dhcpdcheck syslog for diagnostics. ... failed!
+ failed!
+
+Preparation 1 :
+
+apt list --installed ‘‘bind*’’
+
+Listing... Done
+
+exit
+
+sudo hcp osiris.named.conf.local osiris:/etc/bind/named.conf.local
+
+sudo hcp osiris.db.direct osiris:/etc/bind/db.direct
+sudo hcp osiris.db.reverse osiris:/etc/bind/db.reverse
+
+sudo himage osiris
+
+named-checkzone tp.scr /etc/bind/db.direct
+
+zone tp.scr/IN: loaded serial 1
+OK
+
+named-checkzone 192.168.1.158 /etc/bind/db.reverse
+
+zone 192.168.1.158/IN: loaded serial 1
+OK
+
+exit
+sudo hcp osiris.zones.rfc1918  osiris:/etc/bind/zones.rfc1918
+
+named-checkconf -z
+
+zone tp.scr/IN: loaded serial 1
+zone 1.168.192.in-addr.arpa/IN: loaded serial 1
+zone localhost/IN: loaded serial 2
+zone 127.in-addr.arpa/IN: loaded serial 1
+zone 0.in-addr.arpa/IN: loaded serial 1
+zone 255.in-addr.arpa/IN: loaded serial 1
+
+exit
+
+Preparation 2 :
+
+sudo hcp isis.dhcpd_fini.conf isis:/etc/dhcp/dhcpd.conf
+
+sudo hcp isis.isc-dhcp-server isis:/etc/default/isc-dhcp-server 
+
+Exercice 1 :
+
+1)sudo himage isis
+service isc-dhcp-server start
+
+Launching IPv4 server only.
+Starting ISC DHCPv4 server: dhcpd.
+
+ps -aux
+
+root         106  0.0  0.0  35960  9776 ?        Ss   07:19   0:00 /usr/sbin/dhcpd -4 -q -cf /etc/dhcp/dhcpd.conf eth0
+
+ps -ef 
+
+root         106       1  0 07:19 ?        00:00:00 /usr/sbin/dhcpd -4 -q -cf /etc/dhcp/dhcpd.conf eth0
+
+ps ax | grep dhcpd
+204 ?        Ss     0:00 /usr/sbin/dhcpd -4 -q -cf /etc/dhcp/dhcpd.conf eth0
+
+ps -U root 
+
+    106 ?        00:00:00 dhcpd
+
+il tourne sous le nom de root
+
+2)service isc-dhcp-server stop 
+
+Stopping ISC DHCPv4 server: dhcpd.
+
+service bind9 start
+
+Starting domain name service...: bind9.
+
+ps -ef 
+
+bind         146       1  0 07:45 ?        00:00:00 /usr/sbin/named -u bind
+
+il tourne sous le nom de bind
+
+less /etc/default/bind9
+
+# run resolvconf?
+RESOLVCONF=no
+
+# startup options for the server
+OPTIONS="-u bind"
+
+3)cd /etc
+ls -la
+
+drwxr-sr-x  2 root   bind       4096 Mar 29 15:24 bind
+
+Tout le monde peut lire et excuter le dossier bind
+
+cd /etc/bind
+
+ls -la
+total 64
+drwxr-sr-x 2 root bind 4096 Mar 29 15:24 .
+drwxr-xr-x 1 root root 4096 Jun 22 12:51 ..
+-rw-r--r-- 1 root root 3923 May  3  2019 bind.keys
+-rw-r--r-- 1 root root  237 May  3  2019 db.0
+-rw-r--r-- 1 root root  271 May  3  2019 db.127
+-rw-r--r-- 1 root root  237 May  3  2019 db.255
+-rw-r--r-- 1 root root  353 May  3  2019 db.empty
+-rw-r--r-- 1 root root  270 May  3  2019 db.local
+-rw-r--r-- 1 root root 3171 May  3  2019 db.root
+-rw-r--r-- 1 root bind  463 May  3  2019 named.conf
+-rw-r--r-- 1 root bind  490 May  3  2019 named.conf.default-zones
+-rw-r--r-- 1 root bind  165 May  3  2019 named.conf.local
+-rw-r--r-- 1 root bind  890 May 15  2019 named.conf.options
+-rw-r----- 1 bind bind   77 May 15  2019 rndc.key
+-rw-r--r-- 1 root root 1317 May  3  2019 zones.rfc1918
+
+Tout le monde peut lire les fichiers du dossier bind
+
+le processus pourra donc écrire si il veut le faire
+
+4)exit
+
+less osiris.README.Debian 
+
+sudo himage isis
+
+ls /var/cache/bind/
+
+ce répertoire est bind dans /var/cache
+
+Exercice 2 :
+
+1)exit
+
+tsig-keygen -a md5
+
+key "tsig-key" {
+	algorithm hmac-md5;
+	secret "l3RLMRam2futv/0L4ASAUA==";
+};
+
+tsig-keygen -a md5 tp.scr-key
+
+key "tp.scr-key" {
+	algorithm hmac-md5;
+	secret "Jja/5/TU6hNVKU0gWQYBGw==";
+};
+
+2)man tsig-keygen
+
+La différence c'est le nom de la clé qui est par défaut "tsig-key" 
+mais qui devient "tp.scr-key" dans la deuxieme requete
+
+touch osiris.ddns.key
+touch isis.ddns.key
+
+tsig-keygen -a md5 osiris.key >> osiris.ddns.key
+tsig-keygen -a md5 isis.key >> isis.ddns.key
+
+less osiris.ddns.key
+less isis.ddns.key
+
+sudo hcp osiris.ddns.key osiris:/etc/bind/ddns.key
+sudo hcp isis.ddns.key isis:/etc/dhcp/ddns.key
+
+Exercice 3 :
+
+1)
+vim osiris.named.conf.local
+
+include "/etc/bind/ddns.key";
+
+2)vim osiris.named.conf.local
+
+On passe de "/etc/bind/tp.scr." à :
+"/var/cache/bind/tp.scr."
+
+On passe de "/etc/bind/1.168.in-addr.arpa." à :
+"/var/cache/bind/1.168.in-addr.arpa."
+
+3)vim osiris.named.conf.local
+On met en dessous des files :
+allow-update {192.168.1.158};
+
+4)sudo hcp osiris.named.conf.local osiris:/etc/bind/named.conf.local
+sudo hcp osiris.ddns.key osiris:/etc/bind/ddns.key
+
+sudo hcp osiris.db.direct osiris:/var/cache/bind/db.direct
+sudo hcp osiris.db.reverse osiris:/var/cache/bind/db.reverse
+
+sudo himage osiris
+chown root:bind /etc/bind/ddns.key
+chmod 640 /etc/bind/ddns.key
+
+5)cd etc/bind
+ls -la
+
+-rw-r----- 1 root bind   79 Jun 23 08:52 ddns.key
+
+6)named-checkconf -z
+
+zone tp.scr/IN: loaded serial 1
+zone 1.168.192.in-addr.arpa/IN: loaded serial 1
+zone localhost/IN: loaded serial 2
+zone 127.in-addr.arpa/IN: loaded serial 1
+zone 0.in-addr.arpa/IN: loaded serial 1
+zone 255.in-addr.arpa/IN: loaded serial 1
+
+
+named-checkzone tp.scr /var/cache/bind/db.direct
+
+zone tp.scr/IN: loaded serial 1
+OK
+
+named-checkzone 192.168.1.158 /var/cache/bind/db.reverse
+
+zone 192.168.1.158/IN: loaded serial 1
+OK
+
+exit 
+
+Exercice 4 :
+
+1)vim dhcpd_fini.conf
+
+Ajoutez au début :
+include "/etc/dhcp/ddns.key";
+
+2)vim dhcpd_fini.conf
+
+Ajoutez :
+ddns-update-style standard;
+
+
+3)vim dhcpd_fini.conf
+
+Ajouter ensuite :
+zone "tp.scr." {
+    	primary 127.0.0.1;
+		key test.key;
+};
+zone "1.168.192.in-addr.arpa." {
+    	primary 127.0.0.1;
+		key test.key;
+};

@@ -1,0 +1,159 @@
+TP1 :
+
+Exercice 1 :
+
+Nous avons lancer un executable(processus qui a pris le pid 3093
+Ses diférents arguments sont stockés dans la mémoire et on un espace dédié.
+Dans cet espace on retrouve différentes zones tel que (le code, les données,la pile les bibliothèques, le tas et les éléments du repère du noyau)
+
+clear
+gcc -o adresse.out adresse.c
+./adresse.out
+
+Nous devons voir si les adresses données par le programme sont dans les zones associées par le fichier.
+
+less /proc/pid/maps   remplacer pid par le pid(exemple 3093) 
+
+main = 0x55eab9c9b179 est dans l'intervalle :
+55eab9c9b000-55eab9c9c000 r-xp 00001000 00:2a 38942533                   /export/home/an21/fouche/SCR/BUT2/R3.05/TP1/adresse.out
+
+&argc	=	0x7fff6431596c est dans l'intervalle :
+7fff642f7000-7fff64318000 rw-p 00000000 00:00 0                          [stack]
+
+&i	=	0x7fff6431597c est dans l'intervalle :
+7fff642f7000-7fff64318000 rw-p 00000000 00:00 0                          [stack]
+
+&j	=	0x55eab9c9f000 est dans l'intervalle :
+55eab9c9e000-55eab9ca0000 rw-p 00003000 00:2a 38942533                   /export/home/an21/fouche/SCR/BUT2/R3.05/TP1/adresse.out
+
+t	=	0x55eab9c9e060 est dans l'intervalle :
+55eab9c9e000-55eab9ca0000 rw-p 00003000 00:2a 38942533                   /export/home/an21/fouche/SCR/BUT2/R3.05/TP1/adresse.out
+
+m	=	0x55eaba4502a0 est dans l'intervalle :
+55eaba450000-55eaba471000 rw-p 00000000 00:00 0                          [heap]
+
+Exercice 2 :
+
+gcc -o table.out table.c
+./table.out
+
+Lorsqu'on lance le programme 2 on obtient un fichier .out ou l'on peut voir avec la commande size +nom du fichier la taille de différents espaces :
+
+Initialement avec une constante, un tableau global et un main on obtient :
+
+size table.out
+   text	   data	    bss	    dec	    hex	filename
+   1136	    512	  40032	  41680	   a2d0	table.out
+
+On doit changer le programme :
+
+/* segment bss et data */
+#define N 10000
+int t[N]; /* version 1 */
+//int t[N]={1}; /* version 2 */
+int main()
+{
+  return 0;
+}
+---------------------------------
+
+#include<stdio.h>
+/* segment bss et data */
+#define N 10000
+int t[N]; /* version 1 */
+//int t[N]={1}; /* version 2 */
+int main()
+{
+  char x;
+  printf("&t\t=\t%p\n",&t);
+  scanf("%d",&x);
+  return 0;
+}
+
+clear
+gcc -o table.out table.c
+./table.out
+
+Avec la commande :
+
+size table.out
+
+On obtient :
+   text	   data	    bss	    dec	    hex	filename
+   1597	    600	  40032	  42229	   a4f5	table.out
+
+
+less /proc/8992/maps
+
+Le tableau t est une variable global, il a une adresse de :
+&t	=	0x55d3a023a060
+
+on le retrouve dans l'intervalle :
+55d3a023a000-55d3a023b000 rw-p 00003000 00:2a 38933541                   /export/home/an21/fouche/SCR/BUT2/R3.05/TP1/table.out
+
+(au dessus de la pile dans une zone ou l'espace  ne se modifie pas avec le code)
+
+Testons avec une valeur supérieure
+Exemple : N=100000
+
+clear
+gcc -o table.out table.c
+./table.out
+
+avec la commande :
+
+size table.out
+
+On obtient :
+   text	   data	    bss	    dec	    hex	filename
+   1597	    600	 400032	 402229	  62335	table.out
+
+On peut observer que les parties bss et dec sont passées de 40032 à 400032 et de 42229 à 402229, (N(10000->100000), size(40000->400000))
+La variable à augmenté
+
+avec size.out la taille du bss passe dans le data dans la version 2.
+
+   text	   data	    bss	    dec	    hex	filename
+   1597	 400616	      8	 402221	  6232d	table.out
+
+Exercice 3 :
+
+Dans cet exercice ,on lance un programme qui va nous donner le temps que va mettre le code a se réaliser.
+
+gcc -o tableau.out tableau.c
+./tableau.out
+
+
+La première version crée deux boucles i et j et remplit un tableau[N][N] en tableau [i][j] avec tous les éléments qui sont égaux à 1
+
+le temps d'execution est en moyenne:
+time = 0.150403
+
+La deuxième version crée deux boucles i et j et remplit un tableau[N][N] en tableau [j][i] avec tous les éléments qui sont égaux à 1
+
+le temps d'execution est en moyenne:
+time = 0.848056
+
+On peut expliquer cette différence car la boucle j est dans la boucle j donc il va se déplacer i fois de j dans les deux versions.Dans la première version il va se déplacer de 1 en incrémentant j dans la seconde il va se déplacer de 8192 en incrémentant j.De plus dans cette dernière il va retourner en arrière plusieurs fois. On observe plus de défaut de cache.
+
+Exercice 4 :
+
+gcc -o sum_array.out sum_array.c
+
+en lancant le programme on obtient différents résultats
+
+./sum_array.out -a 100000
+S=4999950000 0.000221
+./sum_array.out -c 100000
+S=4999950000 0.000860
+./sum_array.out -d 100000 
+S=4999950000 0.000859
+Dans les premiers premiers exemples on observe que le programme aléatoire est en moyenne plus rapide que le programme croissant et celui décroissant
+
+./sum_array.out -a 10000000
+S=49999995000000 0.120072
+./sum_array.out -c 10000000
+S=49999995000000 0.018099
+./sum_array.out -d 10000000
+S=49999995000000 0.018206
+Cependant si on observe des valeurs plus grandes celui-ci se fait dépasser et perds en efficacité face aux deux autres. Cela s'explique par son caractère aléatoire à la base, meme si le programme croissant et décroissant sont plus long à la base, ils s'appliquent pour tous les tableaux en gardant une vitesse proportionnelle. L'aléatoire à une vitesse plus exponentielle du au plus grand nombre de possibilités qu'il fait face. Beaucoup plus de permutations sont faites ce qui entraine bien plus de défauts de cache et de temps.

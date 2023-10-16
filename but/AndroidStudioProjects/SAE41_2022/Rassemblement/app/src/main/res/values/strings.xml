@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MASTERMIND</string>
+    <string name="setting_title">Paramètres de l\'application</string>
+    <string name="param_allow_null_color_title">Autoriser les couleurs vides</string>
+    <string name="param_allow_null_color_key">param_allow_null_color</string>
+    <string name="param_allow_null_color_desc">Autoriser l\'envoie de combinaisons avec des couleurs vides pendant une partie de mastermind</string>
+    <string name="param_epic_mode_key">param_epic_mode</string>
+    <string name="param_epic_mode_title">Mode Epique</string>
+    <string name="param_epic_mode_desc">\??????????????????????????? !</string>
+</resources>

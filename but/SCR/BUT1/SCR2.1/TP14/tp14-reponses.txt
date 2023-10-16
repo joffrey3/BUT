@@ -1,0 +1,55 @@
+Exercice 1 :
+
+1)ncat -lu 50000
+ncat -u 127.0.0.1 50000
+
+ss
+ss --udp
+
+2)dd if=/dev/random of=ft-file.dat count=18
+dd if=/dev/random of=ft-file.dat bs=1024 count=9
+
+tcpdump -i lo host 127.0.0.1
+tcpdump -vvv -t -n -e -i  eno1 host 172.16.2.74
+
+3)avec ncat on a transféré localement un fichier de taille 9k
+ncat -l 5555
+ncat 127.0.0.1 5555 < ft-file.dat
+(tcpdump -e -n -t -vvv -i lo host 127.0.0.1)
+On se retrouve avec plein de paquets différents, 10 de taille différentes (de 8k a 52 octets)
+
+
+4)a)-t
+b) Dans l'expression ajouter not arp
+c)-n
+
+5)-F
+
+6)ncat -l -u 5555
+ncat -u 127.0.0.1 5555 
+
+7)
+L'option a rajouter est -u ,celle ci passe en mode UDP au lieu du mode TCP
+Oui il s'agit d'une fragmentation sur l'adresse lo elle se fait par des paquets de 8192 octets.
+comme la taille du fichier est de 9k le transfert se fait en deux paquets.
+flags [DF]
+(tcpdump -e -vvv -i eno1 host 127.0.0.1)
+ncat -l -u 5555
+ncat -u 127.0.0.1 5555 < ft-file.dat
+
+Exercice 2 :
+
+1)which traceroute
+which tracepath
+
+2)On lance tracepath apres avoir lancé tcpdump cela nous permet de voir que la commande fonctionne.
+tracepath -4 172.16.2.87
+(tcpdump -i lo -nlvvvt host 172.16.2.87 and not arp and not port domain and not tcp
+ou 
+tcpdump -i lo -nlvvvt -F expr_to_tcpdump.txt (tee/tracepath))
+
+tcpdump -i lo -nlvvvt host 172.16.2.87 and not arp and not port domain and not tcp > traceroute-trace.txt
+
+3)tracepath -n 216.58.204.131
+
+4)sed /'^ $'/cat traceroute-trace.txt

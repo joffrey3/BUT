@@ -1,0 +1,198 @@
+node n0 {
+    type lanswitch
+    network-config {
+	hostname switch1
+	!
+    }
+    canvas c0
+    iconcoords {264 240}
+    labelcoords {264 263}
+    interface-peer {e0 n3}
+    interface-peer {e1 n4}
+    interface-peer {e2 n2}
+}
+
+node n1 {
+    type lanswitch
+    network-config {
+	hostname switch2
+	!
+    }
+    canvas c0
+    iconcoords {576 240}
+    labelcoords {576 263}
+    interface-peer {e0 n5}
+    interface-peer {e1 n6}
+    interface-peer {e2 n2}
+}
+
+node n2 {
+    type host
+    network-config {
+	hostname GW
+	!
+	interface eth1
+	 mac address 42:00:aa:00:00:05
+	 ip address 172.16.2.254/24
+	!
+	interface eth0
+	 mac address 42:00:aa:00:00:04
+	 ip address 172.16.1.254/24
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/8
+	 ipv6 address ::1/128
+	!
+    }
+    canvas c0
+    iconcoords {432 96}
+    labelcoords {432 132}
+    interface-peer {eth0 n0}
+    interface-peer {eth1 n1}
+}
+
+node n3 {
+    type pc
+    network-config {
+	hostname pc1-1
+	!
+	interface eth0
+	 mac address 42:00:aa:00:00:00
+	 ip address 172.16.1.1/24
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/8
+	 ipv6 address ::1/128
+	!
+	ip route 0.0.0.0/0 172.16.1.254
+	ip route 172.16.2.0/24 172.16.1.254
+	!
+    }
+    canvas c0
+    iconcoords {120 408}
+    labelcoords {120 439}
+    interface-peer {eth0 n0}
+}
+
+node n4 {
+    type pc
+    network-config {
+	hostname pc1-2
+	!
+	interface eth0
+	 mac address 42:00:aa:00:00:01
+	 ip address 172.16.1.2/24
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/8
+	 ipv6 address ::1/128
+	!
+	ip route 0.0.0.0/0 172.16.1.254
+	ip route 172.16.2.0/24 172.16.1.254
+	!
+    }
+    canvas c0
+    iconcoords {360 408}
+    labelcoords {360 439}
+    interface-peer {eth0 n0}
+}
+
+node n5 {
+    type pc
+    network-config {
+	hostname pc2-1
+	!
+	interface eth0
+	 mac address 42:00:aa:00:00:02
+	 ip address 172.16.2.1/24
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/8
+	 ipv6 address ::1/128
+	!
+	ip route 0.0.0.0/0 172.16.2.254
+	ip route 172.16.1.0/24 172.16.2.254
+	!
+    }
+    canvas c0
+    iconcoords {480 384}
+    labelcoords {480 415}
+    interface-peer {eth0 n1}
+}
+
+node n6 {
+    type pc
+    network-config {
+	hostname pc2-2
+	!
+	interface eth0
+	 mac address 42:00:aa:00:00:03
+	 ip address 172.16.2.2/24
+	!
+	interface lo0
+	 type lo
+	 ip address 127.0.0.1/8
+	 ipv6 address ::1/128
+	!
+	ip route 0.0.0.0/0 172.16.2.254
+	ip route 172.16.1.0/24 172.16.2.254
+	!
+    }
+    canvas c0
+    iconcoords {720 408}
+    labelcoords {720 439}
+    interface-peer {eth0 n1}
+}
+
+link l0 {
+    nodes {n0 n3}
+    bandwidth 0
+}
+
+link l1 {
+    nodes {n0 n4}
+    bandwidth 0
+}
+
+link l2 {
+    nodes {n1 n5}
+    bandwidth 0
+}
+
+link l3 {
+    nodes {n1 n6}
+    bandwidth 0
+}
+
+link l4 {
+    nodes {n0 n2}
+    bandwidth 0
+}
+
+link l5 {
+    nodes {n1 n2}
+    bandwidth 0
+}
+
+canvas c0 {
+    name {Canvas0}
+}
+
+option show {
+    interface_names yes
+    ip_addresses yes
+    ipv6_addresses yes
+    node_labels yes
+    link_labels yes
+    background_images no
+    annotations yes
+    hostsAutoAssign no
+    grid yes
+    iconSize normal
+    zoom 1.0
+}
+
