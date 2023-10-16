@@ -1,0 +1,116 @@
+TP 3 :
+
+Exercice 1 :
+
+On pourrait penser que les programmes font la meme chose.
+Cependant le premier affiche deux fois non alors que le deuxième le fait une seule fois.
+
+gcc -o ex1-stdio.out ex1-stdio.c
+./ex1-stdio.out 
+NONOUI
+NON
+
+gcc -o ex1-syscall.out ex1-syscall.c
+./ex1-syscall.out
+NONOUI
+
+Le printf contrairement au write n'est pas un appel système
+
+
+Exercice 2 :
+
+
+gcc -o fork_and_fd1.out fork_and_fd1.c
+./fork_and_fd1.out test1
+je suis le pereje suis le fils !!!
+
+
+gcc -o fork_and_fd2.out fork_and_fd2.c
+./fork_and_fd2.out test2
+je suis le fils !!!
+
+Dans le premier cas les deux s'afffiche mais pas dans le second. le fichier s'ouvre et est modifié deux fois dans le deux ce qui fait que l'on garde uniquement la dernière version
+
+Exercice 3 :
+
+On a une copie bit à bit
+Sans décommenter on obtient :
+
+La vie est belle
+la copie est fonctionnelle
+le programme fonctionne
+
+En décommentant on obtient :
+
+La vie est belle
+la copie et fonctiosnnelle
+le programme fonctionne
+
+le texte est légèrement modifié cela dépend à la fois de la copie du fils et de celle du père
+
+Exercice 4 :
+On cherche à afficher plusieurs informations nécessaire
+
+gcc -o ex4.out ex4.c
+./ex4.out 
+
+pid du fils ou 0 : 5578
+pid du père ou du fils : 5577
+pid inconnu ou du père : 4250
+pid du fils ou 0 : 0
+pid du père ou du fils : 5578
+pid inconnu ou du père : 5577
+état du status de la sortie du fils : 1
+code de reour du fils : 2
+
+et le résultat de ps.
+
+Exercice 5 :
+
+Il n'y a q'un zéro dans le tableau
+
+On divise le tableau en deux pour la première version on obtient :
+
+gcc -o ex5.out ex5.c
+./ex5.out 
+Enter a number between 0 and 1000: 175
+Found !
+
+On divise le tableau en n qu'on rentre à la ligne de commande pour la deuxième version on obtient :
+
+gcc -o ex5.out ex5.c
+./ex5.out 4
+Enter a number between 0 and 1000: 175
+Found !
+
+On rajoute une ligne pou kill les programmes pour la troisième version on obtient :
+
+kill(-status,SIGTERM);
+
+gcc -o ex5.out ex5.c
+./ex5.out 4
+Enter a number between 0 and 1000: 175
+Found !
+
+
+Exercice 6 :
+
+On copie colle le programme session.c puis on le compile :
+
+gcc -o session.out session.c
+./session.out 
+
+on fait ensuite un ps sur le terminal :
+
+ps -t dev/pts/0 -o pid,ppid,pgid,sess,tpgid
+
+ PID    PPID    PGID    SESS   TPGID
+   2083    2022    2083    2083   10854
+  10854    2083   10854    2083   10854
+
+il y a 2083 pid du pere
+10854 pid du fils
+2022 pid du bash
+une session leader=2083
+deux groupes leader=2083,10854
+tpgid=pid du groupe processus au premier plan 10854

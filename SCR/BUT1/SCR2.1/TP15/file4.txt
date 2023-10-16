@@ -1,0 +1,8 @@
+15:51:58.403166 IP (tos 0x0, ttl 64, id 37224, offset 0, flags [none], proto UDP (17), length 77)
+    salle225-01.arda.lan.47952 > eru.arda.lan.domain: [bad udp cksum 0x5c53 -> 0xf950!] 14378+ [1au] A? arda.com. ar: . OPT UDPsize=4096 [COOKIE 4c70c317d64f1fee] (49)
+15:51:58.404709 IP (tos 0x0, ttl 64, id 23694, offset 0, flags [none], proto UDP (17), length 157)
+    eru.arda.lan.domain > salle225-01.arda.lan.47952: [udp sum ok] 14378 q: A? arda.com. 4/0/1 arda.com. [4s] A 52.222.149.80, arda.com. [4s] A 52.222.149.116, arda.com. [4s] A 52.222.149.2, arda.com. [4s] A 52.222.149.122 ar: . OPT UDPsize=1232 [COOKIE 4c70c317d64f1fee 01000000624c497ecaac1aedd1981ac6] (129)
+^C
+2 packets captured
+2 packets received by filter
+0 packets dropped by kernel

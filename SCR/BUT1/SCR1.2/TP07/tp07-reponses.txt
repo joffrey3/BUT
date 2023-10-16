@@ -1,0 +1,55 @@
+I
+expr length stock_market
+12
+expr substr stock_market 1 5
+stock
+expr substr stock_market 7 12
+market
+expr index stock_market "_"
+6
+expr index stock_market "_c"
+4
+addr=01101010010010110100011111100010
+expr length $addr
+37
+x=$(expr substr 01101010010010110100011111100010 1 8); echo $x
+01101010
+y=$(expr substr 01101010010010110100011111100010 9 8); echo $y
+01001011
+z=$(expr substr 01101010010010110100011111100010 17 8); echo $z
+01000111
+t=$(expr substr 01101010010010110100011111100010 25 8); echo $t
+11100010
+echo $x; echo " "; echo $y ; echo " "; echo $z; echo " "; echo $t
+01101010
+ 
+01001011
+ 
+01000111
+ 
+11100010
+echo $((2#101))
+5
+echo $((2#101110))
+46
+echo $((2#$x)).$((2#$y)).$((2#$z)).$((2#$t))
+106.75.71.226
+addr_dot=$(echo $((2#$x)).$((2#$y)).$((2#$z)).$((2#$t))); echo $addr_dot
+106.75.71.226
+vx=$((2#$x))
+vy=$((2#$y))
+vz=$((2#$z))
+vt=$((2#$t))
+addr_dot="$vx.$vy.$vz.$vt"; echo $addr_dot
+106.75.71.226
+
+II
+1)sort -k5g ls-output.txt
+sort -k5gr ls-output.txt
+tail -n+2 ls-output.txt | sort -rnk5
+tail -n+2 ls-output.txt | sort -nk5
+2)sort -rk3 find-output.txt
+sort -k3 find-output.txt
+
+
+

@@ -1,0 +1,64 @@
+Hello world!
+0
+fi
+0
+-rw-r--r-- 1 fouche students21 0 17 sept. 11:47 fi
+0
+ls: impossible d'accéder à 'nofi': Aucun fichier ou dossier de ce type
+2
+Hello world2!
+Hello world1!
+
+fi
+0
+ls: impossible d'accéder à 'nofi': Aucun fichier ou dossier de ce type
+2
+fi
+Hello world!
+0
+ls: impossible d'accéder à 'nofi': Aucun fichier ou dossier de ce type
+2
+f1
+0
+ls: impossible d'accéder à 'nofi': Aucun fichier ou dossier de ce type
+Hello world!
+0
+ls: impossible d'accéder à 'nofi': Aucun fichier ou dossier de ce type
+fi
+0
+fi
+0
+ls: impossible d'accéder à 'nofi': Aucun fichier ou dossier de ce type
+2
+ls: impossible d'accéder à 'nofi': Aucun fichier ou dossier de ce type
+fi
+ls: impossible d'accéder à 'nofi': Aucun fichier ou dossier de ce type
+fi
+ls: impossible d'accéder à 'nofi': Aucun fichier ou dossier de ce type
+le signe > fait en sorte d'inserer des elements dans le fichier en les remplacant constamment
+aucune
+ls: impossible d'accéder à 'nofifi': Aucun fichier ou dossier de ce type
+fifi
+ls: impossible d'accéder à 'nofi': Aucun fichier ou dossier de ce type
+fifi
+fi
+ls: impossible d'accéder à 'nofi': Aucun fichier ou dossier de ce type
+fi
+ls: impossible d'accéder à 'nofifi': Aucun fichier ou dossier de ce type
+fi
+ls: impossible d'accéder à 'nofifi': Aucun fichier ou dossier de ce type
+ls: impossible d'accéder à 'nofi': Aucun fichier ou dossier de ce type
+Ils font passer la sortie des erreurs (2) dans un fichier, le premier remplace le second rajoute
+fi
+ls: impossible d'accéder à 'nofi': Aucun fichier ou dossier de ce type
+ls: impossible d'accéder à 'nofi': Aucun fichier ou dossier de ce type
+fi
+le 2>&1 nous permet d'eviter plusieurs redirections et d'utiliser plusieurs fichiers
+le 2 ste la sortie des erreurs et le 1 la sortie normale, on envoie tout dans un meme fichier
+On obtient 3 nombres qui indiquent les lignes les mots et les caractères
+2 13 76 output_and_error_file
+2 13 76
+la premiere indique le nom du fichier alors que l'autre donne uniquement les chiffres
+On a placer les informations de ls -l dans output_file
+on a indiquer le nombre de phrase mot et characteres dans ls -l de output_file
+ls -l /etc/ > output_file && wc < output_file  

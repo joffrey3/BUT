@@ -1,0 +1,51 @@
+I
+seq 5
+seq 7
+for ((i=1;i<=5;i++));do echo $i;done
+for ((i=1;i<=7;i++));do echo $i;done
+vim my_seq.sh
+chmod u+rx my_seq.sh
+./my_seq.sh
+vim mult_math.sh
+chmod u+x mult_math.sh
+./mult_math.sh 7 11
+vim ipv4.sh
+chmod u+x ipv4.sh
+./ipv4.sh
+./ipv4.sh bin_ipv4_addres.dat file.dat
+cat file.dat
+178.226.135.114
+229.197.89.82
+50.230.132.114
+cat bin_ipv4_addres.dat
+10110010111000101000011101110010
+11100101110001010101100101010010
+00110010111001101000010001110010
+cat >> bin_ipv4_addres.dat
+permet de rentrer du texte dans un fichier
+11110000111111110000000010101010
+cat bin_ipv4_addres.dat
+10110010111000101000011101110010
+11100101110001010101100101010010
+00110010111001101000010001110010
+11110000111111110000000010101010
+./ipv4.sh bin_ipv4_addres.dat file.dat
+File file.dat already exists. Owerride ? YES/NO -->YES
+178.226.135.114
+229.197.89.82
+50.230.132.114
+240.255.0.170
+read x
+7
+echo "$? x=$x" ;
+0 x=7
+read x
+
+echo "$? x=$x" ;
+0 x=
+read x
+ctrl+D
+echo "$? x=$x" ;
+1 x=
+read renvoie a l'entrée standard 0 sauf quand c'est ctrl+D on peut affecter une variable dans read exemple read x
+quand read rencontre fin de fichier elle renvoie 1
