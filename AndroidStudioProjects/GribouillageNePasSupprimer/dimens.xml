@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="leftRectangle">0.0dp</dimen>
+    <dimen name="topRectangle">0.0dp</dimen>
+    <dimen name="rightRectangle">200.0dp</dimen>
+    <dimen name="bottomRectangle">100.0dp</dimen>
+
+    <dimen name="posXCercle">200.0dp</dimen>
+    <dimen name="posYCercle">0.0dp</dimen>
+    <dimen name="rayonCercle">50.0dp</dimen>
+
+    <dimen name="posXText">0.0dp</dimen>
+    <dimen name="posYText">200.0dp</dimen>
+
+    <dimen name="posXImage">200.0dp</dimen>
+    <dimen name="posYImage">200.0dp</dimen>
+</resources>

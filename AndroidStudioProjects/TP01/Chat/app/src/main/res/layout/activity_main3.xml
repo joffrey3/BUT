@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/Horizontal"
+    android:layout_height="@dimen/Vertical"
+    android:layout_gravity="center"
+    tools:context=".MainActivity"
+    >
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zoneVertical"
+            android:layout_gravity="top"
+            >
+        <EditText
+            android:id="@+id/zone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zoneVertical"
+            android:enabled="true"
+            android:inputType="text"
+            android:text="zone de texte"
+            android:textSize="@dimen/textSize"
+            android:layout_span="2"
+            />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            >
+        <EditText
+            android:id="@+id/champ"
+            android:layout_width="@dimen/champHorizontal"
+            android:layout_height="match_parent"
+            android:enabled="true"
+            android:inputType="text"
+            android:text="champ de texte"
+            android:textSize="@dimen/textSize"
+            />
+
+        <Button
+            android:id="@+id/bouton"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:enabled="true"
+            android:text="ok"
+            android:textColor="#000000"
+            android:textSize="@dimen/textSize"
+            />
+        </TableRow>
+</TableLayout>

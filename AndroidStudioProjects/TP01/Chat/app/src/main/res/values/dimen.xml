@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="Horizontal">250dp</dimen>
+    <dimen name="Vertical">140dp</dimen>
+    <dimen name="zoneVertical">100dp</dimen>
+    <dimen name="champVertical">25dp</dimen>
+    <dimen name="champHorizontal">200dp</dimen>
+    <dimen name="textSize">10dp</dimen>
+</resources>

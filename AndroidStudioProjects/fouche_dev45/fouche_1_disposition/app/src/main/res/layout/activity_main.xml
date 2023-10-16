@@ -1,0 +1,45 @@
+<!--Exercice3-->
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/everywhere"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
+    android:gravity="bottom|right"
+    android:paddingBottom="15dp"
+    tools:context=".MainActivity"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="x="
+        android:textColor="@android:color/darker_gray"
+        />
+
+    <TextView
+        android:id="@+id/xValue"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text="∅"
+        android:textColor="@android:color/holo_purple"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="y="
+        android:textColor="@android:color/darker_gray"
+        />
+
+    <TextView
+        android:id="@+id/yValue"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text="∅"
+        android:textColor="@android:color/holo_purple"
+        />
+
+</LinearLayout>

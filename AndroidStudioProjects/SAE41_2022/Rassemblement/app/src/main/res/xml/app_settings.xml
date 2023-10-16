@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:title="@string/setting_title"
+        android:key="pref_masterming_group">
+        <CheckBoxPreference
+            android:key="@string/param_allow_null_color_key"
+            android:title="@string/param_allow_null_color_title"
+            android:summary="@string/param_allow_null_color_desc"
+            android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:key="@string/param_epic_mode_key"
+            android:title="@string/param_epic_mode_title"
+            android:summary="@string/param_epic_mode_desc"
+            android:defaultValue="false"/>
+    </PreferenceCategory>
+</PreferenceScreen>
+
