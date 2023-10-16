@@ -1,0 +1,25 @@
+import javax.swing.JComponent;
+import java.awt.*;
+import java.util.Random;
+import javax.swing.*;
+import java.awt.event.*;
+import java.lang.*;
+import java.util.EventObject;
+
+public class Find extends JFrame /*implements MouseListener*/{ 
+	public static void main(String[] args) {
+	JFrame defaite = new JFrame();
+		
+		defaite.setSize(300,700);
+		defaite.setLocation(600,200);
+		defaite.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		defaite.setTitle("Perdu !");
+
+		JLabel text01 = new JLabel("Vous avez perdu");
+		defaite.add(text01);
+
+		defaite.setVisible(true);
+
+	}
+
+}

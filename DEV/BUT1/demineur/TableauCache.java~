@@ -1,0 +1,92 @@
+
+public class TableauCache {
+	int ligne;
+	int colonne;
+	String chaine = new String();
+	int tab[][];
+	public TableauCache(int l,int c){
+		this.ligne=l;
+		this.colonne=c;
+		this.tab= new int[l][c];
+		String texte="";
+		int i=0;
+		int j=0;
+		for(i=0;i<this.ligne;i++){
+			for(j=0;j<this.colonne;j++){
+				this.tab[i][j]=1;
+				texte = texte + " ";
+				texte = texte + this.tab[i][j];
+			}
+			texte = texte + "\n";
+		}
+		//System.out.println(texte);
+		//System.out.println("etape 0 ");
+		//System.out.println(this.tab[c-1][l-1]);
+		this.chaine=texte;
+		//System.out.println(this.tab[i][j]);
+		//this.tab=tab2;
+	}
+	/*public void creationTableauVisible() {
+		this.chaine = new String();
+		for(int i=0;i<this.ligne;i++){
+			for(int j=0;j<this.colonne;j++){
+				if (this.tab[i][j]!=0){
+					if(i%2==0){
+						this.tab[i][j]=2;
+					}
+					else{
+						this.tab[i][j]=3;
+					}
+				}
+				this.chaine = this.chaine + " ";
+				this.chaine = this.chaine + tab[i][j];
+			}
+			this.chaine = this.chaine + "\n";
+		}
+		System.out.println(this.chaine);
+	}*/
+	public void reveler(int l,int c) {
+		this.tab[l][c]=0;
+		this.chaine = new String();
+		for(int i=0;i<this.ligne;i++){
+			for(int j=0;j<this.colonne;j++){
+				this.chaine = this.chaine + " ";
+				this.chaine = this.chaine + tab[i][j];
+			}
+			this.chaine = this.chaine + "\n";
+		}
+		//System.out.println(this.chaine);
+	}
+	public int marquer(int l,int c) {
+		//System.out.println(this.tab[l-1][c-1]);
+		//System.out.println(this.tab[l][c]);
+		//System.out.println(this.tab[l+1][c+1]);
+		int point=0;
+		switch(this.tab[l][c]){
+			case 1 : point=2;
+			break;
+			case 2 : point=3;
+			break;
+			case 3 : point=1;
+			break;
+		}
+		//System.out.println(point);
+		this.tab[l][c]=point;
+		this.chaine = new String();
+		for(int i=0;i<this.ligne;i++){
+			for(int j=0;j<this.colonne;j++){
+				this.chaine = this.chaine + " ";
+				this.chaine = this.chaine + tab[i][j];
+			}
+			this.chaine = this.chaine + "\n";
+		}
+		//System.out.println(this.chaine);
+		return this.tab[l][c];
+	}
+    public int getCase(int x,int y) {
+	return this.tab[x][y];
+    }
+    public void setCase(int x,int y,int nombre) {
+    	this.tab[x][y]=nombre;
+    }
+}

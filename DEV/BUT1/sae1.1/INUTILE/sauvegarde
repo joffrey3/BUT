@@ -1,0 +1,193 @@
+sauvegarde
+
+    /*printf("Le taquin va commencer\n");
+    for (;i!=1;){
+        printf("Lignes : ");
+        scanf("%d",&x);
+        printf("Colonnes : ");
+        scanf("%d",&y);
+        if ((x>=3) && (x<=8) && (y>=3) && (y<=8)){
+            i=1;
+        }else{
+            printf("Les dimensions ne correspondent pas aux valeurs souhaitées (entre 3 et 8)\n ");
+        }
+    }*/
+    /*ChoisirEcran(1);
+    for (i=0;i<y;i++){
+        for (j=0;j<x;j++){
+         ChargerImage("image.jpg",0+i*L/y+i,0+j*H/x+j,0+i*L/y+i,0+j*H/x+j,L/y,H/x);
+        }
+    }*/
+    /*ChoisirEcran(0);
+    for (i=0;i<x;i++){
+        for (j=0;j<y;j++){
+            if (i!=0 || j!=0){
+                ChargerImage("image.jpg",0+j*H/y+j,0+i*L/x+i,0+i*L/x,0+j*H/y,L/y,H/x);
+            }
+        }
+    }*/
+    int tab[8][8], alea_x, alea_y, pos_x, pos_y,flag=1;
+    for (i=0;i<x;i++){
+        for (j=0;j<y;j++){
+            tab[i][j]=-1;
+        }
+    }
+    for (i=0;i<(x*y);i++){
+        alea_x=rand()%x;
+        alea_y=rand()%y;
+        if (i==0){
+            pos_x=alea_x;
+            pos_y=alea_y;
+        }
+        if(tab[alea_x][alea_y]!=-1){
+            i=i-1;
+        }else {
+            tab[alea_x][alea_y]=i;
+        }
+    }
+        /*flag=verification(pos_x,pos_y,x,y,tab);*/
+    taquin_chiffre(x,y,tab);
+    taquin_image(x,y,image);
+    /*CopierZone(1,0,0,0,210,210,400,0);
+    Touche();
+    CopierZone(2,0,0,0,210,210, 0,400);*/
+    int t;
+    t=Touche();
+    for(;flag!=0;){
+        if(t==XK_Up){
+            if (pos_x==x-1){
+                printf("Bordure de taquin\n");  
+            }else{
+                direction(1,0,pos_x,pos_y,x,y,image);
+            }
+            taquin_chiffre(x,y,tab);
+        }
+        if(t==XK_Down){
+            if (pos_x==0){
+                printf("Bordure de taquin\n");  
+            }else{
+                direction(-1,0,pos_x,pos_y,x,y,image);
+            }
+            taquin_chiffre(x,y,tab);
+        }
+        if(t==XK_Right){
+            if (pos_y==0){
+                printf("Bordure de taquin\n");  
+            }else{
+                direction(0,-1,pos_x,pos_y,x,y,image);
+            }
+            taquin_chiffre(x,y,tab);
+        }
+        if(t==XK_Left){
+            if (pos_y==y-1){
+                printf("Bordure de taquin\n");  
+            }else{
+                direction(0,1,pos_x,pos_y,x,y,image);
+            }
+            taquin_chiffre(x,y,tab);
+        }
+        SourisPosition();
+        if (_X>=400 && _X<=600 && _Y>=200 && _Y<=250){
+            return 4;
+        }
+        if (_X>=50 && _X<=100 && _Y>=50 && _Y<=100){
+            return 1;
+        }
+        if (_X>=150 && _X<=200 && _Y>=50 && _Y<=100){
+            return 2;
+        }
+        if (_X>=250 && _X<=300 && _Y>=50 && _Y<=100){
+            return 3;
+        }
+        t=Touche();
+    }
+    return EXIT_SUCCESS;
+}
+
+void taquin_chiffre(int x,int y,int *tab){
+    int i, j;
+    for (i=0;i<x;i++){
+        for (j=0;j<y;j++){
+            printf("%2d ",tab[i*y+j]);
+        }
+        printf("\n");
+    }
+}
+
+void taquin_image(int x,int y,int chaine){
+    int i, j,k,l,tab[8][8];
+    for (i=0;i<x;i++){
+        for (j=0;j<y;j++){
+            if (i!=0 || j!=0){
+                for (k=0;k<x;k++){
+                    for (l=0;l<y;l++){
+                        if (tab[k][l]==i*y+j){
+                            if(chaine==3){
+                                ChargerImage("image3.png",200+l*H/y+l,200+k*L/x+k,0+j*H/y,0+i*L/x,L/x,H/y);
+                            }
+                            if(chaine==4){
+                                ChargerImage("image4.jpg",200+l*H/y+l,200+k*L/x+k,0+j*H/y,0+i*L/x,L/x,H/y);
+                            }
+                            if(chaine==5){
+                                ChargerImage("image5.jpg",200+l*H/y+l,200+k*L/x+k,0+j*H/y,0+i*L/x,L/x,H/y);
+                            }
+                        }
+                    }
+                }
+                printf("%d\n",i*y+j);
+            }
+        }
+    }
+}
+
+void direction(int a,int b,int pos_x,int pos_y,int x,int y,char* image){
+    int* tab[8][8];
+    tab[pos_x][pos_y]=tab[pos_x+a][pos_y+b];
+    tab[pos_x+a][pos_y+b]=0;
+    pos_x=pos_x+a;
+    pos_y=pos_y+b;
+    EffacerEcran(CouleurParNom("white"));
+    taquin_image(x,y,image);
+}
+
+int verification(int pos_x,int pos_y,int x,int y,int* tab){
+    int flag=1,e,f,g,temp,zero_x=pos_x,zero_y=pos_y,parite_zero,parite,nb_mouv=0;
+    int* tab2=tab;
+    for (;flag!=0;){
+        if (zero_x==0 && zero_y==0){
+            parite_zero=nb_mouv%2;
+            flag=0;
+        }
+        else{
+            if(zero_x!=0){
+                zero_x=zero_x-1;
+                nb_mouv=nb_mouv+1;
+            }
+            if(zero_y!=0){
+                zero_y=zero_y-1;
+                nb_mouv=nb_mouv+1;
+            }
+        }
+    }
+    nb_mouv=0;
+    for (e=0;e<x*y;e++){
+        if (tab2[e]!=e){
+            for (f=0;f<x*y;f++){
+                if (tab2[f]==e){
+                    g=f;
+                }
+            }
+            temp=tab2[e];
+            tab2[e]=tab2[g];
+            tab2[g]=temp;
+            nb_mouv=nb_mouv+1;
+        }
+    }
+    parite=nb_mouv%2;
+    if (parite_zero==parite){
+        return 0;
+    }
+    else{
+        printf("taquin impossible");
+        return 1;
+    }

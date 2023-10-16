@@ -1,0 +1,17 @@
+ul {
+    margin-bottom: 20px;
+}
+li {
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 3px;
+}
+
+ul>li>ul>li {
+    font-weight: normal;    
+}
+
+.pages>li>a {
+    color: #EEEEEE;
+}

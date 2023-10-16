@@ -1,0 +1,42 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Attente extends JFrame implements WindowListener {
+	JPanel panel = new JPanel();
+
+	public Attente() {
+    	setLocation(100, 100);
+    	setSize(500,300);
+    	setDefaultCloseOperation(EXIT_ON_CLOSE);
+    	setVisible(true);
+	this.addWindowListener(this);
+	}
+    	public void windowDeiconified(WindowEvent evenement) {
+	    Cercle c = new Cercle();
+	    this.panel.add(c);
+	    this.panel.setBackground(Color.GREEN);
+	    this.add(this.panel);
+	    }
+	public void windowIconified(WindowEvent evenement) {
+	    this.add(this.panel);
+	}
+    	public void windowDeactivated(WindowEvent evenement) {
+	    this.add(this.panel);
+	    }
+	public void windowActivated(WindowEvent evenement) {
+	    Cercle c = new Cercle();
+	    this.add(c);
+	    this.add(this.panel);
+	}
+    	public void windowOpened(WindowEvent evenement) {
+	    this.add(this.panel);
+	    }
+	public void windowClosed(WindowEvent evenement) {
+	    this.add(this.panel);
+	}
+    	public void windowClosing(WindowEvent evenement) {
+	    this.add(this.panel);
+	    }
+
+}

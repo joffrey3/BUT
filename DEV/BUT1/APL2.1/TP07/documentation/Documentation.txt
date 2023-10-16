@@ -1,0 +1,4 @@
+On peut retrouver la classe String dans le package java.lang.Object
+Elle hérite de la classe Object
+Les méthodes qui sont transmises par la classe mère sont (clone, finalize, getClass, notify, notifyAll, wait, wait, wait) au nombre de 8.
+Aucune des classes n'a été redéfinis.

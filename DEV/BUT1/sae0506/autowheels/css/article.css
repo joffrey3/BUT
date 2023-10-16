@@ -1,0 +1,17 @@
+article {
+    grid-template-rows: auto;
+    max-width: 60%;
+}
+
+article>img {
+    width: 33em;
+    grid-column: 1;
+    grid-row: 2;
+}
+
+article>h2 {
+    margin: 30px;
+    color: #EEE;
+    font-family: Roboto;
+    font-size: 30px;
+}

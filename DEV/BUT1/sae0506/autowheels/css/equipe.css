@@ -1,0 +1,45 @@
+content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+article {
+    grid-template-columns: 1fr;
+    grid-template-rows: .2fr 1fr .2fr .8fr .2fr;
+}
+
+article>h1 {
+    grid-row: 1;
+    grid-column: 1;
+    text-align: center;
+    height: 1em;
+}
+
+article>img {
+    margin: 15px auto 15px auto;
+    grid-row: 2;
+    grid-column: 1;
+    width: 15em;
+    box-shadow: none;
+}
+
+article>h3 {
+    font-family: Roboto;
+    text-align: center;
+    color: #EEE;
+    text-decoration: underline;
+    height: 1em;
+}
+
+article>p {
+    padding: 15px;
+    grid-row: 4;
+    grid-column: 1;
+}
+
+article>a {
+    margin: auto;
+    margin-bottom: 15px;
+    grid-column: 1;
+    grid-row: 5;
+}

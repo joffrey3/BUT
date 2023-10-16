@@ -1,0 +1,16 @@
+article {
+    grid-template-rows: auto;
+    max-width: 70%;
+}
+
+h2 {
+    margin: 30px;
+    font-family: Roboto;
+    font-size: 50px;
+    color: #EEE;
+    grid-column: 1 / span 2;
+}
+
+article>p {
+    margin: 30px 30px 30px 30px;
+}

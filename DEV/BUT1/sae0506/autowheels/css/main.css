@@ -1,0 +1,235 @@
+html {
+    height: 100%;
+}
+
+body {
+	background-color: #9E9999;
+	margin: 0px;
+	display: grid;
+}
+
+p, h1, a {
+    font-family: Roboto;
+}
+
+
+content {
+	display: grid;
+	margin-top: 60px;
+	padding: 1em;
+}
+
+logo {
+    position: absolute;
+    width: 15%;
+    height: 100%;
+    grid-template-columns: .5fr 1fr;
+    display: inline-flex;
+    transition: .1s ease-in-out;
+}
+
+logo:hover {
+    background-color: #FFF1;
+}
+
+logo>a {
+    position: inherit;
+    height: 70%;
+    width: 100%;
+}
+
+logo>img {
+    height: 80%;
+    padding: 2.5%;
+}
+
+logo>h1 {
+    color: #EEE;
+    height: 100%;
+    margin: 5% auto;
+    text-shadow: 2px 2px 2px #0005;
+}
+
+@media screen and (min-device-aspect-ratio: 100/99) {
+    .topnav {
+        width: 100%;
+        position: fixed;
+        background-color: #444444;
+        box-shadow: 0px 10px 50px #000C;
+    }
+    
+    .topnav ul {
+        margin: auto;
+    }
+    
+    .topnav li {
+        list-style-type: none;
+        float: right;
+        font-size : 25px;
+        background-color: #444444;
+        text-align: center;
+        padding: .6em 0px .6em 0px;
+        transition: all .1s ease-in-out;
+    }
+    
+    .topnav li:hover {
+        background-color: #555555;
+    }
+}
+
+@media screen and (max-device-aspect-ratio: 100/99) {
+    .topnav {
+        width: 100%;
+        position: fixed;
+        background-color: #444444;
+    }
+    
+    .topnav ul {
+        margin: auto;
+    }
+    
+    .topnav li {
+        list-style-type: none;
+        float: right;
+        font-size : 25px;
+        background-color: #444444;
+        text-align: center;
+        padding: .6em 0px .6em 0px;
+        transition: all .1s ease-in-out;
+    }
+    
+    .topnav li:hover {
+        background-color: #555555;
+    }
+}
+
+.topnav a {
+    font-family: Roboto;
+    font-weight: bold;
+    text-decoration: none;
+    color: #EEEEEE;
+    text-shadow: 2px 2px 2px #0005;
+    padding: .6em .6em .6em .6em;
+}   
+
+article {
+    margin: 1em;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: .3fr 1fr;
+    background: linear-gradient(37deg, #452020, #802020);
+    max-width: 45vw;
+    border-radius: 15px;
+    box-shadow: 5px 5px 4px #0002;
+}
+
+article>h1 {
+    color: #EEEEEE;
+    grid-column: 1 / span 2;
+    margin-left: 15px;
+
+}
+
+article>p {
+    margin: 10px;
+    padding: 0px 15px 15px 0px;
+    color: #EEEEEE;
+    text-align: justify;
+    grid-column: 2;
+    grid-row: 2;
+}
+
+article>img {
+    border-radius: 15px;
+    margin: 15px;
+    margin-top: 0px;
+    box-shadow: 5px 5px 4px #0003;
+}
+
+article>a {
+    grid-column: 2;
+    grid-row: 2;
+    text-align: center;
+    padding: 15px;
+    color: #BBBBBB;
+    text-decoration: none;
+    font-weight: bold;
+
+    margin: auto 15px 15px auto;
+    border-radius: 10px;
+    background: #AAA4;
+    transition: .1s ease-in-out;
+    box-shadow: 3px 3px 4px #0002;
+}
+
+article>a:hover {
+    background: #AAA6; 
+}
+
+footer {
+	background-color: #444444;
+	display: grid;
+    height: 12.7em;
+	grid-template-columns: 1fr;
+	grid-template-rows: .2fr .8 .5fr;
+}
+
+.references {
+	list-style-type: none;
+	display: inline-flex;
+	margin: 1em auto 1em auto;
+    padding: 0px;
+    width: 40%;
+}
+
+.references>li {
+    margin: auto;
+	padding: 0px 1em 0px 1em;
+}
+
+.references>li>a {
+	color: #EEEEEE;
+	text-decoration: none;
+}
+
+.links {
+	display: inline-flex;
+}
+
+.links>a {
+	text-align: center;
+	margin: 1em auto 1em auto;
+	padding: 2em 2em 2em 2em;
+	background-color: #666666;
+	border: 5px solid #222222;
+	box-shadow: 3px 3px 3px #00000055;
+	border-radius: 15px;
+	width: 25%;
+	color: #EEEEEE;
+}
+
+.partners {
+	list-style-type: none;
+	display: inline-flex;
+	margin: auto;
+    padding: 0px;
+    width: 60%;
+}
+
+.partners>a {
+	margin: auto;
+}
+
+.partners>a>img {
+	margin: auto;
+    padding: auto;
+	width: 100px;
+}
+
+.copyright {
+	color: #999999;
+	font-family: Roboto;
+	font-size: 15px;
+	text-align: center;
+	margin: 1em auto 1em auto;
+}

@@ -1,0 +1,12 @@
+page.out : page_accueil.o page_image.o page_taille.o page_taquin.o page_victoire.o
+	gcc -o page.out page_accueil.o page_image.o page_taille.o page_taquin.o page_victoire.o -lgraph
+page_accueil.o : page_accueil.c 
+	gcc -c -Wall page_accueil.c fonction.h -lgraph
+page_image.o : page_image.c fonction.h
+	gcc -c -Wall page_image.c fonction.h -lgraph
+page_taille.o : page_taille.c fonction.h
+	gcc -c -Wall page_taille.c fonction.h -lgraph
+page_taquin.o : page_taquin.c fonction.h
+	gcc -c -Wall page_taquin.c fonction.h -lgraph
+page_victoire.o : page_victoire.c fonction.h
+	gcc -c -Wall page_victoire.c fonction.h -lgraph

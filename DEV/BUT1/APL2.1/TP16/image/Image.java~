@@ -1,0 +1,88 @@
+import javax.swing.JComponent;
+import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
+import java.lang.*;
+import java.lang.Object;
+import java.awt.Color;
+import java.lang.Object;
+import java.awt.Font;
+import java.io.Writer;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.lang.Throwable;
+import java.lang.Exception;
+import java.io.IOException;
+import java.util.Arrays;
+import java.io.Reader;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.FileReader; 
+ import java.util.Random;
+
+
+public class  Image {
+
+
+   public static void main(String[] args) {
+   		Image img= new Image();
+   		String chaine =img.lireImage();
+
+	    JFrame fenetre = new JFrame();
+	    fenetre.setSize(1000,1000);
+	    fenetre.setLocation(0,0);
+	    //System.out.println(chaine);
+	    fenetre.setVisible(true);
+   		}
+	public String lireImage() {
+		try{    
+	    	FileReader isr= new FileReader("image.xpm");
+	    	BufferedReader br = new BufferedReader(isr);
+	    	try{
+	    		String l="";
+	    		String temp="";
+	    		String information=br.readLine();
+	    		String x=information.substring(2,4),y=information.substring(5,7),/*color=information.substring(8,10),coupure=information.substring(11,13)*/;
+	    		//System.out.println(x);
+	    		//System.out.println(y);
+	    		//System.out.println(color);
+	    		//System.out.println(coupure);
+
+	    		/*for(;temp!=null;){
+	    			temp=br.readLine();
+	    			l=l+temp;
+	    		}*/
+	    		return l;
+			}
+	    	catch(Exception e){
+			System.out.println("Erreur de lecture");
+		    }
+    	}
+   		catch(Exception e2){
+		System.out.println("Erreur d'ouverture");
+		}
+		return "";
+	}
+	public String ecrireImage() {
+		try{    
+	    	FileWriter isw= new FileWriter("image.xpm");
+	    	BufferedWriter bw = new BufferedWriter(isw);
+	    	try{
+	    		String l="";
+	    		String temp="";
+	    		for(;temp!=null;){
+	    			//temp=bw.readLine();
+	    			l=l+temp;
+	    		}
+	    		return l;
+			}
+	    	catch(Exception e){
+			System.out.println("Erreur de ecriture");
+		    }
+    	}
+   		catch(Exception e2){
+		System.out.println("Erreur d'ouverture");
+		}
+		return "";
+	}
+}

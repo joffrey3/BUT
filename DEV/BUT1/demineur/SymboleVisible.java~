@@ -1,0 +1,144 @@
+import javax.swing.JComponent;
+import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
+import java.lang.*;
+import java.lang.Object;
+import java.awt.Color;
+import java.lang.Object;
+import java.awt.Font; 
+ 
+public class SymboleVisible extends JComponent{
+  int variable;
+  int pos_x;
+  int pos_y;
+  public SymboleVisible(int x,int y,int v){
+    this.variable=v;
+    this.pos_x=x*30;
+    this.pos_y=y*30;
+  }
+  @Override
+  protected void paintComponent(Graphics pinceau) {
+    Graphics secondPinceau = pinceau.create();
+    switch(this.variable){
+      case 0:
+      secondPinceau.setColor(Color.LIGHT_GRAY);
+      secondPinceau.fillRect(this.pos_x,this.pos_y,30,30);
+      secondPinceau.setColor(Color.BLACK);
+      secondPinceau.drawRect(this.pos_x,this.pos_y,30,30);
+      break ;
+      case 1:
+      secondPinceau.setColor(Color.BLUE);
+      secondPinceau.fillRect(this.pos_x+14,this.pos_y+3,5,20);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+8,5,5);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+23,15,5);
+      //secondPinceau.setColor(Color.BLACK);
+      //secondPinceau.drawRect(50,50,30,30);
+      break ;
+      case 2:
+      secondPinceau.setColor(Color.GREEN);
+      secondPinceau.fillRect(this.pos_x+14,this.pos_y+3,5,5);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+8,5,5);
+      secondPinceau.fillRect(this.pos_x+19,this.pos_y+8,5,10);
+      secondPinceau.fillRect(this.pos_x+14,this.pos_y+18,5,5);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+23,15,5);
+      //secondPinceau.setColor(Color.BLACK);
+      //secondPinceau.drawRect(50,50,30,30);
+      break;
+      case 3:
+      secondPinceau.setColor(Color.RED);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+3,10,5);
+      secondPinceau.fillRect(this.pos_x+19,this.pos_y+8,5,5);
+      secondPinceau.fillRect(this.pos_x+14,this.pos_y+13,5,5);
+      secondPinceau.fillRect(this.pos_x+19,this.pos_y+18,5,5);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+23,10,5);
+      //secondPinceau.setColor(Color.BLACK);
+      //secondPinceau.drawRect(50,50,30,30);
+      break;
+      case 4:
+      secondPinceau.setColor(Color.MAGENTA);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+3,5,10);
+      secondPinceau.fillRect(this.pos_x+14,this.pos_y+13,5,5);
+      secondPinceau.fillRect(this.pos_x+19,this.pos_y+3,5,25);
+      //secondPinceau.setColor(Color.BLACK);
+      //secondPinceau.drawRect(50,50,30,30);
+      break;
+      case 5:
+      secondPinceau.setColor(Color.ORANGE);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+3,15,5);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+8,5,5);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+13,10,5);
+      secondPinceau.fillRect(this.pos_x+19,this.pos_y+18,5,5);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+23,10,5);
+      //secondPinceau.setColor(Color.BLACK);
+      //secondPinceau.drawRect(50,50,30,30);
+      break;
+      case 6:
+      secondPinceau.setColor(Color.CYAN);
+      secondPinceau.fillRect(this.pos_x+14,this.pos_y+3,10,5);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+8,5,15);
+      secondPinceau.fillRect(this.pos_x+14,this.pos_y+13,5,5);
+      secondPinceau.fillRect(this.pos_x+19,this.pos_y+18,5,5);
+      secondPinceau.fillRect(this.pos_x+14,this.pos_y+23,5,5);
+      //secondPinceau.setColor(Color.BLACK);
+      //secondPinceau.drawRect(50,50,30,30);
+      break;
+      case 7:
+      secondPinceau.setColor(Color.PINK);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+3,15,5);
+      secondPinceau.fillRect(this.pos_x+19,this.pos_y+8,5,10);
+      secondPinceau.fillRect(this.pos_x+14,this.pos_y+18,5,10);
+      //secondPinceau.setColor(Color.BLACK);
+      //secondPinceau.drawRect(50,50,30,30);
+      break;
+      case 8:
+      secondPinceau.setColor(Color.YELLOW);
+      secondPinceau.fillRect(this.pos_x+14,this.pos_y+3,5,5);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+8,5,5);
+      secondPinceau.fillRect(this.pos_x+19,this.pos_y+8,5,5);
+      secondPinceau.fillRect(this.pos_x+14,this.pos_y+13,5,5);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+18,5,5);
+      secondPinceau.fillRect(this.pos_x+19,this.pos_y+18,5,5);
+      secondPinceau.fillRect(this.pos_x+14,this.pos_y+23,5,5);
+      //secondPinceau.setColor(Color.BLACK);
+      //secondPinceau.drawRect(50,50,30,30);
+      break;
+      /*case 9:
+      secondPinceau.setColor(Color.LIGHT_GRAY);
+      secondPinceau.fillRect(64,53,5,25);
+      secondPinceau.fillRect(54,63,25,5);
+      secondPinceau.fillRect(59,58,15,5);
+      secondPinceau.fillRect(59,68,15,5);
+      secondPinceau.setColor(Color.BLACK);
+      secondPinceau.drawRect(50,50,30,30);
+      break;*/
+      /*case 9:
+      secondPinceau.setColor(Color.BLACK);
+      secondPinceau.fillRect(this.pos_x+14,this.pos_y+3,5,20);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+8,5,15);
+      secondPinceau.fillRect(this.pos_x+19,this.pos_y+8,5,15);
+      //secondPinceau.setColor(Color.BLACK);
+      //secondPinceau.drawRect(50,50,30,30);
+      break;
+      case 10:
+      secondPinceau.setColor(Color.RED);
+      secondPinceau.fillRect(this.pos_x+4,this.pos_y+3,5,5);
+      secondPinceau.fillRect(this.pos_x+4,this.pos_y+23,5,5);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+8,5,5);
+      secondPinceau.fillRect(this.pos_x+9,this.pos_y+18,5,5);
+      secondPinceau.fillRect(this.pos_x+14,this.pos_y+13,5,5);
+      secondPinceau.fillRect(this.pos_x+19,this.pos_y+8,5,5);
+      secondPinceau.fillRect(this.pos_x+19,this.pos_y+18,5,5);
+      secondPinceau.fillRect(this.pos_x+24,this.pos_y+3,5,5);
+      secondPinceau.fillRect(this.pos_x+24,this.pos_y+23,5,5);
+      break;*/
+    }
+  }
+  public static SymboleVisible changement(int x,int y, int v){
+    /*this.pos_x=x;
+    this.pos_y=y;
+    this.variable=v;*/
+    SymboleVisible symbole = new SymboleVisible(x,y,v);
+    return symbole;
+  }
+}

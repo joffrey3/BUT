@@ -1,0 +1,54 @@
+TP1:
+
+Exercice 1:
+
+java MonInt
+
+3 trois
+4 quatre
+9 neuf
+3 (neuf divisé par trois)
+0 (trois divisé par quatre)
+
+    if (valeur == 13) throw new IllegalStateException("Comme disait Sacha Guitry, je ne suis pas superstitieux mais on ne sait jamais.");
+java.lang.IllegalStateException: Comme disait Sacha Guitry, je ne suis pas superstitieux mais on ne sait jamais.
+            c9.divise(null); 
+java.lang.ArithmeticException: / by zero
+            c9.divise(c3);
+java.lang.NullPointerException: la classe denominateur ne peut pas être null
+
+
+java -ea MonInt
+
+3 trois
+4 quatre
+9 neuf
+3 (neuf divisé par trois)
+
+Exception in thread "main" java.lang.AssertionError
+	at MonInt.divise(MonInt.java:36)
+	at MonInt.main(MonInt.java:82)
+
+Exercice 2 :
+
+java Carte
+une carte cachée
+une carte cachée
+une carte cachée
+une carte visible de valeur 1
+une carte visible de valeur 1
+true
+une carte cachée
+une carte visible de valeur 1
+une carte visible de valeur 2
+true
+Exception in thread "main" java.lang.NullPointerException: la carte à tester passée en paramètre ne peut pas être null
+	at java.base/java.util.Objects.requireNonNull(Objects.java:233)
+	at Carte.egale(Carte.java:80)
+	at Carte.main(Carte.java:141)
+
+
+Dans Carte :
+
+assert c != null;
+assert this != null;

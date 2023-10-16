@@ -1,0 +1,25 @@
+article.main {
+    grid-template-rows: auto;
+    max-width: 70%;
+    margin: 2em auto 2em auto;
+}
+
+article.main>h2 {
+    text-align: center;
+    margin: 15px;
+    color: #EEE;
+    font-family: Roboto;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+article.main>p {
+    grid-column: 1;
+    grid-row: 2;
+    margin: 15px;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}

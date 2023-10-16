@@ -1,0 +1,5 @@
+1 ecrire un squelette d'une méthode qui trie un tableau de double
+
+2 ecrire une classe de test pour cette methode
+
+3 coder le tri 

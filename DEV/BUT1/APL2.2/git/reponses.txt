@@ -1,0 +1,74 @@
+Controle de version avec Git
+
+Si on travaille seul on peut utiliser la commande rsync pour synchroniser les arborescences
+
+Avantages : beaucoup moins gourmand en bandes passantes 
+
+Inconvénients : Impossible de revenir en arrière 
+
+Pour éviter de taper l'identifiant et le mot passe on peut utiliser les étapes suivantes :
+
+Lancez gitea identifié vous,
+
+Lancez un terminal et tapez :
+  git config --global user.name "Votre nom"
+    git config --global user.email "login@domaine.example"
+    git config --global core.editor vim
+
+Sur l'editor mettez un éditeur de textes que vous maitrisez
+
+Pour sécuriser tout cela il vous faut des clés de cryptage, ne pas entrez de réponses sur cette commande :
+ssh-keygen -t rsa -C "login@domaine.example"
+
+Cela a créer une clé publique et une clé privée, on va donner la clé publique à gitea, on va l'afficher :
+cat ~/.ssh/id_rsa.pub
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCz74iKIFuxPTM4U67H8CWgHpcQx7sOCII8hsplX4ss/cO72LKqF1eEmGFIPPSBqgZHX6IrVvUOZ0ZjSNUaEGBmryHRsyQtf6bSFTTiOZMgCZdOpdR/beop99La9qnQUM/F6meDIQ5AkU/y8qu46Hz9/sEEbbw5iLg0xNzcY99/zrlJVf2yIPrh3v2UdH0BVhsfZovwo38xpT7/7cOstJWjyEN+/xxz3wwXbyoxZR0PYeNabQx60rB0YJgdQshZN9ZI8KAa16gTjc+MLhX7FmlgG3pDGSwOaFjxiAccL6rwoSAqg81C+kRaQx0ZXxCMs+dZOmSmpjYvSBAlEl0oADV62AEVar1KYZZ8b6Ag5jt3zjg6ygTwMonPcRfSdktBxUYVDXTd8T2BkRmfli3JntJ+lG3kBykD1A2dIxT4elzwEpxLO78cTuoPXH9l1IgfiHUu/JmxIW/5ORJgMo5eo5fC5xdPWqWXnqMo5lwgejHvhxwypdaZq9VmKBYMveTelxE= fouche.joffrey@gmail.com
+
+
+On créer ensuite un dépot git 
+
+Puis on le clone
+
+git clone gitea@dwarves.iut-fbleau.fr:fouche/Test.git
+ls -a
+
+autrement on peut créer un dépot local avec :
+git init
+
+pour ajouter des fichiers :
+git add
+git commit
+git remote add origin
+git push -u -f origin master
+
+Utilisation exemple :
+touch monFichier
+git add
+git commit
+
+Pour revenir sur un fichier il faut utiliser :
+git restore
+
+On peut indiquer la version avec :
+git restore -- source <le numéro de version> monFichier
+
+Pour savoir le numéro d'une version :
+git log
+
+Si on veut des informations :
+git status
+
+On créer ensuite
+touch Git.md
+git status
+git commit -m "git definition"
+git log
+cat Git.md | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+git commit -m "vg qrsvavgvba"
+git restore Git.md
+
+git pull
+git add
+git commit
+git push

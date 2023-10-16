@@ -1,0 +1,81 @@
+import javax.swing.JComponent;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.lang.Object;
+import java.util.EventObject;
+import java.lang.*;
+
+public class PageAccueil extends JFrame implements MouseListener{ 
+	public static final int BUTTON1 = 1;
+  	public static final int BUTTON3 = 3;
+  	JFrame fenetre;
+  	JFrame fenetre2;
+	public PageAccueil() {
+
+  //fenêtre de page d'acceuil
+		this.fenetre = new JFrame();
+		this.fenetre2 = new JFrame();
+		setSize(950,700);
+		setLocation(600,200);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Page d'Accueil");
+ 		Accueil message = new Accueil();
+    	this.add(message);
+		setVisible(true);
+		this.addMouseListener(this);
+	}
+	//this.addMouseListener(this);
+//Le detecteur qui permet de faire fonctionner la souris a l'aide d'un évènement	
+	@Override
+public void mouseClicked(MouseEvent e){
+	if(e.getButton()==BUTTON1){
+		//System.out.println(e.getX());
+		//System.out.println(e.getY());
+			if(e.getX()>=145 && e.getX()<=345 && e.getY()>=180 && e.getY()<=250){
+         	 		 //dispose();
+			 		PageOption option = new PageOption(fenetre);
+        				Option option2 = new Option(fenetre); 
+        				this.fenetre.add(option2);  	    
+        			   	this.setVisible(false);
+    	
+	//ouvre les pages option quand on clic sur le bouton "nouvelle partie"					
+					//this.add(option);
+    	   		    //this.add(option2);
+			}
+
+			if(e.getX()>=365 && e.getX()<=565 && e.getY()>=180 && e.getY()<=250){
+			 	ReturnAndContinue test = new ReturnAndContinue();
+	    		test.partie_recharger();
+	    		this.setVisible(false);
+			}
+          //ferme les pages quand on clic sur "Quitter"
+			if(e.getX()>=585 && e.getX()<=785 && e.getY()>=180 && e.getY()<=250){
+				 dispose();
+	
+			}
+
+			
+			
+		}
+	}
+	@Override
+	public void mouseEntered(MouseEvent evenement){
+
+	}
+	@Override
+	public void mouseExited(MouseEvent evenement){
+
+	}
+	@Override
+	public void mousePressed(MouseEvent evenement){
+
+	}
+	@Override
+	public void mouseReleased(MouseEvent evenement){
+
+	}
+	public static void main(String[] args) {
+ 		PageAccueil accueil= new PageAccueil();
+	}
+}

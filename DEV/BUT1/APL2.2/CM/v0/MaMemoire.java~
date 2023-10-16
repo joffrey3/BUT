@@ -1,0 +1,110 @@
+import java.util.Objects;
+import java.lang.StringBuilder;
+/**
+ * implémentation Chadok de l'interface mémoire.
+ * La mémoire ne peut contenir que 4 String
+ * La mémoire est un tableau qui ajoute les éléments de la gauche vers la droite.
+ * et les enlève de la droite vers la gauche.
+ */
+public class MaMemoire implements Memoire {
+
+    // nombre maximum d'éléments de la mémoire
+    private int capacity;
+    // la mémoire est un tableau
+    private String[] mem;
+    // index prochain élément libre
+    private int index; 
+
+    public MaMemoire(){
+        this.capacity = 4;// ga bu zo me https://www.youtube.com/watch?v=Sla57Zw-FN4
+        this.mem = new String[4];//mémoire non extensible
+        this.index = 0;//emplacement libre initial
+    }
+
+    /**
+     * retourne le nombre d'éléments de la mémoire
+     * @return int
+     */
+    public int size(){
+        return (this.index+1);
+    }
+    
+    /**
+     * retourne le nombre maximal d'éléments que la mémoire peut contenir.
+     * @return int
+     */
+    public int capacity(){
+        return this.capacity;
+    }
+
+
+    /**
+     * ajoute s à la mémoire
+     * On aurait pu nommer cette méthode : se-souvenir-de(quelque chose).
+     *
+     * Les exceptions sont levées dans l'ordre de cette documentation.
+     * Par exemple si la mémoire est pleine et qu'on ajoute null, 
+     * c'est une NullPointerException qui doit être levée.
+     *
+     * @param  s String
+     * @return void
+     * @throws NullPointerException si s est null
+     * @throws ArrayIndexOutOfBoundsException si la mémoire est pleine
+     * @throws IllegalStateException si s est déjà présent
+     */
+    public void add (String s){
+        Objects.requireNonNull(s, "la mémoire ne peut pas contenir null");
+        if(this.mem[0].equals(s)) throw new IllegalStateException(s + " est déjà présent en mémoire.");
+        if(this.size() == this.capacity())
+            throw new ArrayIndexOutOfBoundsException("La mémoire est pleine, utilisez remove pour faire de la place.");
+        this.mem[this.index+1]=s;
+        this.index++;
+    }
+
+    /**
+     * enlève un élément de la mémoire pour faire de la place
+     * @return cet élément
+     * @throws IllegalStateException si la mémoire est vide
+     */
+    public String remove (){
+        if (this.index == 0) return "non";
+        this.index--;
+        return this.mem[this.index];
+    }
+
+    /**
+     * teste si un String est présent en mémoire. 
+     * @param s String
+     * @return true ssi s est présent en mémoire
+     * @throws NullPointerException si s est null
+     */
+    public Boolean contain (String s){
+        Objects.requireNonNull(s, "la mémoire ne peut pas contenir null");
+        boolean res = false;
+        for (int i = 0; i < this.index-1; i++){
+            if(this.mem[i].equals(s))
+                res=true;
+                break;//l'indentation bien fait c'est bien.
+        }
+        return res;
+    }
+
+    // pour afficher, on surcharge ToString
+    public String toString(){
+        
+        if (this.size()==0) return "vide";
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < this.index; i++){
+            sb.append(this.mem[i]);
+            if (i != this.index - 1){
+                sb.append(", ");
+            }
+            else {
+                sb.append(".");
+            }
+        }
+        return sb.toString();
+    }
+}

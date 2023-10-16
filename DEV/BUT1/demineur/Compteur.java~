@@ -1,0 +1,155 @@
+import javax.swing.JComponent;
+import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
+import java.lang.*;
+import java.lang.Object;
+import java.awt.Color;
+import java.lang.Object;
+import java.awt.Font; 
+ 
+public class Compteur extends JComponent{
+  int compteur;
+ 	int[] tab;
+  public Compteur(int c){
+    this.compteur=c;
+    this.tab = new int[4];
+  }
+  @Override
+  protected void paintComponent(Graphics pinceau) {
+      //System.out.println(this.compteur);
+		Graphics secondPinceau = pinceau.create();
+		secondPinceau.setColor(Color.BLACK);
+		//secondPinceau.fillRect(0,0,30,30);
+		secondPinceau.fillRect(0,0,200,70);
+		if(this.compteur<0){
+		secondPinceau.setColor(Color.RED);
+		secondPinceau.fillRect(10,30,30,10);
+		}
+		this.tab[3]=this.compteur%10;
+		if(this.compteur<100 && this.compteur>-100){
+			this.tab[1]=0;
+			if(this.compteur<10 && this.compteur>0){
+				this.tab[2]=0;
+			}else{
+			    this.tab[2]=this.compteur/10%10;
+			}
+		}else{
+		  this.tab[2]=this.compteur/10%10;
+			this.tab[1]=this.compteur/100;
+		}
+		for(int i=1;i<4;i++){
+		secondPinceau.setColor(Color.RED);
+		secondPinceau.fillRect(10+i*50,10,30,50);
+  	switch(this.tab[i]){
+			case 0 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(20+i*50,20,10,30);
+			break;
+			case 1 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(10+i*50,10,20,50);
+			break;
+			case 2 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(10+i*50,20,20,10);
+			secondPinceau.fillRect(20+i*50,40,20,10);
+			break;
+			case 3 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(10+i*50,20,20,10);
+			secondPinceau.fillRect(10+i*50,40,20,10);
+			break;
+			case 4 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(20+i*50,10,10,20);
+			secondPinceau.fillRect(10+i*50,40,20,20);
+			break;
+			case 5 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(20+i*50,20,20,10);
+			secondPinceau.fillRect(10+i*50,40,20,10);
+			break;
+			case 6 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(20+i*50,20,20,10);
+			secondPinceau.fillRect(20+i*50,40,10,10);
+			break;
+			case 7 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(10+i*50,20,20,40);
+			break;
+			case 8 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(20+i*50,20,10,10);
+			secondPinceau.fillRect(20+i*50,40,10,10);
+			break;
+			case 9 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(20+i*50,20,10,10);
+			secondPinceau.fillRect(10+i*50,40,20,10);
+			break;
+			case -1 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(10+i*50,10,20,50);
+			break;
+			case -2 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(10+i*50,20,20,10);
+			secondPinceau.fillRect(20+i*50,40,20,10);
+			break;
+			case -3 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(10+i*50,20,20,10);
+			secondPinceau.fillRect(10+i*50,40,20,10);
+			break;
+			case -4 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(20+i*50,10,10,20);
+			secondPinceau.fillRect(10+i*50,40,20,20);
+			break;
+			case -5 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(20+i*50,20,20,10);
+			secondPinceau.fillRect(10+i*50,40,20,10);
+			break;
+			case -6 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(20+i*50,20,20,10);
+			secondPinceau.fillRect(20+i*50,40,10,10);
+			break;
+			case -7 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(10+i*50,20,20,40);
+			break;
+			case -8 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(20+i*50,20,10,10);
+			secondPinceau.fillRect(20+i*50,40,10,10);
+			break;
+			case -9 :
+			secondPinceau.setColor(Color.BLACK);
+			secondPinceau.fillRect(20+i*50,20,10,10);
+			secondPinceau.fillRect(10+i*50,40,20,10);
+			break;
+		}
+		}
+	}
+    /*public void creationFenetre(int l,int c){
+    this.ligne=l;
+    this.colonne=c;
+  }
+  public void AppliquerTableau(int l,int c) {
+    TableauVisible tab = new TableauVisible(l,c);
+    tab.creationTableauVisible();
+    }*/
+    public void plus() {
+	 this.compteur++;
+     }
+     public void moins() {
+	 this.compteur--;
+     }
+    public int getCompteur(){
+     	return compteur;
+     }
+}

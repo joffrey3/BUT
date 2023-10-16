@@ -1,0 +1,592 @@
+//Toutes les importations necessaires a la classe Fenetre notamment pour le JFrame et le MouseListener
+import javax.swing.JComponent;
+import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
+import java.lang.*;
+import java.lang.Object;
+import java.awt.Color;
+import java.lang.Object;
+import java.awt.Font;
+import java.awt.event.*; 
+
+//La classe Fenetre est la base de tout le démineur il suffit de l'appeler pour construire le démineur
+//elle hérite de la classe JFrame car il est necessaire d'ouvrir une fenetre pour voir le démineur
+public class Fenetre extends JFrame implements MouseListener {
+
+    // On doit définir de nombreuses variables pour relier les differentes methodes de la classe Fenetre
+
+    //le nombre de lignes
+	int ligne;
+
+    //le nombre de colonnes
+  	int colonne;
+
+    //l'abscisse de la position de la case clickée si c'est une mine et elle nous fait donc perdre la partie
+  	int x_mine;
+
+    //l'ordonnée de la position de la case clickée si c'est une mine et elle nous fait donc perdre la partie
+  	int y_mine;
+
+    //L'abscisse de la position de la grille dans la fenetre
+  	int x_grille;
+
+    //L'ordonnée de la position de la grille dans la fenetre
+  	int y_grille;
+    
+    //un panneau qui n'est plus necessaire car on ajoute les éléments directement a la fenetre
+    //JPanel panneau;
+
+    //On va utiliser une variable de type GrilleCache qui représente les débuts de la création de la grille
+    //elle fait également le lien avec les tableaux
+    //Nous la détaillerons davantage dans le fichier associé
+    GrilleCache test4;
+
+    //On va utiliser une variable de type GrilleVisible qui reprend les dessins de la grille cache mais en rajoutant les marqueurs
+    //Nous la détaillerons davantage dans le fichier associé
+    GrilleVisible test3;
+
+    //cette variablepermet de fnir le jeu que ce soit une victoire ou une défaite du joueur
+    boolean fin;
+
+    //Attenttion ensuite on retrouve les variables compte et compteur qui sont mal utilisé dans ce code au niveau de leur interprétation
+
+    //Le compte de type Compteur est l'objet qui contient le compteur de d'etoiles
+    Compteur compte;
+
+    //Alors que le compteur lui symbolyse le nombre d'etoiles qu'il reste a posés pour atteindre le meme nombre de mines
+    int compteur;
+
+    //Et enfin on retrouve la sauvegarde qui permettra de sauvegarder la partie 
+    SaveAndQuit sauvegarde;
+
+    Maths calcul;
+
+    //On doit également définir des constantes  celles ci sont deux "BUTTON"
+
+    //Le premier "BUTTON" représente le clic gauche de la souris.
+    //il aurait été plus de prendre directement le MouseEvent.BUTTON1 mis je ne savais pas que les constantes prédéfinis fonctionnaient comme cela 
+    public static final int BUTTON1 = 1;
+
+    //Le deuxieme "BUTTON" représente le clic droit de la souris.
+    //il aurait été plus de prendre directement le MouseEvent.BUTTON3 mis je ne savais pas que les constantes prédéfinis fonctionnaient comme cela
+    public static final int BUTTON3 = 3;
+
+    //Nous arrivons sur les constructeurs on en dénombre deux car la fonction sera appelée de deux manières différentes
+
+    //Le premier représente la nouvelle partie lorsque on ne sait pas ou sont es ines du démineur.
+    //il prend trois arguments le nombre de lignes "l", le nombre de colonne "c" et le nombre de mines "mine"
+	public Fenetre (int l,int c,int mine) {
+
+	    //Tout d'abord définit la fin en la mettant à "false" car on ne veut pas que le joueur ai déja finit avant meme de commencer
+	    this.fin=false;
+
+	    //On indique le nombre de lignes dans la variable associé
+	    this.ligne=l;
+
+	    //On indique le nombre de colonnes dans la variable associé
+		this.colonne=c;
+
+		//On définit la position de la mine que le joueur risque de trouver
+
+		//Les abscisses et les ordonnées sont définit à -1 pour éviter tout conflit et une mauvaise interprétation du programme
+		this.x_mine=-1;
+		this.y_mine=-1;
+
+		//On définit les abscisses et les ordonnées de a osition de la grille
+		this.calcul= new Maths();
+		//L'abscisse est à 0 car il n'est pas nécessaire de la décaler
+		this.x_grille=this.calcul.Grille_centre(this.colonne);
+
+		//Cependant l'ordonnée est à 70 car il faut laisser la place au compteur de se placer au dessus de la grille
+		this.y_grille=70;
+
+		//On définit ensuitenos grilles
+		
+		//Pour la GrilleCache on rentre comme attributs pour la construire le nombre de lignes "l", le nombre de colonnes "c", le nombre de mines "mine", ainsi que les coordonées de la grille dans la fenetre "x_grille et "y_grille"
+  		this.test4 = new GrilleCache(l,c,mine,this.x_grille,this.y_grille);
+
+		//Pour la Grillevisible on rentre comme attributs pour la construire le nombre de lignes "ligne", le nombre de colonnes "colonne" mais également un tableau qui vient du test4 et qui es son attributs, le tableau caché "test4.tab_cache", puis les coordonnées de la grille "x_grille" et "y_grille"
+		this.test3 = new GrilleVisible(this.ligne,this.colonne,this.test4.tab_cache,this.x_grille,this.y_grille);
+
+		//On crée ensuite le compteur a qui on donne le nombre de mines pour qu'il puisse les décompter
+		this.compte = new Compteur(mine);
+
+		//On indique le nombre de mines dans la variable compteur
+		this.compteur=mine;
+
+		//On indique la sauvegarde avec comme attributs le nombre de lignes et le nombre de colonnes, principalement pour savoir ou elle doit se placer dans la page
+		this.sauvegarde= new SaveAndQuit(this.ligne,this.colonne);
+
+		//Code dispensable
+		//this.panneau = new JPanel();
+
+		//On définit certains paramètres de la fenetre
+
+		//Sa localisation sur l'écran, il n'est pas necessaire de la placer a un endroit récis donc 0,0
+		setLocation(0, 0);
+
+		//Sa taille qui est essentielle car on ne souhaite plus la faire bouger lorsqu'elle sera au niveau de l'utilisateur 
+		setSize(this.calcul.Fenetre_taille(this.colonne),140+this.ligne*30);
+		Dimension size = new Dimension(this.calcul.Fenetre_taille(this.colonne),140+this.ligne*30);
+		setMinimumSize(size);
+		setMaximumSize(size);
+		setPreferredSize(size);
+
+		//Et elle doit pouvoir se fermer si on click sur la croix
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+		//Code dispensable
+		//setLayout(null);
+		//panneau.setLayout(null);
+
+		//On fait appel auMouseListener pour détécter les mouvements de la souris
+		this.addMouseListener(this);
+
+		//Code dispensable
+		//this.addMouseListener(this);
+		//this.addMouseListener(this);
+		//this.addMouseListener(this);
+
+		//On définit ensuite la taille et la position des grilles
+		//On fixe leur taille a 1000 car les grilles peuvent atteindre une taille de 900 max
+		//On ne doit pas couper la grille.
+		this.test4.setSize(1000,1000);
+		this.test4.setLocation(0,0);
+		this.test3.setSize(1000,1000);
+		this.test3.setLocation(0,0);
+
+		//Puis on définit la taille et la osition du compteur et de la sauvegarde
+
+		//Le compteur a une taille de 200 et de 70 et ne changera pas
+		this.compte.setSize(200,70);
+		this.compte.setLocation(0,0);
+
+		//La sauvegarde a une taille de 200 et de 32 et ne changera pas
+		this.sauvegarde.setSize(200,32);
+		this.sauvegarde.setLocation(0,0);
+
+		//On ajoute les différents éléments à la fenetre
+		this.add(this.test4);
+		this.add(this.test3);
+		this.add(this.compte);
+		this.add(this.sauvegarde);
+
+		//On affiche la fenetre pour donner une premier impression visuel au joueur
+		setVisible(true);
+
+		//Code dispensable
+		/*panneau.setSize(l*30+1,c*30+1);
+		panneau.setLocation(0,0);*/
+		//this.AjouterSymboleCache(1,1,3);
+		//this.addMouseListener(this);
+		//panneau.add(test4);
+
+		/*GrilleVisible test3 = new GrilleVisible();
+		//test3.creationFenetre(30,30);
+		test3.setSize(100,100);
+		test3.setLocation(0,0);
+		//panneau.add(panneau2);
+		test3.setBackground(Color.BLACK);
+		//setVisible(false);
+		this.add(test3);
+		setVisible(true);*/
+
+}
+    //Le deuxieme constructeur de la classe est sensiblement identique donc nous n'allons aborder que les changements de celui ci
+    //Cela passe principalement par la définition des attributs pour surcharger la classe
+    //On retrouve dans celui ci, le nombre de lignes, le nombre de colonnes, le nombre de mines auquel on ajoute cette fois un objet TableauCache et un objet TableauVisible qui seront définis dans leurs fichiers respectifs 
+    public Fenetre (int l,int c,int mine,TableauCache tab_c,TableauVisible tab_v) {
+		this.fin=false;
+		this.ligne=l;
+		this.colonne=c;
+		this.x_mine=-1;
+		this.y_mine=-1;
+		this.calcul= new Maths();
+		this.x_grille=this.calcul.Grille_centre(this.colonne);
+		this.y_grille=70;
+
+		//L'autre point qui change est également la définition des grilles GrilleCache et GrilleVisible qui serot aussi surchagé en ayant deux définitions différentes
+
+		//Cette fois on donne comme arguments le nombre de lignes, nombres de colonnes, le nombre de mines l'abscisse et l'ordonée de la position de la grille ainsi que les tableaux caché et visible
+  		this.test4 = new GrilleCache(l,c,mine,this.x_grille,this.y_grille,tab_c,tab_v);
+
+		//Cette fois on donne comme arguments le nombre de lignes, nombres de colonnes,le tableau caché, l'abscisse et l'ordonée de la position de la grille
+		this.test3 = new GrilleVisible(this.ligne,this.colonne,tab_c,this.x_grille,this.y_grille);
+		int etoile=0;
+		for(int i=0;i<this.ligne;i++){
+			for(int j=0;j<this.colonne;j++){
+				if (this.test4.tab_cache.getCase(i,j)==2){
+					etoile++;
+				}
+			}
+		}
+		this.compte = new Compteur(mine-etoile);
+		this.compteur=mine-etoile;
+		this.sauvegarde= new SaveAndQuit(this.ligne,this.colonne);
+  		//this.panneau = new JPanel();
+		setLocation(0, 0);
+		setSize(this.calcul.Fenetre_taille(this.colonne),140+this.ligne*30);
+		Dimension size = new Dimension(this.calcul.Fenetre_taille(this.colonne),140+this.ligne*30);
+		setMinimumSize(size);
+		setMaximumSize(size);
+		setPreferredSize(size);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//setLayout(null);
+		//panneau.setLayout(null);	
+		this.addMouseListener(this);
+		//this.addMouseListener(this);
+		//this.addMouseListener(this);
+		//this.addMouseListener(this);
+		this.test4.setSize(1000,1000);
+		this.test4.setLocation(0,0);
+		this.test3.setSize(1000,1000);
+		this.test3.setLocation(0,0);
+		this.compte.setSize(200,70);
+		this.compte.setLocation(0,0);
+		this.sauvegarde.setSize(200,32);
+		this.sauvegarde.setLocation(0,0);
+		for(int i=0;i<this.ligne;i++){
+			for(int j=0;j<this.colonne;j++){
+				if (this.test4.tab_cache.getCase(i,j)==0){
+					RevelerCase(i,j);
+				}
+			}
+		}
+		this.add(this.test3);
+		this.add(this.test4);
+		this.add(this.compte);
+		this.add(this.sauvegarde);
+		/*panneau.setSize(l*30+1,c*30+1);
+		panneau.setLocation(0,0);*/
+		//this.AjouterSymboleCache(1,1,3);
+		//this.addMouseListener(this);
+		setVisible(true);
+		//panneau.add(test4);
+
+		/*GrilleVisible test3 = new GrilleVisible();
+		//test3.creationFenetre(30,30);
+		test3.setSize(100,100);
+		test3.setLocation(0,0);
+		//panneau.add(panneau2);
+		test3.setBackground(Color.BLACK);
+		//setVisible(false);
+		this.add(test3);
+		setVisible(true);*/
+
+}
+    
+	@Override
+	public void mouseClicked(MouseEvent evenement){
+		if(!this.fin){
+		    if(evenement.getX()>0+this.calcul.Composant_centre(this.colonne) && evenement.getX()<200+this.calcul.Composant_centre(this.colonne) && evenement.getY()>100+this.ligne*30 && evenement.getY()<132+this.ligne*30){
+		        this.sauvegarde.partie_sauvegarde(this.test4.tab_cache,this.test4.tab_visible,this.ligne,this.colonne);
+			this.setVisible(false);
+		    }else if(evenement.getX()>0 && evenement.getX()<this.colonne*30+this.x_grille && evenement.getY()>100 && evenement.getY()<100+this.ligne*30){
+			if(evenement.getButton()==BUTTON1){
+			    for(int p=0;p<2;p++){
+				this.RevelerCaseClick(((evenement.getX())-5-this.x_grille)/30,(evenement.getY()-this.y_grille)/30-1);
+			    }
+			    this.PotentielVictoire();
+			}
+			else if(evenement.getButton()==BUTTON3){
+			    this.MarquerCaseClick((evenement.getX()-5-this.x_grille)/30,(evenement.getY()-this.y_grille)/30-1);
+			}
+		    }
+		}
+	}
+	@Override
+	public void mouseEntered(MouseEvent evenement){
+
+	}
+	@Override
+	public void mouseExited(MouseEvent evenement){
+
+	}
+	@Override
+	public void mousePressed(MouseEvent evenement){
+
+	}
+	@Override
+	public void mouseReleased(MouseEvent evenement){
+
+	}
+	public void RevelerCaseClick(int y,int x){
+	    if(this.test4.tab_cache.getCase(x,y)!=2 && this.test4.tab_cache.getCase(x,y)!=3){
+			/*JPanel panneau2 = new JPanel();
+    		panneau2.setSize(30, 30);
+    		panneau2.setLocation(x,y);
+    		panneau2.setBackground(Color.GREEN);
+			test4.AppliquerTableau();
+			
+			//test3.creationFenetre(30,30);
+			test3.setSize(30,30);
+			test3.setLocation(x,y);
+			//panneau2.add(test3);
+			panneau.add(test3);
+			setVisible(false);
+			//this.add(panneau2);
+			this.add(panneau);
+			setVisible(true);*/
+			//this.setVisible(false);
+			this.test4.RevelerTableauCache(x,y);
+			this.test4.RevelerTableauVisible(x,y);
+			//GrilleCache test5 =test4;
+			switch(this.test4.getNumberVisible(x,y)){
+			case 0 : this.AjouterSymboleVisible(x,y,0);
+			break;
+			case 1 : this.AjouterSymboleVisible(x,y,1);
+			break;
+			case 2 : this.AjouterSymboleVisible(x,y,2);
+			break;
+			case 3 : this.AjouterSymboleVisible(x,y,3);
+			break;
+			case 4 : this.AjouterSymboleVisible(x,y,4);
+			break;
+			case 5 : this.AjouterSymboleVisible(x,y,5);
+			break;
+			case 6 : this.AjouterSymboleVisible(x,y,6);
+			break;
+			case 7 : this.AjouterSymboleVisible(x,y,7);
+			break;
+			case 8 : this.AjouterSymboleVisible(x,y,8);
+			break;
+			case 9 : 
+			this.x_mine=x;
+			this.y_mine=y;
+			this.AjouterSymboleMineVisible(x,y,1);
+			break;
+			}
+			//this.setVisible(true);
+			if(this.test4.getNumberVisible(x,y)==0){
+			    this.ConditionCasesAutour(x,y);
+			}
+			if(this.test4.getNumberVisible(x,y)==9){
+				this.FinPerduDuProgramme();
+			}
+			this.setVisible(true);
+
+	    }
+	}
+	public void RevelerCase(int x,int y){
+			/*JPanel panneau2 = new JPanel();
+    		panneau2.setSize(30, 30);
+    		panneau2.setLocation(x,y);
+    		panneau2.setBackground(Color.GREEN);
+			test4.AppliquerTableau();
+			
+			//test3.creationFenetre(30,30);
+			test3.setSize(30,30);
+			test3.setLocation(x,y);
+			//panneau2.add(test3);
+			panneau.add(test3);
+			setVisible(false);
+			//this.add(panneau2);
+			this.add(panneau);
+			setVisible(true);*/
+			//this.setVisible(false);
+			this.test4.RevelerTableauCache(x,y);
+			this.test4.RevelerTableauVisible(x,y);
+			//GrilleCache test5 =test4;
+			switch(this.test4.getNumberVisible(x,y)){
+			case 0 : this.AjouterSymboleVisible(x,y,0);
+			break;
+			case 1 : this.AjouterSymboleVisible(x,y,1);
+			break;
+			case 2 : this.AjouterSymboleVisible(x,y,2);
+			break;
+			case 3 : this.AjouterSymboleVisible(x,y,3);
+			break;
+			case 4 : this.AjouterSymboleVisible(x,y,4);
+			break;
+			case 5 : this.AjouterSymboleVisible(x,y,5);
+			break;
+			case 6 : this.AjouterSymboleVisible(x,y,6);
+			break;
+			case 7 : this.AjouterSymboleVisible(x,y,7);
+			break;
+			case 8 : this.AjouterSymboleVisible(x,y,8);
+			break;
+			case 9 : 
+			if (this.x_mine==x && this.y_mine==y){
+				this.AjouterSymboleMineVisible(x,y,1);
+			}else{
+				this.AjouterSymboleMineVisible(x,y,2);
+			}
+			break;
+			}
+			//System.out.println(x);
+			//System.out.println(y);
+			if(this.test4.getNumberVisible(x,y)==0){
+			    this.ConditionCasesAutour(x,y);
+			}
+			//this.setVisible(true);
+			this.setVisible(true);
+
+	}
+	public void MarquerCaseClick(int y,int x){
+	    if(this.test4.tab_cache.getCase(x,y)!=0){
+		//this.setVisible(false)
+		//this.NettoyerCase(x,y,this.test4.getNumberCache(x,y));
+		//this.AjouterSymboleCache(x,y,this.test4.getNumberCache(x,y),0);
+		int nombre=this.test4.AppliquerTableauCache(x,y);
+		//this.MarquerCase(x,y,nombre);
+		if(this.test4.tab_cache.getCase(x,y)==2){
+		    this.compte.moins();
+		}
+		if(this.test4.tab_cache.getCase(x,y)==3){
+		    this.compte.plus();
+		}
+		this.MarquerCase(x,y,nombre);
+		//this.test3.setSize(this.ligne*30+1,this.colonne*30+1);
+		//this.test3.setLocation(0,0);
+		//this.add(this.test3);
+		//this.add(this.test4);
+		this.setVisible(true);
+	    }
+	}
+    public void MarquerCase(int x, int y, int nombre){
+	this.test4.tab_cache.setCase(x,y,nombre);
+	this.test3=new GrilleVisible(this.ligne,this.colonne,this.test4.tab_cache,this.x_grille,this.y_grille);
+	//this.test3.setSize(this.ligne*30+1,this.colonne*30+1);
+	//	this.test3.setLocation(0,0);
+	this.add(this.compte);
+	this.add(this.test4);
+	this.add(this.test3);
+	}
+	public void AjouterSymboleCache(int x,int y,int v){
+		SymboleCache symbole2 = new SymboleCache(x,y,2);
+		SymboleCache symbole3 = new SymboleCache(x,y,3);
+		if(v==2){
+		    this.add(this.test4);
+		    this.add(symbole3);
+		    this.add(symbole2);
+		}
+		if(v==3){
+		    this.add(this.test4);
+		    this.add(symbole2);
+		    this.add(symbole3);
+		}
+	}
+	public void AjouterSymboleVisible(int x,int y,int v){
+		SymboleVisible symbole = new SymboleVisible(x,y,v,this.x_grille,this.y_grille);
+		this.add(this.test3);
+	        this.add(this.test4);
+		this.add(symbole);
+	}
+	public void AjouterSymboleMineVisible(int x,int y,int v){
+		SymboleMineVisible symbole = new SymboleMineVisible(x,y,v,this.x_grille,this.y_grille);
+		this.add(this.test3);
+	        this.add(this.test4);
+		this.add(symbole);
+	}
+		public void ConditionCasesAutour(int x,int y){
+		if(x==0 && y==0){
+			this.RevelerCasesAutour(x,y,0,1,0,1);
+		}
+		else if(x==0 && y==this.colonne-1){
+			this.RevelerCasesAutour(x,y,0,1,-1,0);
+		}
+		else if(x==this.ligne-1 && y==0){
+			this.RevelerCasesAutour(x,y,-1,0,0,1);
+		}
+		else if(x==this.ligne-1 && y==this.colonne-1){
+			this.RevelerCasesAutour(x,y,-1,0,-1,0);
+		}
+		else if(x==0){
+			this.RevelerCasesAutour(x,y,0,1,-1,1);
+		}
+		else if(y==0){
+			this.RevelerCasesAutour(x,y,-1,1,0,1);
+		}
+		else if(x==this.ligne-1){
+			this.RevelerCasesAutour(x,y,-1,0,-1,1);
+		}
+		else if(y==this.colonne-1){
+			this.RevelerCasesAutour(x,y,-1,1,-1,0);
+		}
+		else{
+			this.RevelerCasesAutour(x,y,-1,1,-1,1);
+		}
+	}
+
+	public void RevelerCasesAutour(int x,int y,int inf_1,int sup_1,int inf_2,int sup_2){
+		for(int k=inf_1;k<=sup_1;k++){
+			for(int l=inf_2;l<=sup_2;l++){
+			    if(/*this.test4.tab_cache.getCase(x+k,y+l)!=0 &&*/ this.test4.getNumberCache(x+k,y+l)==1){
+					this.RevelerCase(x+k,y+l);
+					this.RevelerCase(x+k,y+l);
+				}
+			}
+		}
+	}
+	public void FinPerduDuProgramme(){
+	for(int i=0;i<this.ligne;i++){
+			for(int j=0;j<this.colonne;j++){
+				if(this.test4.tab_visible.getCase(i,j)==9){
+				    if(this.test4.tab_cache.getCase(i,j)==1){
+						this.RevelerCase(i,j);
+						this.RevelerCase(i,j);
+					}
+				}
+				if(this.test4.tab_cache.getCase(i,j)==2){
+				    if(this.test4.tab_visible.getCase(i,j)!=9){
+					this.MarquerCase(i,j,4);
+					this.MarquerCase(i,j,4);
+				    }
+				}
+				if(this.test4.tab_cache.getCase(i,j)==3){
+				    if(this.test4.tab_visible.getCase(i,j)!=9){
+					this.MarquerCase(i,j,5);
+					this.MarquerCase(i,j,5);
+				    }
+				}
+			}
+		}
+		this.RevelerCase(this.x_mine,this.y_mine);
+		this.RevelerCase(this.x_mine,this.y_mine);
+		Find perdre= new Find();
+		this.fin=true;
+	}
+    public void PotentielVictoire(){
+	boolean flag=true;
+	for(int i=0;i<this.ligne;i++){
+	    for(int j=0;j<this.colonne;j++){
+		if(this.test4.tab_visible.getCase(i,j)!=9){
+		    if(this.test4.tab_cache.getCase(i,j)!=0){
+		        flag=false;
+		    }
+		}
+	    }
+	}
+	if(flag){
+	    this.FinGagneDuProgramme();
+	}
+    }
+    public void FinGagneDuProgramme(){
+	for(int i=0;i<this.ligne;i++){
+	    for(int j=0;j<this.colonne;j++){
+		if(test4.tab_visible.getCase(i,j)==9){
+		    if(test4.tab_cache.getCase(i,j)==1){
+			int nombre=this.test4.AppliquerTableauCache(i,j);
+			//System.out.println(test4.tab_cache.getCase(i,j));
+			//this.test3=new GrilleVisible(this.ligne,this.colonne,this.test4.tab_cache);
+		    }
+		    if(test4.tab_cache.getCase(i,j)==3){
+			int nombre=this.test4.AppliquerTableauCache(i,j);
+			int nombre2=this.test4.AppliquerTableauCache(i,j);
+			//this.test3=new GrilleVisible(this.ligne,this.colonne,this.test4.tab_cache);
+		    }
+		}
+	    }
+	}
+	Finv gagne= new Finv();
+	this.fin=true;
+    }
+    /*public void plus() {
+	 this.compteur++;
+     }
+     public void moins() {
+	 this.compteur--;
+	 }*/
+}

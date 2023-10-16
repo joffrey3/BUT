@@ -1,0 +1,27 @@
+article {
+    padding: 30px;
+}
+
+form {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+}
+
+textarea {
+    min-width: 50em;
+    min-height: 20em;
+    max-width: 50em;
+    max-height: 20em;
+}
+
+article>p {
+    text-align: justify;
+    grid-column: 2;
+    grid-row: 1;
+    margin: auto;
+    max-width: 30em;
+}
+
+label, a {
+    color: #EEE;
+}

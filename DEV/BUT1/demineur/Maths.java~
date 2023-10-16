@@ -1,0 +1,40 @@
+//Toutes les importations necessaires a la classe Fenetre notamment pour le JFrame et le MouseListener
+import javax.swing.JComponent;
+import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
+import java.lang.*;
+import java.lang.Object;
+import java.awt.Color;
+import java.lang.Object;
+import java.awt.Font;
+import java.awt.event.*; 
+
+public class Maths {
+    public Maths(){
+    }
+    public int Fenetre_taille(int c) {
+	if(c<7){
+	    return 210;
+	}
+	else{
+	    return c*30+10;
+	}
+    }
+    public int Grille_centre(int c) {
+	if(c<7){
+	    return 100-c*15;
+	}
+	else{
+	    return 0;
+	}
+    }
+    public int Composant_Centre(int c) {
+    	if(c>=7){
+	    return c*15-100;
+	}
+	else{
+	    return 0;
+	}
+    }
+}

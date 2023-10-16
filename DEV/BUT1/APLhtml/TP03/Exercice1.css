@@ -1,0 +1,13 @@
+li:nth-child(2n+1){background-color:whitesmoke;
+	list-style-type: none;
+	font-style:italic;
+	padding : 5px;
+	margin : 10px;
+}
+li:nth-child(2n){background-color:black;
+	list-style-type: none;
+	font-style:normal;
+	color: white;
+	padding : 5px;
+	margin : 10px;
+}

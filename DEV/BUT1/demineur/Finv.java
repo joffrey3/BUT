@@ -1,0 +1,24 @@
+import javax.swing.JComponent;
+import java.awt.*;
+import java.util.Random;
+import javax.swing.*;
+import java.awt.event.*;
+import java.lang.*;
+import java.util.EventObject;
+
+public class Finv extends JFrame /*implements MouseListener*/{ 
+	public Finv() {
+		JFrame victoire = new JFrame();
+		
+		victoire.setSize(300,700);
+		victoire.setLocation(600,200);
+		victoire.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		victoire.setTitle("Gagné !");
+
+		JLabel text01 = new JLabel("Vous avez gagné");
+	        victoire.add(text01);
+
+		victoire.setVisible(true);
+
+	}
+}

@@ -1,0 +1,86 @@
+import javax.swing.JComponent;
+import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
+import java.lang.*;
+import java.lang.Object;
+import java.awt.Color;
+import java.lang.Object;
+import java.awt.Font; 
+//La classe GrilleCache elle dessine la grille avec les symboles
+public class GrilleCache extends JComponent{
+  int ligne;
+  int colonne;
+  int x_mine;
+  int y_mine;
+    int x_grille;
+    int y_grille;
+  TableauCache tab_cache;
+  TableauVisible tab_visible;
+    public GrilleCache(int l,int c,int mine,int x, int y){
+    this.ligne=l;
+    this.colonne=c;
+    this.x_mine=-1;
+    this.y_mine=-1;
+    this.x_grille=x;
+    this.y_grille=y;
+    this.tab_cache = new TableauCache(this.ligne,this.colonne);
+    this.tab_visible = new TableauVisible(this.ligne,this.colonne);
+    tab_visible.miner(mine);
+    tab_visible.entourer();
+  }
+    public GrilleCache(int l,int c,int mine,int x, int y,TableauCache tab_c,TableauVisible tab_v){
+    this.ligne=l;
+    this.colonne=c;
+    this.x_mine=-1;
+    this.y_mine=-1;
+    this.x_grille=x;
+    this.y_grille=y;
+    this.tab_cache = tab_c;
+    this.tab_visible = tab_v;
+  }
+  @Override
+  protected void paintComponent(Graphics pinceau) {
+    Graphics secondPinceau = pinceau.create();
+    int i,j,k,l;
+    int[][] tab2=new int[this.ligne][this.colonne];
+    for(i=0;i<this.ligne;i++){
+      for(j=0;j<this.colonne;j++){
+        tab2[i][j] = this.tab_cache.getCase(i,j);
+      }
+    }
+    for(k=0;k<this.ligne*30;k=k+30){
+      for(l=0;l<this.colonne*30;l=l+30){
+        if(tab2[k/30][l/30]==1 || tab2[k/30][l/30]==2 || tab2[k/30][l/30]==3){
+          secondPinceau.setColor(Color.GRAY);
+        }
+        if(tab2[k/30][l/30]==0){
+            secondPinceau.setColor(Color.LIGHT_GRAY);
+        }
+        secondPinceau.fillRect(l+this.x_grille,k+this.y_grille,30,30);
+        secondPinceau.setColor(Color.BLACK);
+        secondPinceau.drawRect(l+this.x_grille,k+this.y_grille,30,30);
+      }
+    }
+  }
+  public void RevelerTableauCache(int l,int c) {
+    this.tab_cache.reveler(l,c);
+  }
+  public void RevelerTableauVisible(int l,int c) {
+    this.tab_visible.reveler(l,c);
+  }
+  public int AppliquerTableauCache(int l,int c) {
+    int nombre = this.tab_cache.marquer(l,c);
+    return nombre;
+  }
+  public int getNumberCache(int x,int y){
+    return this.tab_cache.getCase(x,y);
+  } 
+  public int getNumberVisible(int x,int y){
+    return this.tab_visible.getCase(x,y);
+  }
+   public void mineClick(int x,int y){
+    this.x_mine=x;
+    this.y_mine=y;
+  }
+}
