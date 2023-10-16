@@ -1,0 +1,9 @@
+Vagrant.configure("2") do |config|
+  config.vm.provider "virtualbox" do |vb|
+    vb.MEMORY = 2048
+end
+  config.vm.box = "bento/centos-7.7"
+  config.vm.provision "shell", inline: <<-SHELL
+    mkdir -p /test/iut
+   SHELL
+end

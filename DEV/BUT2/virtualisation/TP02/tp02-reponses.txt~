@@ -1,0 +1,82 @@
+root
+PJ8e88pt
+
+II.1 :
+
+Désinstaller :
+
+sudo apt remove docker-desktop
+
+rm -r $HOME/.docker/desktop
+sudo rm /usr/local/bin/com.docker.cli
+sudo apt purge docker-desktop
+
+
+sudo apt install gnome-terminal
+
+Installer :
+cd etc
+cat os-release
+version="11"
+
+sudo apt-get update
+
+Préparer le répertoire du package :
+
+sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+sudo apt-get install ./docker-desktop-4.16.2-amd64.deb
+
+II.2 :
+docker images
+docker ps -a
+
+sudo docker run hello-world
+docker rm naughty_diffie
+docker rmi hello-world
+
+docker search httpd
+docker pull httpd
+docker rmi httpd
+
+docker pull httpd:alpine3.17
+
+docker images
+
+II.3 :
+
+docker volume ls
+
+docker volume create volume_serveur_web
+
+docker volume ls
+
+touch index.html
+vi index.html
+cat index.html
+
+II.4 :
+
+docker run --name conteneur1 httpd:alpine3.17
+docker run -d httpd:alpine3.17
+
+
+docker run --name conteneur2 conteneur1
+docker run --name conteneur3 conteneur2 -p 80:80 container2

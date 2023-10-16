@@ -1,0 +1,21 @@
+TP03 :
+
+II.1:
+
+OS=ALPINE3.17
+
+II.2:
+serveur=httpd:alpine3.17
+
+II.3:
+écrire le label
+
+II.4:
+git clone https://github.com/amoseman1/dayScheduler.git
+
+II.5:
+
+
+
+docker build - < /root/Docker/DOCKERFILE
+docker run

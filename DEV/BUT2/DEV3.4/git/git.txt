@@ -1,0 +1,33 @@
+Liste de commandes : 
+
+synchroniser : 
+
+rsync
+
+pour s'identifier : 
+
+    git config --global user.name "Votre nom"
+    git config --global user.email "login@domaine.example"
+    git config --global core.editor vim
+
+sécuriser : 
+
+ssh-keygen -t rsa -C "login@domaine.example"
+
+afficher clé publique :
+
+cat .ssh/id_rsa.pub
+
+cloner un dépot : 
+
+    git clone gitea@dwarves.iut-fbleau.fr:toto/PouetPouet.git
+
+alternative créer un dépot local : 
+
+ git init
+ git add
+ git commit
+
+git remote add origin
+
+git push -u -f origin master

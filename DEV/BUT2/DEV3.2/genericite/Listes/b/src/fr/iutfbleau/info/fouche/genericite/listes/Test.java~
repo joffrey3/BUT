@@ -1,0 +1,19 @@
+package fr.iutfbleau.info.fouche.genericite.listes;
+
+import  java.util.*;
+
+public class Test{
+    public String comparer(ArrayList<?> a,Number b){
+        String chaine = "";
+        if(this.verifier(a,b)){
+            chaine = "la liste "+a+" peut contenir "+b;
+            return chaine;
+        }else{
+            chaine = "la liste "+a+" ne peut pas contenir "+b;
+            return chaine;
+        }
+    }
+    public boolean verifier(ArrayList<?> a,Number b){
+        return true; //a.instanceof(b);
+    }
+}

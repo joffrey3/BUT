@@ -1,0 +1,5 @@
+global:
+  scrape_configs:
+    static_configs:
+      - targets: ['http://node-exporter:9100']
+      - targets: ['http://cadvisor:8080']

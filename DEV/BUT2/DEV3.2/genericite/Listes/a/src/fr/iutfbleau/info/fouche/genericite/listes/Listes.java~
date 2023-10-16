@@ -1,0 +1,16 @@
+package fr.iutfbleau.info.fouche.genericite.listes;
+
+import  java.util.*;
+
+public class Listes {
+
+    public Listes(){
+        final int entier= 5;
+        final float reel = 5;
+        final long longueur = 5;
+        ArrayList <Integer> liste1= new ArrayList <Integer> ();
+        ArrayList <Float> liste2= new ArrayList <Float> ();
+        ArrayList <Number> liste3= new ArrayList <Number> ();
+        Test tentative= new Test();
+    }
+}

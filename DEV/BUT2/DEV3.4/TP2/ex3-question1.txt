@@ -1,0 +1,8 @@
+Synospis
+    Le jardinier Papé14 visionne la parcelle initiale p0 de son jardinier
+    Il découpe cette parcelle verticalement
+    il sélectionne et navigue sur la sous-parcelle de gauche p1
+    il décide de modifier celle-ci
+    il découpe cette parcelle horizontalement
+    il change d'avis et réunit les deux parcelles p2 et p3  en une seule parcelle p1
+    

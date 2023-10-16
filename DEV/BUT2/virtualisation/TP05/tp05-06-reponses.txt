@@ -1,0 +1,34 @@
+TP 5 :
+
+II :
+
+docker inspect TP4-NGINX-1
+docker inspect TP4-REDIS-1
+
+1)
+refaire le TP4
+deplacer index,default et docker
+docker compose up -d
+
+2)
+dans le fichier docker-compose.yml
+php:
+  networks:
+    - "back"
+    - "front"
+
+nginx:
+  networks:
+    - "front"
+
+redis:
+  networks:
+    - "back"
+
+redisinsight:
+  networks:
+    - "back"
+
+networks:
+  front:
+  back:

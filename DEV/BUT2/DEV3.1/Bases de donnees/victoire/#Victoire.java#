@@ -1,0 +1,81 @@
+import java.sql.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class  Victoire extends JFrame implements ActionListener{
+    String pays;
+    int max;
+    Dessin score;
+    JButton btn1 = new JButton("@");
+    public Victoire(){
+	this.pays="";
+	this.max=0;
+	this.Verification();
+	
+	this.setLocation(100, 100);
+    	this.setSize(120,150);
+    	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	this.setLayout(null);
+    	this.setVisible(true);
+	this.btn1.setSize(30,20);
+	this.btn1.setLocation(80,90);
+        this.score=new Dessin(this.max,this.pays);
+	this.score.setSize(100,100);
+	this.score.setLocation(0,0);
+	this.add(score);
+    	this.add(btn1);
+    	btn1.addActionListener(this);
+	
+	
+    }
+
+     public void actionPerformed(ActionEvent event) {
+    	if(event.getSource() == btn1) {
+    	        this.Verification();
+
+		//System.out.println("oui");
+		this.setVisible(false);
+		this.remove(score);
+		this.score=new Dessin(this.max,this.pays);
+		this.score.setSize(100,100);
+		this.score.setLocation(0,0);
+		this.add(score);
+		this.setVisible(true);
+	}
+     }
+    
+    public void Verification(){
+	String paysgagnant="";
+	int maximum=0;
+	try{
+	    Class.forName("org.mariadb.jdbc.Driver");		
+	    try{
+		Connection con = DriverManager.getConnection("jdbc:mariadb://dwarves.iut-fbleau.fr/fouche","fouche", "fouche");
+		try{
+		    PreparedStatement req = con.prepareStatement("SELECT Pays,SUM(Points) FROM Competition C JOIN Pays2 P ON P.id=C.Competiteur GROUP BY Competiteur;");
+		    ResultSet res = req.executeQuery();
+		     while(res.next()) {
+			 if (res.getInt(2)>maximum){
+			     maximum=res.getInt(2);
+			     paysgagnant=res.getNString(1);
+			 }
+			}
+		    con.close();
+		}catch(SQLException e1){
+		    System.out.println("Erreur dans la requete SELECT");
+		    con.close();
+		}
+	    }catch(SQLException e2){
+		System.out.println("Erreur de connexion le serveur refuse");
+	    }
+	}catch(ClassNotFoundException e3){
+	    System.out.println("Erreur de connexion le pilote n'est pas disponible");
+	}
+	
+	this.max=maximum;
+	this.pays=paysgagnant;
+	System.out.println(this.pays);
+	System.out.println(this.max);
+    }
+}

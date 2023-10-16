@@ -1,0 +1,16 @@
+FROM httpd:alpine3.17
+
+LABEL maintenair="fouche"\
+      version="1.8"\
+      tp="3"
+
+
+ADD dayScheduler/   /usr/local/apache2/htdocs/index.html
+RUN sed -i "s/Work day Scheduler/FOUCHE/g"
+
+
+ENV school="iut"\
+    level="1.8"
+    
+HEALTHCHECK --interval=60s --timeout=1s \
+	    CMD curl -f https://localhos || exit 1

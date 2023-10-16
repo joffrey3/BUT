@@ -1,0 +1,17 @@
+Fait sur un PC de l'IUT
+
+II :
+
+Commande pour build une image avec le dockerfile :
+
+docker build -t monimagephpfpm:1.28 dockerfile
+
+III:
+
+Commande pour lancer le docker-compose.yml :
+
+docker compose up -d
+
+Commande pour arreter le docker-compose.yml :
+
+docker compose down

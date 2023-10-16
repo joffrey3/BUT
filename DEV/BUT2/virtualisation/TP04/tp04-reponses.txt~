@@ -1,0 +1,20 @@
+PJ8e88pt
+
+docker-compose up  -d
+docker-compose down
+docker ps -a
+
+1)
+redis exec -it tp4_redis_1 /bin/bash
+redis exec -it tp4_redis_1 /bin/ssh
+redis-cli -p 6379
+
+set code=12345
+get code
+
+2)
+http://localhost:8001
+host tp4_redis_1
+port 6379
+
+set code 12345

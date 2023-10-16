@@ -1,0 +1,7 @@
+public interface MonPrint{
+
+    /**
+     * Fonctionne comme ToPrint() sauf car une interface n'a pas le droit de faire un override sur ToPrint();
+     */
+    public String monPrint();
+}

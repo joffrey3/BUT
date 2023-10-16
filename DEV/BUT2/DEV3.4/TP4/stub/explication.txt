@@ -1,0 +1,20 @@
+Les biologistes sont des gens étranges pour lesquels les string n'ont que 4 lettres : A,C,G ou T.
+Ils ne connaissent pas les String, ils parlent d'ADN.
+
+
+Le Brin est une succession de Maillons.
+Il suffit de connaître le premier maillon pour définir un brin d'ADN.
+
+        +----------+
+        | maillon  |
+        |          | _____ next __> autre Maillon
+        |          |
+        +----+-----+
+             |
+             | val
+            \|/
+        +----------+
+        | Base     |
+        |    A     |
+        |          |
+        +----+-----+
