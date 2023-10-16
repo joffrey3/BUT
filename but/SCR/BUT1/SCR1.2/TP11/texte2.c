@@ -1,1 +1,0 @@
-Le jour se leve tout va bien les nappes de broullard bloque ma vue

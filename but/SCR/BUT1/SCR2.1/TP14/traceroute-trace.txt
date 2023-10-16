@@ -1,7 +1,0 @@
-IP (tos 0x0, ttl 1, id 0, offset 0, flags [DF], proto UDP (17), length 65535)
-    172.16.2.87.38834 > 172.16.2.87.44444: [bad udp cksum 0x5ccc -> 0xfe21!] UDP, length 65507
-IP (tos 0xc0, ttl 64, id 23723, offset 0, flags [none], proto ICMP (1), length 576)
-    172.16.2.87 > 172.16.2.87: ICMP 172.16.2.87 udp port 44444 unreachable, length 556
-	IP (tos 0x0, ttl 1, id 0, offset 0, flags [DF], proto UDP (17), length 65535)
-    172.16.2.87.38834 > 172.16.2.87.44444: UDP, length 65507
-

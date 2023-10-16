@@ -1,4 +1,0 @@
-15:51:07.873610 IP (tos 0x0, ttl 64, id 29853, offset 0, flags [none], proto UDP (17), length 86)
-    salle225-01.arda.lan.43942 > eru.arda.lan.domain: [bad udp cksum 0x5c5c -> 0xd05d!] 37885+ [1au] A? iluvatar.arda.lan. ar: . OPT UDPsize=4096 [COOKIE af90e16e770f7b5e] (58)
-15:51:07.874797 IP (tos 0x0, ttl 64, id 21866, offset 0, flags [none], proto UDP (17), length 118)
-    eru.arda.lan.domain > salle225-01.arda.lan.43942: [udp sum ok] 37885* q: A? iluvatar.arda.lan. 1/0/1 iluvatar.arda.lan. [1h] A 172.16.1.30 ar: . OPT UDPsize=1232 [COOKIE af90e16e770f7b5e 01000000624c494b8381c48c82ebc592] (90)

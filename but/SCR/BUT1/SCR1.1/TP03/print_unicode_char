@@ -1,2 +1,0 @@
-
-echo -n "Type an HEX UNICODE: "; read hex; echo -e "Corresponding CHAR: \U$hex"

@@ -1,5 +1,0 @@
-Pour pouvoir tester le programme on peut utiliser  la commande dd :
-
-exemple :
-
-dd if=/dev/random of=infile count=100000
