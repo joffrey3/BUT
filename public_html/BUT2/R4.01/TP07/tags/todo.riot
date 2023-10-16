@@ -1,0 +1,93 @@
+<todo>
+<h3>{ props.title }</h3>
+
+<ul>
+	<li each={ item in view(state.items) }>
+		<label class={ item.done ? 'completed' : null }>
+			<input
+	   type="checkbox"
+	checked={ item.done }
+	onclick={ () => toggle(item) } />
+	{ item.title } 
+		</label>
+	</li>
+</ul>
+
+<form onsubmit={ add }>
+	<input oninput={ edit } />
+	<button disabled={ !state.text }>
+		Add #{ state.items.length + 1 }
+	</button>
+	<button disabled = { !state.items.find ( e => e.done) } onclick={ clear }>Clear done</button>
+	<ul class="filters">
+		<li>  <a href="#" class={state.filter === 'all'?'selected':null} onclick = {e=>filter(e,'all')}> All</a></li>
+		<li>  <a href="#" class={state.filter === 'active'?'selected':null} onclick = {e=>filter(e,'active')}>Active</a></li>
+		<li>  <a href="#" class={state.filter === 'done'?'selected':null} onclick = {e=>filter(e,'done')}>Done</a></li>
+	</ul>
+</form>
+<script>
+	export default function todo(){
+		return {
+			onBeforeMount(props, state) {
+				
+				// initial state
+
+				this.state = {
+					items: [],//props.items,
+					text: '',
+					filter:'all'
+				}
+
+			},
+			async onMounted(){
+				this.state.items=  await this.sa.getTodos()
+				this.update()
+
+			},
+			view(items){
+
+				if (this.state.filter === 'all')
+					return items
+
+				if (this.state.filter === 'active')
+					return items.filter(e=> !e.done)
+
+				if (this.state.filter === 'done')
+					return items.filter(e=> e.done)
+			},
+
+			filter(e,how){
+				e.preventDefault()
+				this.state.filter = how
+				this.update()
+			},
+
+			edit(e) {
+				// update only the text state
+				this.update({
+					text: e.target.value
+				})
+			},
+
+			async clear(e) {
+				e.preventDefault()
+
+				// TODO
+
+			},
+			async add(e) {
+				e.preventDefault()
+
+				// TODO
+								},
+			toggle(item) {
+				item.done = !item.done
+
+				// TODO
+
+				this.update()
+			}
+		}
+	}
+</script>
+</todo>

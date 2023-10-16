@@ -1,0 +1,109 @@
+.vsplitter
+{
+    background-color            :    #C9C7C7;
+
+    /* Pretty much everything */
+    cursor                      :    n-resize;
+
+     /* IE6, IE7, FF2, Safari Win */
+    cursor                      :    row-resize;
+}
+
+/* WnzButton */
+.clicked{
+	position : relative;
+	top : +2px;
+	left: +2px;	
+	filter : alpha(opacity=20); 
+    -moz-opacity : 0.2; 
+    opacity : 0.2;
+}
+
+/* WnzCheckbox--------------------------------------------------*/
+
+.wnzCheckbox {
+	cursor: pointer;
+}
+
+.wnzCheckbox-default {
+	cursor: default;
+}
+
+.wnzCheckboxChecked{
+	width: 37px;
+	height: 31px;
+	background: url(images/boutons/casecochecroix.png) no-repeat center center;
+}
+
+.wnzCheckboxUnChecked{
+	width: 37px;
+	height: 31px;
+	background: url(images/boutons/casecochevide.png) no-repeat center center;
+}
+
+.wnzCheckboxCorrectInvalid{
+	width: 37px;
+	height: 31px;
+	background: url(images/boutons/casecochecroixbarre.png) no-repeat center center;
+	
+}
+
+.wnzCheckboxCorrect{
+	width: 37px;
+	height: 31px;
+	background: url(images/boutons/casecochevert.png) no-repeat center center;
+}
+
+.wnzCheckboxCheckedInvalid{
+	width: 37px;
+	height: 31px;
+	background: url(images/boutons/casecochecroixbarre.png) no-repeat center center;
+}
+
+.wnzCheckboxCheckedRed{
+	width: 37px;
+	height: 31px;
+	background: url(images/boutons/casecochecroixrouge.png) no-repeat center center;
+	
+}
+/*-----------------------------------------------------------------*/
+
+.wnzSkinablePanel {
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	border-spacing: 0;
+	border-collapse: collapse;	
+	padding : 0 0 0 0;
+}
+
+.wnzSkinablePanel .middle {
+	height:100%;
+}
+
+.resetPasswordFromToken {
+	background-color: #9ed1ec;
+	width: 300px;
+	padding: 10px 28px 10px 20px;
+	margin: 20px auto;
+	border-radius: 10px;
+	box-shadow: 5px 5px 10px #888;
+}
+
+.resetPasswordFromToken input {
+	width: 100%;
+	display: block;
+}
+
+.resetPasswordFromToken div, .resetPasswordFromToken button {
+	display: block;
+	margin: 8px 0;
+}
+
+.resetPasswordFromToken button {
+	padding: 0.5em 1em;
+	background-color: #fff;
+	font-size: 16px;
+	margin: 10px auto 0;
+	border: 1px solid #888;
+}

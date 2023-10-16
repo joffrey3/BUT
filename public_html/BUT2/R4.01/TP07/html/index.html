@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Riot todo</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="stylesheet" href="css/todo.css">
+	</head>
+
+	<body>
+
+		<todo></todo>
+
+		<script src="tags/todo.riot" type="riot"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/riot/7.1.0/riot+compiler.min.js" integrity="sha512-sSGKGR9MvL0bUx3CScaBb56crXwspwDkL/JnB0IrLFQfw3uvSUlITQtsTtDZctshhv5wdwIt+qZeN8zThRF4Dw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script src="js/serviceAjax.js"></script>
+
+		<script>
+			riot.compile().then(() => {
+				let sa=makeServiceAjax();
+				riot.install(function(component){
+					component.sa = sa;
+				});
+				riot.mount('todo')
+			})
+		</script>
+	</body>
+</html>

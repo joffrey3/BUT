@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="initial-scale=1,witdh=device-width">  
+
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+		<link rel="stylesheet" href="./css/style.css">
+		<script src="./js/memory.js"></script>
+
+		<title>Memory</title>
+	</head>
+
+	<body class="m-4">
+		<main class="container">
+			<h1 class="title is-1 has-text-primary">Memory</h1>
+			<div class="columns">
+				<div class="column is-6">
+
+					<div class="columns">
+						<div class="column">
+							<img  src="./images/off.png" alt="" />
+							<img  src="./images/off.png" alt="" />
+							<img  src="./images/off.png" alt="" />
+						</div>
+						<div class="column">
+							<img  src="./images/off.png" alt="" />
+							<img  src="./images/off.png" alt="" />
+							<img  src="./images/off.png" alt="" />
+						</div>
+						<div class="column">
+							<img  src="./images/off.png" alt="" />
+							<img  src="./images/off.png" alt="" />
+							<img  src="./images/off.png" alt="" />
+						</div>
+
+					</div>
+				</div>
+
+				<div class="column is-6">
+					<h3 class="title is-3 has-text-primary">Règles</h3>
+					<p class="block is-size-4">
+						Pendant une seconde, vous verrez l'état de l'ensemble 
+						des ampoules, puis elles seront éteintes. Vous devrez 
+						alors cliquer sur celles qui étaient allumées.
+					</p> 
+
+					<button class="block button is-info">COMMENCER</button>
+					<progress id="temps" class="progress is-primary" value="100" max="100"></progress>
+
+					<!--div  id="temps">10</div-->
+
+					<div class="notification is-danger is-size-4 p-4" id="perdu">
+						<p>Perdu ! </p>
+					</div>
+					<div class="notification is-success is-size-4 p-4" id="gagne">
+						<p>Gagné ! </p>
+					</div>
+			</div>
+			</div>
+		</main>
+	</body>
+</html>

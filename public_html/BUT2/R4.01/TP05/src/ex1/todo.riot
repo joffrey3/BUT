@@ -1,0 +1,83 @@
+<todo>
+<h3>{ props.title }</h3>
+
+<ul>
+	<li each={ item in filtre(state.items) }>
+		<label class={ item.done ? 'completed' : null }>
+			<input
+	   type="checkbox"
+	checked={ item.done }
+	onclick={ () => toggle(item) } />
+	{ item.title } 
+		</label>
+	</li>
+</ul>
+
+<form onsubmit={ add }>
+	<input oninput={ edit } />
+	<button disabled={ !state.text }>
+		Add #{ state.items.length + 1 }
+	</button>
+	<button onclick={ clear } disabled={ state.items.find(todo=> todo.done)===undefined }>Clear done</button>
+	<ul class="filters">
+		<li>  <a class={state.input=='All' ? 'selected' : ''} href="#" onclick={ e=> changeSel('All') }>All</a></li>
+		<li>  <a class={state.input=='Active' ? 'selected' : ''} href="#" onclick={ e=> changeSel('Active')  }>Active</a></li>
+		<li>  <a class={state.input=='Done' ? 'selected' : ''} href="#" onclick={ e=> changeSel('Done')  }>Done</a></li>
+	</ul>
+</form>
+	<script>
+		export default function todos(){
+			return {
+				onBeforeMount(props, state) {
+					// initial state
+					this.state = {
+						items: props.items,
+						text: '',
+						input: 'All'
+					}
+				},
+				edit(e) {
+					// update only the text state
+					this.update({
+						text: e.target.value
+					})
+				},
+				clear(e) {
+					// COMPLETEZ
+					e.preventDefault()
+					this.state.items = this.state.items.filter(todo=> !todo.done)
+					this.update()
+				},
+				add(e) {
+					// COMPLETEZ
+					e.preventDefault()
+					this.state.items.push({title:this.state.text,done:false})
+					this.$("form").reset()
+					this.state.text=''
+					this.update()
+				},
+				toggle(item) {
+					item.done = !item.done
+					// trigger a component update
+					this.update()
+				},
+				filtre(e) {
+					if(this.state.input=='All'){
+						return e
+					}
+					if(this.state.input=='Active'){
+						return e.filter(todo =>!todo.done)
+					}
+					if(this.state.input=='Done'){
+						return e.filter(todo =>todo.done)
+					}
+					this.update()
+				},
+				changeSel(e) {
+					this.state.input=e
+					this.update()
+				}
+			}
+		}
+	</script>
+</todo>

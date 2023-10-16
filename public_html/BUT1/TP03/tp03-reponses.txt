@@ -1,0 +1,32 @@
+TP 3 :
+
+Exercice 1 :
+
+1)https://dwarves.iut-fbleau.fr/phpmyadmin/
+
+2)login : fouche 
+mdp : 'mdp'
+
+3)
+
+4)
+INSERT INTO `user` (`login`, `mdp`) VALUES ('login1', 'mdp1');
+INSERT INTO `user` (`login`, `mdp`) VALUES ('login2', 'mdp2');
+INSERT INTO `user` (`login`, `mdp`) VALUES ('login3', 'mdp3');
+INSERT INTO `user` (`login`, `mdp`) VALUES ('login4', 'mdp4');
+
+5)
+SELECT * FROM user ORDER BY login;
+
+Exercice 2 :
+
+voir code 
+
+Exercice 3 :
+
+1)
+2)
+3)
+voir code
+
+4) un formulaire d'inscription a besoin du nom et du mot de passe

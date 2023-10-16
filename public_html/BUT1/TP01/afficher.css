@@ -1,0 +1,27 @@
+.afficher{
+	text-align: center;
+	list-style-type: none;
+	display: inline-block;
+	box-sizing : border-box;
+	border: 1px solid black;
+	padding : 10px;
+}
+.stop{
+	grid-template-columns: repeat(10, 1fr);
+	grid-auto-rows: 160px;
+}
+.box{
+	text-align: center;
+	list-style-type: none;
+	display: inline;
+	box-sizing : border-box;
+	border: 1px solid black;
+}
+.rien{
+	list-style-type: none;
+	display: inline-block;
+	box-sizing : border-box;
+	grid-column-start: 1;
+  	grid-column-end: 2;
+  	border: 1px solid black;
+}

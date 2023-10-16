@@ -1,0 +1,12 @@
+.row {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.cell {
+	width: 1.25rem;
+	height: 1.25rem;
+	border: 1px solid black;
+	box-sizing : border-box;
+}

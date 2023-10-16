@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1,witdh=device-width">  
+
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+		<!--link rel="stylesheet" href="./style.css"-->
+
+		<title>Classement Ligue 1</title>
+	</head>
+	<body class="m-6">
+		<main class="container">
+			<h3 class="title is-3 has-text-primary-dark">
+				Classement Ligue 1 de football<span class="tag" id="date"></span>
+
+				<div class="block control has-icons-left is-inline-block is-pulled-right">
+					<input class="input" type="search" placeholder="Equipe" id="myInput">
+					<span class="icon is-small is-left">
+						<i class="fas fa-search"></i>
+					</span>
+				</div>
+			</h3>
+
+
+
+			<table class="table is-fullwidth is-hoverable">
+				<thead>
+					<tr>
+						<th><abbr title="Position">Pos</abbr><a id="sort" href="#"><span  class="icon"><i class="fas fa-sort"></i></span></a></th>
+						<th></th>
+						<th>Team</th>
+						<th><abbr title="Played">Pld</abbr></th>
+						<th><abbr title="Won">W</abbr></th>
+						<th><abbr title="Drawn">D</abbr></th>
+						<th><abbr title="Lost">L</abbr></th>
+						<th><abbr title="Goals for">GF</abbr></th>
+						<th><abbr title="Goals against">GA</abbr></th>
+						<th><abbr title="Goal difference">GD</abbr></th>
+						<th><abbr title="Points">Pts</abbr></th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<th><abbr title="Position">Pos</abbr></th>
+						<th></th>
+						<th>Team</th>
+						<th><abbr title="Played">Pld</abbr></th>
+						<th><abbr title="Won">W</abbr></th>
+						<th><abbr title="Drawn">D</abbr></th>
+						<th><abbr title="Lost">L</abbr></th>
+						<th><abbr title="Goals for">GF</abbr></th>
+						<th><abbr title="Goals against">GA</abbr></th>
+						<th><abbr title="Goal difference">GD</abbr></th>
+						<th><abbr title="Points">Pts</abbr></th>
+					</tr>
+				</tfoot>
+				<tbody id="body"></tbody>
+			</table>
+		</main>
+		<script src="data.js"></script>
+		<script src="script.js"></script>
+	</body>
+</html>

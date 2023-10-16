@@ -1,0 +1,30 @@
+<!doctype html>
+
+<html>
+	<head>
+		<title>Riot todo</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="stylesheet" href="todo.css">
+		<script src="https://unpkg.com/riot@4/riot+compiler.min.js"></script>
+		<script src="todo.riot" type="riot"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/riot/7.1.0/riot+compiler.min.js" integrity="sha512-sSGKGR9MvL0bUx3CScaBb56crXwspwDkL/JnB0IrLFQfw3uvSUlITQtsTtDZctshhv5wdwIt+qZeN8zThRF4Dw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	</head>
+
+	<body>
+
+		<todo></todo>
+
+		<script>
+			riot.compile().then(() => {
+				riot.mount('todo', {
+					title: 'I want to behave!',
+					items: [
+						{ title: 'Avoid excessive caffeine', done: false },
+						{ title: 'Be less provocative', done: true  },
+						{ title: 'Be nice to people', done: true }
+					]
+				})
+			})
+		</script>
+	</body>
+</html>

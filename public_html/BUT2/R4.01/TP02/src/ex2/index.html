@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<title>Todo</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="./css/style.css">
+	</head>
+
+	<body>
+		<div class="container content is-max-desktop p-4">
+
+			<div id="loader"></div>
+			<div class="has-text-centered">
+			</div>
+
+			<!-- formulaire pour la saisie -->
+
+			<form id="add_form" class="block">
+				<p class="control has-icons-left is-expanded">
+					<input autocomplete="off" id="input_todo" class="input is-large is-expanded" type="text" placeholder="Enter Todo">
+					<span class="icon is-left">
+						<i class="fas fa-plus" aria-hidden="true"></i>
+					</span>
+				</p>
+			</form>
+
+			<!-- filtrage de l'affichage -->
+
+			<div id="todos_filter" class="tabs is-small is-centered">
+				<ul>
+					<li class="is-active"><a href="#/" id="all">All</a></li>
+					<li><a href="#/active" id="active">Active</a></li>
+					<li><a href="#/done" id="done">Done</a></li>
+				</ul>
+			</div>
+			<!-- Affichage des todos -->
+			<section id="todos_list">
+			</section>
+
+	</body>
+
+	<script src="js/model.js"></script>
+	<script src="js/view.js"></script>
+	<script src="js/controller.js"></script>
+</html>

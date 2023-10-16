@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="http://www.iut-fbleau.fr/css/tacit.css">
+	</head>
+	<body class="m-6">
+		<main class="container">
+			<h2 class="title is-2">Random Array</h2>
+			<div id="line"></div>
+
+			<h2 class="title is-2">Min/Max</h2>
+			<p>
+				Min : <span id="min"></span>
+			</p>
+			<p>
+				Max : <span id="max"></span>
+			</p>
+		</main>
+		<script>
+			function getRandomInt(min, max) 
+			{
+				min = Math.ceil(min);
+				max = Math.floor(max);
+				return Math.floor(Math.random() * (max - min +1)) + min;
+			}
+			function getRandomArray(dim,min,max)
+			{
+				let array = []
+				// TODO
+				for(let i=0;i<dim;i++){
+					array.push(getRandomInt(min,max))
+				}
+				return array
+			}
+
+			function minmax(array)
+			{
+				// TODO
+				let accumulateur=Number.NEGATIVE_INFINITY
+				let index=0
+				let valeurCourante=array[0]
+
+				function maximum(accumulateur,valeurCourante,index,array){
+					if(accumulateur<valeurCourante){
+						accumulateur=valeurCourante
+					}
+					index++
+					valeurCourante=array[index]
+					return accumulateur
+				}
+				
+				accumulateur=Infinity
+
+				function minimum(accumulateur,valeurCourante,index,array){
+					if(accumulateur>valeurCourante){
+						accumulateur=valeurCourante
+					}
+					index++
+					valeurCourante=array[index]
+					return accumulateur
+				}
+				max=array.reduce(maximum,Number.NEGATIVE_INFINITY)
+				min=array.reduce(minimum,Infinity)
+				let minmax=
+				{ 
+					'min' : min,
+  					'max' : max
+				}
+
+				/*let min=Infinity,max=Number.NEGATIVE_INFINITY
+				let taille=array.length
+				for(let i=0;i<taille;i++){
+					let x=array[i]
+					if(x>max){
+						max=x
+					}if(x<min){
+						min=x
+					}
+				}*/
+				//let minmax=[min,max]
+
+				return minmax
+			}
+
+			let array = getRandomArray(50,-100,100)
+			let minAndMax = minmax(array)
+
+			document.getElementById("line").textContent = array
+			//document.getElementById('min').textContent = minAndMax[0]
+			//document.getElementById('max').textContent = minAndMax[1]
+			document.getElementById('min').textContent = minAndMax['min']
+			document.getElementById('max').textContent = minAndMax['max']
+
+		</script>
+	</body>
+</html>
