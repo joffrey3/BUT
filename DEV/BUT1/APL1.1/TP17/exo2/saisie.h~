@@ -1,0 +1,6 @@
+#ifndef LIRE_H
+#define LIRE_H
+
+char *saisie(const char* invite);
+
+#endif

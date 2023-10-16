@@ -1,0 +1,22 @@
+#include <stdio.h> 
+#include <stdlib.h>
+int main(void){
+  int ent1, ent2, min, max;
+  printf("Ecrivez un entier.\n");
+  scanf("%d",&ent1);
+  printf("Ecrivez un autre entier.\n");
+  scanf("%d",&ent2);
+    
+  if (ent1 < ent2){
+    min = ent1;
+    max = ent2;
+  } else {
+    max = ent1;
+    min = ent2;
+  } 
+  for (min;min <= max;min = min+1){                                      
+    printf(" %d ");
+  } 
+  printf("\n");
+  return EXIT_SUCCESS;
+}   

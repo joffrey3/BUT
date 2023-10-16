@@ -1,0 +1,11 @@
+set fileencodings=UTF-8,utf-8,default,latin1 "encodage                                                                 
+syntax enable "coloration syntaxique
+highlight Cursor guifg=white guibg=black "curseur
+filetype plugin indent on "indentation suivant le type du fichier
+set backup "fichiers de sauvegarde
+set cursorline "coloration de la ligne courante
+set cursorcolumn "coloaration de la colonne courante
+set shiftwidth=2 "taille indentation
+set tabstop=2 "taille tabulation
+set foldmethod=syntax "création syntaxique de replis :help foldings pour la doc
+autocmd BufNewFile *.c Or ~/.vim/squelette.c

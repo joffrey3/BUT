@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define BASE 3
+
+int main (void){
+  int i, j,t1[BASE*BASE],t2[BASE][BASE], entier;
+	for (i=0;i<BASE;i=i+1){
+		for (j=0;j<BASE;j=j+1){
+		  scanf(%d,&entier);
+		  if (t1[entier-1]!=0){
+		    printf("Entier déja utilisé \n");
+		    j=j-1;
+		  }
+		  t2[i][j]=entier;
+		  t1[i*BASE+j]=entier;
+		}
+	}
+	for (i=0;i<BASE;i=i+1){
+		for (j=0;j<BASE;j=j+1){
+		  if (t1[i][j]!=0){
+			printf(" %d",t1[i][j]);
+		  }
+		}
+		printf("\n");
+	}
+}

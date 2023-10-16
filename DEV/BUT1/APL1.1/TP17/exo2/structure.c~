@@ -1,0 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define TAILLE_MIN 30
+#define TAILLE_INC 10
